@@ -34,11 +34,10 @@ A public, working lab for my own simulated content operations within the video g
 
 **Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
 
-
 <h2 align="right">roadmap</h2>
 <p>A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
 
-(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)
+<em>(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)</em>
 </p>
 
 ## projects
