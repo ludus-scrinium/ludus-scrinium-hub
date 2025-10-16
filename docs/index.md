@@ -4,8 +4,8 @@
 ludus scrinium: a game content ops lab
 ---
 
-# LUDUS SCRINIUM — kaosisochi unini
-organize, test, and ship game content.
+# Ludus Scrinium — Kaosisochi Unini
+Organize, test, and ship simulated game content.
 
 - **readme (source of truth):** [view on GitHub](../README.md)
 - **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
