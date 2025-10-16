@@ -11,6 +11,10 @@
 </p>
 
 <p align="center">
+  <img src="docs/heropfp.png" alt="heropfp" width="40">
+</p>
+
+<p align="center">
   simulated game content ops • a portfolio, by kaosisochi unini
 </p>
 
@@ -64,9 +68,3 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 
   ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • linkedin.com/in/kaosisochiunini
 
-
----
-
-### notes
-- license: **MIT** (sample assets may have their own licenses; see repo notes).
-- credits: tools and libraries acknowledged inside each repo.
