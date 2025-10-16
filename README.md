@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  simulated game content ops •<em> a portfolio, by kaosisochi unini </em>
+  simulated game content ops • a portfolio, by kaosisochi unini
 </p>
 
 <p align="center">
