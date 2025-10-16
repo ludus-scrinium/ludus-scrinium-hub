@@ -1,30 +1,28 @@
-# LUDUS SCRINIUM — Public Roadmap (Summary)
+# ludus•scrinium — public roadmap (summary)
 
-Weekly details live in Confluence (private).
+## phase 1 — setup (weeks 1–6)
+- (✓) week 1: hub, repos scaffolded; links live
+- [] week 2: prototype surface for playLens (demo clip)
+- [] week 3: asset fields & tags (100-sample table)
+- [] week 4: basic search & filters (live view)
+- [] week 5: usability test plan + pilots
+- [] week 6: producer’s almanac templates
 
-## Phase 1 — Setup (Weeks 1–6)
-- ✅ Week 1: Hub + repos scaffolded — links live
-- ⏳ Week 2: Prototype surface for PlayLens (demo clip)
-- ⏳ Week 3: Asset fields & tags (100-sample table)
-- ⏳ Week 4: Basic search & filters (live view)
-- ⏳ Week 5: Usability test plan + pilots
-- ⏳ Week 6: Producer’s Almanac templates
+## phase 2 — core systems (weeks 7–18)
+- milestone A: playlens v1 shipped (before/after results)
+- milestone B: asset atlas v1 searchable
 
-## Phase 2 — Core systems (Weeks 7–18)
-- Milestone A: PlayLens v1 shipped (before/after results)
-- Milestone B: Asset Atlas v1 searchable
+## phase 3 — player signal (weeks 19–26)
+- milestone C: patch notes oracle v1 with triage
 
-## Phase 3 — Player signal (Weeks 19–26)
-- Milestone C: Patch Notes Oracle v1 with triage
+## phase 4 — content at scale (weeks 27–34)
+- milestone D: localization conveyor v1 live
 
-## Phase 4 — Content at scale (Weeks 27–34)
-- Milestone D: Localization Conveyor v1 live
-
-## Phase 5 — Integrate & polish (Weeks 35–40)
+## phase 5 — integrate & polish (weeks 35–40)
 - Milestone E: All systems connected; studio packet
 
-## Phase 6 — Validate & ship (Weeks 41–44)
-- Milestone F: Public demo + testimonials
+## Phase 6 — validate & ship (weeks 41–44)
+- milestone F: public demo + testimonials
 
 ### Latest demos
 - *TBD*
