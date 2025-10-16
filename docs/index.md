@@ -1,6 +1,4 @@
----
-title: LUDUS SCRINIUM — game content ops lab
----
+<p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
 
 # ludus scrinium — game content ops lab
 organize, test, and ship game content — *findable, measurable, safe*.
