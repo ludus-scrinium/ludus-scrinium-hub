@@ -1,5 +1,5 @@
 ---
-title: ludus scrinium — game content ops lab
+ludus scrinium: game content ops lab
 ---
 
 <!-- hero banner (optional): place docs/hero.png in this folder -->
