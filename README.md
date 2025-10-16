@@ -23,7 +23,7 @@ A public, working lab for my own simulated content operations within the video g
 
 ## outcomes
 
-Findable assets — ***Asset Atlas*** (search + tags)
+<p style="text-align:center;">Findable assets — ***Asset Atlas*** (search + tags)</p>
   
 Measured UX improvements — ***PlayLens*** (test → fix → retest)
 
