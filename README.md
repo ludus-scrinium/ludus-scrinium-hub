@@ -66,8 +66,7 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 
 <p align="center">
   <img src="docs/heropfp.png" alt="heropfp" width="120">
-<
-::contentReference[oaicite:0]{index=0}
+</p>
 
 
 
