@@ -50,7 +50,7 @@ reusable decisions — ***producer’s almanac*** (decision logs, templates)
 
 <h2 align="right">roadmap</h2>
 
-a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
+a monthly, public summary, found here → [roadmap](docs/roadmap.md)  
 
 <p align="right"><em>(full weekly roadmap and decision logs live privately in confluence; summaries land here when they’re stable.)</em>
 </p>
