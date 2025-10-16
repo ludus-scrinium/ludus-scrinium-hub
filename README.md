@@ -68,5 +68,5 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 ---
 
 ### notes
-- License: **MIT** (sample assets may have their own licenses; see repo notes).
-- Credits: tools and libraries acknowledged inside each repo.
+- license: **MIT** (sample assets may have their own licenses; see repo notes).
+- credits: tools and libraries acknowledged inside each repo.
