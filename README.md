@@ -3,7 +3,7 @@
   <img src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
 </p>
 
-<h1 align="center">ludus • scrinium</h1>
+<h1 align="center">ludus•scrinium</h1>
 
 <p align="center">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
@@ -38,7 +38,7 @@ Text shipped on time — ***Localization Conveyor*** (write → translate → pr
 Safe creator submissions — ***Creator Ops Kit*** (intake, review, recognition)
 
 Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
-
+...
 <h2 align="right">roadmap</h2>
 
 A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
