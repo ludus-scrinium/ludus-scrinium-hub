@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="../README.md">
+  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
     <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
   </a>
 </p>
@@ -42,7 +42,7 @@
 </p>
 
 <p align="center">
-  <a href="../README.md">
+  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
     <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
   </a>
 </p>
