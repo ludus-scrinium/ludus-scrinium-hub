@@ -5,7 +5,7 @@
 
 <h1 align="center">ludus scrinium</h1>
 <p align="center">
-  game content ops •<em> a portfolio </em>.
+  simulated game content ops •<em> a portfolio, by kaosisochi unini </em>
 </p>
 
 <p align="center">
