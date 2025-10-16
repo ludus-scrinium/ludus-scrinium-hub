@@ -23,7 +23,6 @@
 </p>
 
 ---
-
 <h2 align="right">intent</h2>
 A public, working lab for my own simulated content operations within the video game industry. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
