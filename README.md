@@ -8,71 +8,52 @@
   simulated game content ops •<em> a portfolio, by kaosisochi unini </em>
 </p>
 
-<p align="center">
-  <a href="#live-links">Live links</a> •
-  <a href="#what-this-is">What this is</a> •
-  <a href="#six-outcomes">Six outcomes</a> •
-  <a href="#roadmap">Roadmap</a> •
-  <a href="#projects">Projects</a> •
-  <a href="#contact">Contact</a>
-</p>
+---
+
+## links
+- **roadmap (public summary):** [`docs/roadmap.md`](docs/roadmap.md)
+- **demos:** add short clips (60–90s) under `/demo` in each project repo  
+  - *(placeholder)* asset atlas — `/demo/asset-atlas-v0.mp4`  
+  - *(placeholder)* playlens — `/demo/playlens-v0.mp4`
+- **repos:** see the list in [projects](#projects)
+
+## intent
+a public, working lab for **content operations in video games**. the goal is to show, not tell: every phase ships something you can click—searchable assets, measured UX wins, actionable player feedback, reliable localization, safe creator intake, and reusable production decisions.
+
+- audience: producers, content leads, ux/ops at game studios  
+- principle: **proof over claims** (each claim links to a demo, doc, or metric)
+
+## outcomes
+1. **findable assets** — *asset atlas* (search + tags)
+2. **proven ux improvements** — *playlens* (test → fix → retest)
+3. **player feedback → action** — *patch notes oracle* (themes, sentiment, triage)
+4. **text shipped on time** — *localization conveyor* (write → translate → proof → done)
+5. **safe creator submissions** — *creator ops kit* (intake, review, recognition)
+6. **reusable decisions** — *producer’s almanac* (decision logs, templates)
+
+## roadmap
+- public summary: milestones + latest demos → [`docs/roadmap.md`](docs/roadmap.md)  
+- note: full weekly roadmap and decision logs live privately in confluence; stable summaries land here.
+
+## projects
+- **asset atlas** — make game files easy to find and reuse  
+  repo: https://github.com/ludus-scrinium/asset-atlas
+- **playlens** — test one screen/flow; show the improvement  
+  repo: https://github.com/ludus-scrinium/playlens
+- **patch notes oracle** — turn player comments into a “do-this” list  
+  repo: https://github.com/ludus-scrinium/patch-notes-oracle
+- **localization conveyor** — text from write → translate → proof → ship  
+  repo: https://github.com/ludus-scrinium/localization-conveyor
+- **creator ops kit** — safe fan content intake + review + recognition  
+  repo: https://github.com/ludus-scrinium/creator-ops-kit
+- **producer’s almanac** — decisions, retros, templates  
+  repo: https://github.com/ludus-scrinium/producers-almanac
+
+## contact
+**kaosi** — [linkedin](<your-link>) • <your@email>
 
 ---
 
-## What this is
-A public, working lab for **content operations in video games**. Six small systems that make assets findable, UX changes provable, player feedback actionable, text shippable, fan content safe, and decisions reusable.
-
-- **Audience:** producers, content leads, UX/ops folks at game studios
-- **Note:** every week adds a link or clip you can click
-
-## Six outcomes
-1. **Findable assets** — *Asset Atlas* (search + tags)
-2. **Measured UX improvements** — *PlayLens* (test → fix → retest)
-3. **Player feedback begets dev action** — *Patch Notes Oracle* (themes, sentiment, triage)
-4. **Text shipped on time** — *Localization Conveyor* (write → translate → QA → done)
-5. **Safe creator submissions** — *Creator Ops Kit* (intake, review, recognition)
-6. **Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
-
-## Roadmap
-**Public summary:** see milestones and latest demos here → [`docs/roadmap.md`](docs/roadmap.md)  
-*(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)*
-
-## Projects
-- **Asset Atlas** — make game files easy to find and reuse, for anyone 
-  Repo: https://github.com/ludus-scrinium/asset-atlas
-- **PlayLens** — test one screen/flow; show timed improvement  
-  Repo: https://github.com/ludus-scrinium/playlens
-- **Patch Notes Oracle** — turn player comments into a realistic “to-do” list  
-  Repo: https://github.com/ludus-scrinium/patch-notes-oracle
-- **Localization Conveyor** — text from write → translate → QA → ship  
-  Repo: https://github.com/ludus-scrinium/localization-conveyor
-- **Creator Ops Kit** — safe fan content intake + review + recognition  
-  Repo: https://github.com/ludus-scrinium/creator-ops-kit
-- **Producer’s Almanac** — decisions, retros, templates  
-  Repo: https://github.com/ludus-scrinium/producers-almanac
-
-## Demos
-Short clips (60–90s). Newest first.
-- *(placeholder)* Asset Atlas: filter → find → done — `/demo/asset-atlas-v0.mp4`
-- *(placeholder)* PlayLens: before/after — `/demo/playlens-v0.mp4`
-
-> Tip: If a repo has its own demo page (Streamlit, YouTube), link that too.
-
-## Try it in 5 minutes
-1. Pick a repo above and open its **`/docs/SETUP.md`**.
-2. Run the tiny quick-start (or watch the demo clip).
-3. Read the **one-pager** in `/docs` to understand what you’re seeing.
-
-## Practices (how this lab runs)
-- **Ship weekly:** at least one deliverable flips to **Done** with a link.
-- **WIP cap:** never more than **3** items in **In progress** on the board.
-- **Definition of done:** every issue points to a demo, doc, or metric.
-
-## Contact
-**Kaosisochi "Kaosi" Unini** — [LinkedIn](linkedin.com/in/kaosisochiunini) • <kaosisochiunini@gmail.com>
-
----
-
-### Notes
-- License: **MIT** (sample assets may have their own licenses; see repo notes).
-- Credits: tools and libraries acknowledged inside each repo.
+### notes
+- license: **MIT** (sample assets may have their own licenses; see repo notes).
+- practices: ship weekly (at least one deliverable to **done**), WIP cap = **3** in **doing**, evidence-first links.
