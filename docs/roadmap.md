@@ -1,7 +1,7 @@
 # ludus•scrinium — public roadmap (summary)
 
 ## phase 1 — setup (weeks 1–6)
-- (✓) week 1: hub, repos scaffolded; links live
+- (✓) week 1: hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub)
 - [] week 2: prototype surface for playLens (demo clip)
 - [] week 3: asset fields & tags (100-sample table)
 - [] week 4: basic search & filters (live view)
