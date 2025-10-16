@@ -22,7 +22,7 @@
 A public, working lab for my own simulated content operations within the video game industry. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
-**Findable assets** — *Asset Atlas* (search + tags)
+Findable assets — ***Asset Atlas*** (search + tags)
   
 **Proven UX improvements** — *PlayLens* (test → fix → retest)
 
