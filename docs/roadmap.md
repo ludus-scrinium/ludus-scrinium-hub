@@ -1,6 +1,6 @@
 # LUDUS SCRINIUM — Public Roadmap (Summary)
 
-**Goal:** Show the big milestones and where to click. Weekly details live in Confluence (private).
+Weekly details live in Confluence (private).
 
 ## Phase 1 — Setup (Weeks 1–6)
 - ✅ Week 1: Hub + repos scaffolded — links live
@@ -27,5 +27,5 @@
 - Milestone F: Public demo + testimonials
 
 ### Latest demos
-- *(add links as you ship — clip or live app)*
+- *TBD*
 
