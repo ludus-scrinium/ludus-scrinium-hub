@@ -11,7 +11,7 @@
 # ludus•scrinium — roadmap
 
 ## phase 1 — setup (weeks 1–6)
-- (✓) week 1: hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub)
+- (✓) week 1: hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)
 - [] week 2: prototype surface for playLens (demo clip)
 - [] week 3: asset fields & tags (100-sample table)
 - [] week 4: basic search & filters (live view)
@@ -29,7 +29,7 @@
 - milestone D: localization conveyor v1 live
 
 ## phase 5 — integrate & polish (weeks 35–40)
-- Milestone E: All systems connected; studio packet
+- milestone E: all systems connected; studio packet
 
 ## phase 6 — validate & ship (weeks 41–44)
 - milestone F: public demo + testimonials
@@ -38,11 +38,13 @@
 - *TBD*
 
 <p align="center">
-  <img src="./heropfp.png" alt="heropfp" width="120">
+  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
+    <img src="./heropfp.png" alt="heropfp" width="120">
+  </a>
 </p>
 
 <p align="center">
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
-    <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
+    <img src="https://img.shields.io/badge/back%20to%20hub-111?style=for-the-badge" alt="back to hub">
   </a>
 </p>
