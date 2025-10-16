@@ -22,10 +22,8 @@
 ## contents
 - **project roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
 - **demos (proof of concept clips):**
-  - *(placeholder)* Asset Atlas — `/demo/asset-atlas-v0.mp4`
-  - *(placeholder)* PlayLens — `/demo/playlens-v0.mp4`
 - **interact:**
-  1. pick a repo below and open its **`/docs/SETUP.md`** (or watch the demo clip)
+  1. pick a repo below and open its **`/docs/SETUP.md`** or, watch the demo clip
   2. read the **one-pager** in `/docs` to better understand what you’re seeing
 - **practices (how this op runs):**
   - **ship weekly:** at least one deliverable flips to **Done** with a link
