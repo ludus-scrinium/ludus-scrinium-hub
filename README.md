@@ -19,7 +19,7 @@
 
 ---
 
-## links
+## contents
 - **roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
 - **demos (proof of concept clips):**
   - *(placeholder)* Asset Atlas — `/demo/asset-atlas-v0.mp4`
