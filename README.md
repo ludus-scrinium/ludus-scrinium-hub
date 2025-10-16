@@ -57,7 +57,7 @@ Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
 
 <h2 align="right">contact</h2>
 <p>
-  __Kaosisochi "Kaosi" Unini__ — linkedin.com/in/kaosisochiunini • kaosisochiunini@gmail.com
+  *Kaosisochi "Kaosi" Unini* — linkedin.com/in/kaosisochiunini • kaosisochiunini@gmail.com
 </p>
 
 ---
