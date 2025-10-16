@@ -1,7 +1,7 @@
 <p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
 
-# ludus scrinium — kaosisochi unini
-organize, test, and ship game content. documented.
+# ludus scrinium — a portfolio, by kaosisochi unini
+organize, test, and ship simulated game content, documenting *every* step of the process
 
 - **readme (source of truth):** [view on GitHub](../README.md)
 - **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
