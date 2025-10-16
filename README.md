@@ -42,18 +42,18 @@ Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
 </p>
 
 ## projects
-- **Asset Atlas** — make game files easy to find and reuse  
-  Repo: https://github.com/ludus-scrinium/asset-atlas
-- **PlayLens** — test one screen/flow; show the improvement  
-  Repo: https://github.com/ludus-scrinium/playlens
-- **Patch Notes Oracle** — turn player comments into a “do-this” list  
-  Repo: https://github.com/ludus-scrinium/patch-notes-oracle
-- **Localization Conveyor** — text from write → translate → proof → ship  
-  Repo: https://github.com/ludus-scrinium/localization-conveyor
+- **Asset Atlas** — make game files easy to search and reuse, for anyone
+  repo: https://github.com/ludus-scrinium/asset-atlas
+- **PlayLens** — test one screen/flow; show the timed improvement  
+  repo: https://github.com/ludus-scrinium/playlens
+- **Patch Notes Oracle** — turn player comments into a “to-do” list  
+  repo: https://github.com/ludus-scrinium/patch-notes-oracle
+- **Localization Conveyor** — text from write → translate → QA → ship  
+  repo: https://github.com/ludus-scrinium/localization-conveyor
 - **Creator Ops Kit** — safe fan content intake + review + recognition  
-  Repo: https://github.com/ludus-scrinium/creator-ops-kit
-- **Producer’s Almanac** — decisions, retros, templates  
-  Repo: https://github.com/ludus-scrinium/producers-almanac
+  repo: https://github.com/ludus-scrinium/creator-ops-kit
+- **Producer’s Almanac** — decisions, retros, letters to my future self
+  repo: https://github.com/ludus-scrinium/producers-almanac
 
 <h2 align="right">contact</h2>
 **Kaosisochi "Kaosi" Unini** — [LinkedIn](linkedin.com/in/kaosisochiunini) • <kaosisochiunini@gmail.com>
