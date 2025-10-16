@@ -24,45 +24,45 @@
 
 ---
 <h2 align="right">intent</h2>
-A public, working lab for my own simulated content operations within the video game industry. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
+a public, working lab for my own simulated video game content operations. six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
-Findable assets — ***Asset Atlas*** (search + tags)
+findable assets — ***asset atlas*** (search + tags)
   
-Measured UX improvements — ***PlayLens*** (test → fix → retest)
+measured UX improvements — ***playlens*** (test → fix → retest)
 
-Player feedback → action — ***Patch Notes Oracle*** (themes, sentiment, triage)
+player feedback, into action — ***patch notes oracle*** (forum themes, sentiment, triage)
 
-Text shipped on time — ***Localization Conveyor*** (write → translate → proof → done)
+text shipped on time — ***localization conveyor*** (write → translate → QA → done)
 
-Safe creator submissions — ***Creator Ops Kit*** (intake, review, recognition)
+safe creator submissions — ***creator ops kit*** (intake, review, recognition)
 
-Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
-...
+reusable decisions — ***producer’s almanac*** (decision logs, templates)
+
 <h2 align="right">roadmap</h2>
 
-A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
+a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
 
-<p align="right"><em>(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)</em>
+<p align="right"><em>(full weekly roadmap and decision logs live privately in confluence; summaries land here when they’re stable.)</em>
 </p>
 
 ## projects
-- **Asset Atlas** — make game files easy to search and reuse, for anyone  
+- **asset atlas** — make game files easy to search and reuse, for anyone  
   repo: https://github.com/ludus-scrinium/asset-atlas
-- **PlayLens** — test one screen/flow; show the timed improvement  
+- **playlens** — test one screen/flow; show the timed improvement  
   repo: https://github.com/ludus-scrinium/playlens
-- **Patch Notes Oracle** — turn player comments into a “to-do” list  
+- **patch notes oracle** — turn player comments into a realistic dev “to-do” list  
   repo: https://github.com/ludus-scrinium/patch-notes-oracle
-- **Localization Conveyor** — text from write → translate → QA → ship  
+- **localization conveyor** — text from write → translate → QA → ship  
   repo: https://github.com/ludus-scrinium/localization-conveyor
-- **Creator Ops Kit** — safe fan content intake + review + recognition  
+- **creator ops kit** — safe fan content intake + review + recognition  
   repo: https://github.com/ludus-scrinium/creator-ops-kit
-- **Producer’s Almanac** — decisions, retros, letters to my future self  
+- **producer’s almanac** — decisions, retros, letters to my future self  
   repo: https://github.com/ludus-scrinium/producers-almanac
 
 <h2 align="right">contact</h2>
 
-  *Kaosisochi "Kaosi" Unini* — kaosisochiunini@gmail.com • linkedin.com/in/kaosisochiunini
+  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • linkedin.com/in/kaosisochiunini
 
 
 ---
