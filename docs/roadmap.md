@@ -2,13 +2,13 @@
   <img src="./hero.png" alt="LUDUS SCRINIUM — roadmap" width="820">
 </p>
 
-<p align="right">
+<p align="left">
   <a href="../README.md">
     <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
   </a>
 </p>
 
-# ludus•scrinium — public roadmap (summary)
+# ludus•scrinium — roadmap
 
 ## phase 1 — setup (weeks 1–6)
 - (✓) week 1: hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub)
