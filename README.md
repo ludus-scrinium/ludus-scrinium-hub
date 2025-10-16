@@ -22,6 +22,15 @@
   <a href="#contact">contact</a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/ludus-scrinium/asset-atlas">asset atlas</a> •
+  <a href="https://github.com/ludus-scrinium/playlens">playlens</a> •
+  <a href="https://github.com/ludus-scrinium/patch-notes-oracle">patch notes oracle</a> •
+  <a href="https://github.com/ludus-scrinium/localization-conveyor">localization conveyor</a> •
+  <a href="https://github.com/ludus-scrinium/creator-ops-kit">creator ops kit</a> •
+  <a href="https://github.com/ludus-scrinium/producers-almanac">producer’s almanac</a>
+</p>
+
 ---
 <h2 align="right">intent</h2>
 a public, working lab for my own simulated video game content operations. six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
