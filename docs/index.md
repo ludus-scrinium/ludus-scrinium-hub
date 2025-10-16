@@ -1,9 +1,9 @@
 ---
-ludus scrinium: game content ops lab
+**ludus scrinium**: *game content ops lab*
 ---
 
-# ludus scrinium — game content ops lab
-organize, test, and ship game content — *findable, measurable, safe*.
+# ludus scrinium — kaosisochi unini
+organize, test, and ship simulated game content.
 
 - **readme (source of truth):** [view on GitHub](../README.md)
 - **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
