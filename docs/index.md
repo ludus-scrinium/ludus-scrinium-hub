@@ -3,9 +3,8 @@ ludus scrinium: game content ops lab
 ---
 
 <!-- Hero banner (optional): add /docs/hero.png and it will show up in social previews -->
-<p align="center">
-  <img src="docs/hero-sharing.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
-</p>
+<p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
+
 
 <h1 align="center">ludus scrinium</h1>
 
