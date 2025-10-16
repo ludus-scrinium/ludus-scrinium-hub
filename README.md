@@ -11,10 +11,6 @@
 </p>
 
 <p align="center">
-  <img src="docs/heropfp.png" alt="heropfp" width="120">
-</p>
-
-<p align="center">
   simulated game content ops • a portfolio, by kaosisochi unini
 </p>
 
@@ -67,5 +63,11 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 <h2 align="right">contact</h2>
 
   ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • linkedin.com/in/kaosisochiunini
+
+<p align="center">
+  <img src="docs/heropfp.png" alt="heropfp" width="120">
+<
+::contentReference[oaicite:0]{index=0}
+
 
 
