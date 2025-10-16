@@ -21,7 +21,7 @@
 <h2 align="right">intent</h2>
 A public, working lab for my own simulated **content operations within the video game industry**. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
-## outcomes
+<h2>outcomes</h2>
 1. **Findable assets** — *Asset Atlas* (search + tags)
 2. **Proven UX improvements** — *PlayLens* (test → fix → retest)
 3. **Player feedback → action** — *Patch Notes Oracle* (themes, sentiment, triage)
@@ -29,11 +29,11 @@ A public, working lab for my own simulated **content operations within the video
 5. **Safe creator submissions** — *Creator Ops Kit* (intake, review, recognition)
 6. **Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
 
-## roadmap
+<h2 align="right">roadmap</h2>
 **Public summary:** see milestones and latest demos here → [docs/roadmap.md](docs/roadmap.md)  
 *(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)*
 
-## projects
+<h2>projects</h2>
 - **Asset Atlas** — make game files easy to find and reuse  
   Repo: https://github.com/ludus-scrinium/asset-atlas
 - **PlayLens** — test one screen/flow; show the improvement  
@@ -47,7 +47,7 @@ A public, working lab for my own simulated **content operations within the video
 - **Producer’s Almanac** — decisions, retros, templates  
   Repo: https://github.com/ludus-scrinium/producers-almanac
 
-## contact
+<h2 align="right">contact</h2>
 **Kaosisochi "Kaosi" Unini** — [LinkedIn](linkedin.com/in/kaosisochiunini) • <kaosisochiunini@gmail.com>
 
 ---
