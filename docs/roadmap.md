@@ -2,7 +2,7 @@
   <img src="./hero.png" alt="LUDUS SCRINIUM — roadmap" width="820">
 </p>
 
-<p align="left">
+<p align="center">
   <a href="../README.md">
     <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
   </a>
