@@ -4,6 +4,12 @@
 </p>
 
 <h1 align="center">ludus scrinium</h1>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
+  <img alt="WIP cap" src="https://img.shields.io/badge/WIP_cap-3_in_Doing-important">
+</p>
+
 <p align="center">
   simulated game content ops •<em> a portfolio, by kaosisochi unini </em>
 </p>
