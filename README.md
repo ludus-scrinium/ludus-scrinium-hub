@@ -21,7 +21,7 @@
 
 ## contents
 - **project roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
-- **demos (proof of concept clips):** <em>TBD<em>
+- **demos (proof of concept clips):** <em>TBD</em>
 - **interact:**
   1. pick a repo below and open its **`/docs/SETUP.md`** or, watch the demo clip
   2. read the **one-pager** in `/docs` to better understand what you’re seeing
