@@ -30,8 +30,8 @@ A public, working lab for my own simulated content operations within the video g
 6. **Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
 
 <h2 align="right">roadmap</h2>
-**Public summary:** see milestones and latest demos here → [docs/roadmap.md](docs/roadmap.md)  
-*(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)*
+A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
+(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)
 
 ## projects
 - **Asset Atlas** — make game files easy to find and reuse  
