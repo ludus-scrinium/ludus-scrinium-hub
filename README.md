@@ -71,7 +71,7 @@ a monthly, public summary, found here → [roadmap](docs/roadmap.md)
 
 <h2 align="right">contact</h2>
 
-  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • linkedin.com/in/kaosisochiunini
+  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • [linkedin](https://www.linkedin.com/in/kaosisochiunini)
 
 <p align="right">
   <img src="docs/heropfp.png" alt="heropfp" width="120">
