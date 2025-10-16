@@ -1,3 +1,5 @@
+<p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
+
 ---
 ludus scrinium: a game content ops lab
 ---
