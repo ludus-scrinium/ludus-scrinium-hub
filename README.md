@@ -3,7 +3,7 @@
   <img src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
 </p>
 
-<h1 align="center">ludus•scrinium</h1>
+<h1 id="top" align="center">ludus•scrinium</h1>
 
 <p align="center">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
@@ -69,10 +69,7 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 </p>
 
 <p align="right">
-  <a href="#">
+  <a href="#top">
     <img src="https://img.shields.io/badge/↑%20back%20to%20top-111?style=for-the-badge" alt="back to top">
   </a>
 </p>
-
-
-
