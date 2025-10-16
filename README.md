@@ -20,24 +20,20 @@
 ---
 
 ## contents
-- **roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
+- **project roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
 - **demos (proof of concept clips):**
   - *(placeholder)* Asset Atlas — `/demo/asset-atlas-v0.mp4`
   - *(placeholder)* PlayLens — `/demo/playlens-v0.mp4`
-- **try it in 5 minutes:**
-  1. Pick a repo below and open its **`/docs/SETUP.md`**.
-  2. Run the quick-start (or watch the demo clip).
-  3. Read the **one-pager** in `/docs` to understand what you’re seeing.
-- **practices (how this lab runs):**
-  - **Ship weekly:** at least one deliverable flips to **Done** with a link.
-  - **WIP cap:** never more than **3** items in **Doing** on the board.
-  - **Evidence-first:** every claim points to a demo, doc, or metric.
+- **interact:**
+  1. pick a repo below and open its **`/docs/SETUP.md`** (or watch the demo clip)
+  2. read the **one-pager** in `/docs` to better understand what you’re seeing
+- **practices (how this op runs):**
+  - **ship weekly:** at least one deliverable flips to **Done** with a link
+  - **WIP cap:** never more than **3** items **In progress** on the board
+  - **documentation:** every issue links to a demo, doc, or metric
 
 ## intent
-A public, working lab for **content operations in video games**. Six small systems that make assets findable, UX changes provable, player feedback actionable, text shippable, fan content safe, and decisions reusable.
-
-- **Audience:** producers, content leads, UX/ops folks at game studios
-- **Proof over claims:** every week adds a link or clip you can click
+A public, working lab for my own simulated **content operations within the video game industry**. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
 1. **Findable assets** — *Asset Atlas* (search + tags)
