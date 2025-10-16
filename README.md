@@ -47,7 +47,7 @@ A public, working lab for my own simulated **content operations within the video
 - **Producer’s Almanac** — decisions, retros, templates  
   Repo: https://github.com/ludus-scrinium/producers-almanac
 
-## contact
+<h2 align="right">contact</h2>
 **Kaosisochi "Kaosi" Unini** — [LinkedIn](linkedin.com/in/kaosisochiunini) • <kaosisochiunini@gmail.com>
 
 ---
