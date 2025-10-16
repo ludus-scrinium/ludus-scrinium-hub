@@ -5,7 +5,7 @@
 organize, test, and ship simulated game content, documenting *every* step of the process.
 
 - **readme (source of truth):** [view ludus•scrinium](https://github.com/ludus-scrinium/ludus-scrinium-hub)
-- **roadmap (public summary):** [roadmap](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md))
+- **roadmap (public summary):** [roadmap](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md)
 - **projects:** asset atlas • playlens • patch notes oracle • localization conveyor • creator ops kit • producer’s almanac
 
 <p align="right"><img src="./heropfp.png" alt="heropfp" width="80"></p>
