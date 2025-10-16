@@ -1,7 +1,7 @@
 <p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
 
-# ludus scrinium — a simulated game content ops lab by kaosisochi unini
-organize, test, and ship game content — *findable, measurable, safe*.
+# ludus scrinium — kaosisochi unini
+organize, test, and ship game content. documented.
 
 - **readme (source of truth):** [view on GitHub](../README.md)
 - **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
