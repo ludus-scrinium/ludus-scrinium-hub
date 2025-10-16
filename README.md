@@ -40,7 +40,8 @@ Safe creator submissions — ***Creator Ops Kit*** (intake, review, recognition)
 Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
 
 <h2 align="right">roadmap</h2>
-<p>A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
+
+A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
 
 <p align="right"><em>(Full weekly roadmap and decision logs live privately in Confluence; summaries land here when they’re stable.)</em>
 </p>
