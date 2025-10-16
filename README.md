@@ -33,7 +33,7 @@
 
 ---
 <h2 align="right">intent</h2>
-a public, working lab for my own simulated video game content operations. six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
+a public, working lab for my own simulated video game content operations. six small systems that endeavor to make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
 findable assets — ***asset atlas*** (search + tags)
