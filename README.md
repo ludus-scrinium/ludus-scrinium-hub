@@ -57,17 +57,17 @@ a monthly, public summary, found here → [roadmap](docs/roadmap.md)
 
 ## projects
 - **asset atlas** — make game files easy to search and reuse, for anyone  
-  repo: https://github.com/ludus-scrinium/asset-atlas
+  repo: <a href="https://github.com/ludus-scrinium/asset-atlas">https://github.com/ludus-scrinium/asset-atlas</a>
 - **playlens** — test one screen/flow; show the timed improvement  
-  repo: https://github.com/ludus-scrinium/playlens
+  repo: <a href="https://github.com/ludus-scrinium/playlens">https://github.com/ludus-scrinium/playlens</a>
 - **patch notes oracle** — turn player comments into a realistic dev “to-do” list  
-  repo: https://github.com/ludus-scrinium/patch-notes-oracle
+  repo: <a href="https://github.com/ludus-scrinium/patch-notes-oracle">https://github.com/ludus-scrinium/patch-notes-oracle</a>
 - **localization conveyor** — text from write → translate → QA → ship  
-  repo: https://github.com/ludus-scrinium/localization-conveyor
+  repo: <a href="https://github.com/ludus-scrinium/localization-conveyor">https://github.com/ludus-scrinium/localization-conveyor</a>
 - **creator ops kit** — safe fan content intake + review + recognition  
-  repo: https://github.com/ludus-scrinium/creator-ops-kit
+  repo: <a href="https://github.com/ludus-scrinium/creator-ops-kit">https://github.com/ludus-scrinium/creator-ops-kit</a>
 - **producer’s almanac** — decisions, retros, letters to my future self  
-  repo: https://github.com/ludus-scrinium/producers-almanac
+  repo: <a href="https://github.com/ludus-scrinium/producers-almanac">https://github.com/ludus-scrinium/producers-almanac</a>
 
 <h2 align="right">contact</h2>
 
