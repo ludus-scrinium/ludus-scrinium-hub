@@ -56,7 +56,7 @@ Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
   repo: https://github.com/ludus-scrinium/producers-almanac
 
 <h2 align="right">contact</h2>
-<p>Kaosisochi "Kaosi" Unini — linkedin.com/in/kaosisochiunini • kaosisochiunini@gmail.com
+<p>__Kaosisochi "Kaosi" Unini__ — linkedin.com/in/kaosisochiunini • kaosisochiunini@gmail.com
 </p>
 
 ---
