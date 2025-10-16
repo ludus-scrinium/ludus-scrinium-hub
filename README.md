@@ -42,7 +42,7 @@ Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
 </p>
 
 ## projects
-- **Asset Atlas** — make game files easy to search and reuse, for anyone
+- **Asset Atlas** — make game files easy to search and reuse, for anyone  
   repo: https://github.com/ludus-scrinium/asset-atlas
 - **PlayLens** — test one screen/flow; show the timed improvement  
   repo: https://github.com/ludus-scrinium/playlens
@@ -52,7 +52,7 @@ Reusable decisions — ***Producer’s Almanac*** (decision logs, templates)
   repo: https://github.com/ludus-scrinium/localization-conveyor
 - **Creator Ops Kit** — safe fan content intake + review + recognition  
   repo: https://github.com/ludus-scrinium/creator-ops-kit
-- **Producer’s Almanac** — decisions, retros, letters to my future self
+- **Producer’s Almanac** — decisions, retros, letters to my future self  
   repo: https://github.com/ludus-scrinium/producers-almanac
 
 <h2 align="right">contact</h2>
