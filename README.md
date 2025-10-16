@@ -9,7 +9,6 @@
 </p>
 
 <p align="center">
-  <a href="#contents">contents</a> •
   <a href="#intent">intent</a> •
   <a href="#outcomes">outcomes</a> •
   <a href="#roadmap">roadmap</a> •
@@ -18,17 +17,6 @@
 </p>
 
 ---
-
-## contents
-- **project roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
-- **demos (proof of concept clips):** <em>TBD</em>
-- **interact:**
-  1. pick a repo below and open its **`/docs/SETUP.md`** or, watch the demo clip
-  2. read the **one-pager** in `/docs` to better understand what you’re seeing
-- **practices (how this op runs):**
-  - **ship weekly:** at least one deliverable flips to **Done** with a link
-  - **WIP cap:** never more than **3** items **In progress** on the board
-  - **documentation:** every issue links to a demo, doc, or metric
 
 ## intent
 A public, working lab for my own simulated **content operations within the video game industry**. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
