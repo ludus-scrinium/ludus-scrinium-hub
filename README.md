@@ -3,9 +3,9 @@
   <img src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
 </p>
 
-<h1 align="center">LUDUS SCRINIUM — Game Content Ops Lab</h1>
+<h1 align="center">ludus scrinium</h1>
 <p align="center">
-  Organize, test, and ship simulated game content — <em>findable, measurable, documented</em>.
+  game content ops •<em> a portfolio </em>.
 </p>
 
 <p align="center">
