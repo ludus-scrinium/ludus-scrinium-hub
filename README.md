@@ -1,6 +1,6 @@
 <!-- Hero banner (optional): add /docs/hero.png and it will show up in social previews -->
 <p align="center">
-  <img src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
+  <img id="hero" src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
 </p>
 
 <h1 id="top" align="center">ludus•scrinium</h1>
@@ -69,6 +69,11 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
 </p>
 
 <p align="right">
+  <a href="#hero">
+    <img src="https://img.shields.io/badge/↑%20back%20to%20top-111?style=for-the-badge" alt="back to top">
+  </a>
+</p>
+
   <a href="#top">
     <img src="https://img.shields.io/badge/↑%20back%20to%20top-111?style=for-the-badge" alt="back to top">
   </a>
