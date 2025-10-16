@@ -4,7 +4,7 @@
 ludus scrinium: a game content ops lab
 ---
 
-# ludus scrinium — kaosisochi unini
+# LUDUS SCRINIUM — kaosisochi unini
 organize, test, and ship game content.
 
 - **readme (source of truth):** [view on GitHub](../README.md)
