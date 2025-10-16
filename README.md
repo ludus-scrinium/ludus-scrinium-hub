@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="#links">links</a> •
+  <a href="#contents">contents</a> •
   <a href="#intent">intent</a> •
   <a href="#outcomes">outcomes</a> •
   <a href="#roadmap">roadmap</a> •
