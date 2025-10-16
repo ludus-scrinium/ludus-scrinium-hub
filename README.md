@@ -22,12 +22,14 @@
 A public, working lab for my own simulated content operations within the video game industry. Six small systems that make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
-1. **Findable assets** — *Asset Atlas* (search + tags)
-2. **Proven UX improvements** — *PlayLens* (test → fix → retest)
-3. **Player feedback → action** — *Patch Notes Oracle* (themes, sentiment, triage)
-4. **Text shipped on time** — *Localization Conveyor* (write → translate → proof → done)
-5. **Safe creator submissions** — *Creator Ops Kit* (intake, review, recognition)
-6. **Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
+<p align="center">
+**Findable assets** — *Asset Atlas* (search + tags)
+**Proven UX improvements** — *PlayLens* (test → fix → retest)
+**Player feedback → action** — *Patch Notes Oracle* (themes, sentiment, triage)
+**Text shipped on time** — *Localization Conveyor* (write → translate → proof → done)
+**Safe creator submissions** — *Creator Ops Kit* (intake, review, recognition)
+**Reusable decisions** — *Producer’s Almanac* (decision logs, templates)
+</p>
 
 <h2 align="right">roadmap</h2>
 <p>A monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)  
