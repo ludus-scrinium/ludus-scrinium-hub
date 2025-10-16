@@ -1,11 +1,16 @@
 ---
-ludus scrinium: a game content ops lab
+title: ludus scrinium — game content ops lab
 ---
 
+<!-- hero banner (optional): place docs/hero.png in this folder -->
 <p align="center">
-  <img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
-# Ludus Scrinium — Kaosisochi Unini
-Organize, test, and ship simulated game content.
+  <img src="./hero.png" alt="ludus scrinium — game content ops lab" width="820">
+</p>
+
+<h1 align="center">ludus scrinium — game content ops lab</h1>
+<p align="center">
+  organize, test, and ship game content — <em>findable, measurable, safe</em>.
+</p>
 
 <p align="center">
   <a href="#links">links</a> •
