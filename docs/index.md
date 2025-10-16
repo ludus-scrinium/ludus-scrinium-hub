@@ -8,5 +8,5 @@ organize, test, and ship simulated game content, documenting *every* step of the
 - **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
 - **projects:** asset atlas • playlens • patch notes oracle • localization conveyor • creator ops kit • producer’s almanac
 
-<p align="left"><img src="./heropfp.png" alt="heropfp" width="80"></p>
+<p align="right"><img src="./heropfp.png" alt="heropfp" width="80"></p>
 
