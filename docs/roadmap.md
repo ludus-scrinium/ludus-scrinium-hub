@@ -1,3 +1,13 @@
+<p align="center">
+  <img src="./hero.png" alt="LUDUS SCRINIUM — roadmap" width="820">
+</p>
+
+<p align="right">
+  <a href="../README.md">
+    <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
+  </a>
+</p>
+
 # ludus•scrinium — public roadmap (summary)
 
 ## phase 1 — setup (weeks 1–6)
@@ -21,9 +31,18 @@
 ## phase 5 — integrate & polish (weeks 35–40)
 - Milestone E: All systems connected; studio packet
 
-## Phase 6 — validate & ship (weeks 41–44)
+## phase 6 — validate & ship (weeks 41–44)
 - milestone F: public demo + testimonials
 
 ### Latest demos
 - *TBD*
 
+<p align="right">
+  <img src="./heropfp.png" alt="heropfp" width="120">
+</p>
+
+<p align="right">
+  <a href="../README.md">
+    <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
+  </a>
+</p>
