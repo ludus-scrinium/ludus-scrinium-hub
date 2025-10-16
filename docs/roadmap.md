@@ -37,11 +37,11 @@
 ### Latest demos
 - *TBD*
 
-<p align="right">
+<p align="center">
   <img src="./heropfp.png" alt="heropfp" width="120">
 </p>
 
-<p align="right">
+<p align="center">
   <a href="../README.md">
     <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
   </a>
