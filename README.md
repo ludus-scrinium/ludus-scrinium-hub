@@ -21,10 +21,9 @@
 
 ## links
 - **roadmap (public summary):** [docs/roadmap.md](docs/roadmap.md)
-- **demos (60–90s clips):**
+- **demos (proof of concept clips):**
   - *(placeholder)* Asset Atlas — `/demo/asset-atlas-v0.mp4`
   - *(placeholder)* PlayLens — `/demo/playlens-v0.mp4`
-  - *tip:* if a repo has a Streamlit/YouTube demo, link it from that repo’s README.
 - **try it in 5 minutes:**
   1. Pick a repo below and open its **`/docs/SETUP.md`**.
   2. Run the quick-start (or watch the demo clip).
