@@ -74,7 +74,3 @@ a monthly, public summary, found here → [docs/roadmap.md](docs/roadmap.md)
   </a>
 </p>
 
-  <a href="#top">
-    <img src="https://img.shields.io/badge/↑%20back%20to%20top-111?style=for-the-badge" alt="back to top">
-  </a>
-</p>
