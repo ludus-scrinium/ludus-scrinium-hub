@@ -4,12 +4,8 @@
 
 organize, test, and ship simulated game content, documenting *every* step of the process.
 
-<div style="text-align: center;">
-  <ul>
-    <li>- **readme (source of truth):** [view on GitHub](../README.md)</li>
-    <li>- **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)</li>
-    <li>- **projects:** asset atlas • playlens • patch notes oracle • localization conveyor • creator ops kit • producer’s almanac</li>
-  </ul>
-</div>
+- **readme (source of truth):** [view on GitHub](../README.md)
+- **roadmap (public summary):** [docs/roadmap.md](./roadmap.md)
+- **projects:** asset atlas • playlens • patch notes oracle • localization conveyor • creator ops kit • producer’s almanac
 
 > prefer the readme? you can stay there—this site is just a cleaner landing for recruiters.
