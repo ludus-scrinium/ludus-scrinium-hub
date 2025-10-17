@@ -1,9 +1,7 @@
 ﻿<!-- LS BADGES START -->
 <p align="left">
-  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub"><img alt="Repo Stars" src="https://img.shields.io/github/stars/ludus-scrinium/ludus-scrinium-hub"></a>
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/ludus-scrinium/ludus-scrinium-hub"></a>
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/ludus-scrinium/ludus-scrinium-hub"></a>
-  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/pulls"><img alt="Open PRs" src="https://img.shields.io/github/issues-pr/ludus-scrinium/ludus-scrinium-hub"></a>
 </p>
 <!-- LS BADGES END -->
 <!-- Hero banner (optional): add /docs/hero.png and it will show up in social previews -->
