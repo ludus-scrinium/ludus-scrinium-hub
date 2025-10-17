@@ -19,23 +19,23 @@
 </p>
 
 <p align="center">
-  simulated game content ops â€¢ a portfolio, by kaosisochi unini
+  simulated game content ops • a portfolio, by kaosisochi unini
 </p>
 
 <p align="center">
-  <a href="#intent">intent</a> â€¢
-  <a href="#outcomes">outcomes</a> â€¢
-  <a href="#roadmap">roadmap</a> â€¢
-  <a href="#projects">projects</a> â€¢
+  <a href="#intent">intent</a> •
+  <a href="#outcomes">outcomes</a> •
+  <a href="#roadmap">roadmap</a> •
+  <a href="#projects">projects</a> •
   <a href="#contact">contact</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/ludus-scrinium/asset-atlas">asset atlas</a> â€¢
-  <a href="https://github.com/ludus-scrinium/playlens">playlens</a> â€¢
-  <a href="https://github.com/ludus-scrinium/patch-notes-oracle">patch notes oracle</a> â€¢
-  <a href="https://github.com/ludus-scrinium/localization-conveyor">localization conveyor</a> â€¢
-  <a href="https://github.com/ludus-scrinium/creator-ops-kit">creator ops kit</a> â€¢
+  <a href="https://github.com/ludus-scrinium/asset-atlas">asset atlas</a> •
+  <a href="https://github.com/ludus-scrinium/playlens">playlens</a> •
+  <a href="https://github.com/ludus-scrinium/patch-notes-oracle">patch notes oracle</a> •
+  <a href="https://github.com/ludus-scrinium/localization-conveyor">localization conveyor</a> •
+  <a href="https://github.com/ludus-scrinium/creator-ops-kit">creator ops kit</a> •
   <a href="https://github.com/ludus-scrinium/producers-almanac">producer's almanac</a>
 </p>
 
@@ -79,7 +79,7 @@ a monthly, public summary, found here â†’ [roadmap](docs/roadmap.md)
 
 <h2 align="right">contact</h2>
 
-  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com â€¢ [linkedin](https://www.linkedin.com/in/kaosisochiunini)
+  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • [linkedin](https://www.linkedin.com/in/kaosisochiunini)
 
 <p align="right">
   <img src="docs/heropfp.png" alt="heropfp" width="120">
