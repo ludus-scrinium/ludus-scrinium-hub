@@ -46,11 +46,11 @@ a public, working lab for my own simulated video game content operations. six sm
 ## outcomes
 findable assets — ***asset atlas*** (search + tags)
   
-measured UX improvements — ***playlens*** (test â†’ fix â†’ retest)
+measured UX improvements — ***playlens*** (test  → fix  → retest)
 
 player feedback, into action — ***patch notes oracle*** (forum themes, sentiment, triage)
 
-text shipped on time — ***localization conveyor*** (write â†’ translate â†’ QA â†’ done)
+text shipped on time — ***localization conveyor*** (write  → translate  → QA  → done)
 
 safe creator submissions — ***creator ops kit*** (intake, review, recognition)
 
@@ -58,7 +58,7 @@ reusable decisions — ***producer's almanac*** (decision logs, templates)
 
 <h2 align="right">roadmap</h2>
 
-a monthly, public summary, found here â†’ [roadmap](docs/roadmap.md)  
+a monthly, public summary, found here  → [roadmap](docs/roadmap.md)  
 
 <p align="right"><em>(full weekly roadmap and decision logs live privately in confluence; summaries land here when they're stable.)</em>
 </p>
@@ -70,7 +70,7 @@ a monthly, public summary, found here â†’ [roadmap](docs/roadmap.md)
   repo: <a href="https://github.com/ludus-scrinium/playlens">https://github.com/ludus-scrinium/playlens</a>
 - **patch notes oracle** — turn player comments into a realistic dev â€œto-doâ€ list  
   repo: <a href="https://github.com/ludus-scrinium/patch-notes-oracle">https://github.com/ludus-scrinium/patch-notes-oracle</a>
-- **localization conveyor** — text from write â†’ translate â†’ QA â†’ ship  
+- **localization conveyor** — text from write  → translate  → QA  → ship  
   repo: <a href="https://github.com/ludus-scrinium/localization-conveyor">https://github.com/ludus-scrinium/localization-conveyor</a>
 - **creator ops kit** — safe fan content intake + review + recognition  
   repo: <a href="https://github.com/ludus-scrinium/creator-ops-kit">https://github.com/ludus-scrinium/creator-ops-kit</a>
