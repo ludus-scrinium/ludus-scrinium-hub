@@ -1,7 +1,3 @@
----
-layout: default
-title: Home
----
 
 <!-- LS BADGES START -->
 <p align="left">
