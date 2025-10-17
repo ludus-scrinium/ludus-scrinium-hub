@@ -1,3 +1,7 @@
+---
+layout: default
+ludus: scrinium
+---
 <p align="center"><img src="./hero.png" alt="LUDUS SCRINIUM" width="820"></p>
 
 <h1 align=right>ludus•scrinium: a portfolio, by kaosisochi unini</h1>
