@@ -1,8 +1,6 @@
 ﻿<!-- LS BADGES START -->
 <p align="left">
-  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/ludus-scrinium/ludus-scrinium-hub"></a>
-  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/ludus-scrinium/ludus-scrinium-hub"></a>
-</p>
+  
 <!-- LS BADGES END -->
 <!-- Hero banner (optional): add /docs/hero.png and it will show up in social previews -->
 <p align="center">
@@ -14,6 +12,9 @@
 <p align="center">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
   <img alt="WIP cap" src="https://img.shields.io/badge/WIP_cap-3_in_Doing-important">
+  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/ludus-scrinium/ludus-scrinium-hub"></a>
+  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/ludus-scrinium/ludus-scrinium-hub"></a>
+</p>
 </p>
 
 <p align="center">
