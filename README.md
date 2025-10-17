@@ -76,22 +76,6 @@ a monthly, public summary, found here → [roadmap](docs/roadmap.md)
 
 ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com • [linkedin](https://www.linkedin.com/in/kaosisochiunini)
 
-<h2 align="right">evidence</h2>
-
-<em>definition of done:</em> each artifact below is reproducible by following that repo’s <code>/docs/SETUP.md</code> and running <code>/scripts/demo</code> once.
-
-| system | demo | dataset | output | screenshot |
-|---|---|---|---|---|
-| asset atlas | _(wk 2)_ | [samples](https://github.com/ludus-scrinium/asset-atlas/tree/main/data/samples) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-| playlens | _(wk 2)_ | [samples](https://github.com/ludus-scrinium/playlens/tree/main/data/samples) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-| patch notes oracle | _(wk 2)_ | [samples](https://github.com/ludus-scrinium/patch-notes-oracle/tree/main/data/samples) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-| localization conveyor | _(wk 2)_ | [samples](https://github.com/ludus-scrinium/localization-conveyor/tree/main/data/samples) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-| creator ops kit | _(wk 2)_ | [samples](https://github.com/ludus-scrinium/creator-ops-kit/tree/main/data/samples) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-| producer’s almanac | _(wk 2)_ | [templates](https://github.com/ludus-scrinium/producers-almanac/tree/main/docs/templates) <br><sub>SHA256: <code>TBD</code></sub> | _(wk 3)_ | _(wk 2)_ |
-
-<sub><em>notes:</em> “demo” = short mp4/gif; “dataset” = first 100 rows or equivalent; “output” = one generated file (json/md); “screenshot” = static preview.</sub>
-
-
 <p align="right">
   <img src="docs/heropfp.png" alt="heropfp" width="120">
 </p>
