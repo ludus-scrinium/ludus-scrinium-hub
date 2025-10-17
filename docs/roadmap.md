@@ -11,7 +11,7 @@
 # ludus•scrinium — roadmap
 
 ![LS Week](https://img.shields.io/badge/LS%20week-1%2F44-informational)
-![LS Complete](https://img.shields.io/badge/LS%20complete-4%25-blue)
+![LS Complete](https://img.shields.io/badge/LS%20complete-25%25-blue)
 
 ## phase 1 — setup (weeks 1–6)
 <!-- LS:ROADMAP_WIDGET_START -->
@@ -25,27 +25,27 @@
 - Week 4
   - [ ] basic search & filters (live view)
 
-**Overall:** 17 % complete across 6 goals.
+**Overall:** 25% complete across 4 goals.
 <!-- LS:ROADMAP_WIDGET_END -->
 
-- [] week 5: usability test plan + pilots  
-- [] week 6: producer’s almanac templates  
+- [] week 5: usability test plan + pilots
+- [] week 6: producer’s almanac templates
 
 ## phase 2 — core systems (weeks 7–18)
-- milestone A: playlens v1 shipped (before/after results)  
-- milestone B: asset atlas v1 searchable  
+- milestone A: playlens v1 shipped (before/after results)
+- milestone B: asset atlas v1 searchable
 
 ## phase 3 — player signal (weeks 19–26)
-- milestone C: patch notes oracle v1 with triage  
+- milestone C: patch notes oracle v1 with triage
 
 ## phase 4 — content at scale (weeks 27–34)
-- milestone D: localization conveyor v1 live  
+- milestone D: localization conveyor v1 live
 
 ## phase 5 — integrate & polish (weeks 35–40)
-- milestone E: all systems connected; studio packet  
+- milestone E: all systems connected; studio packet
 
 ## phase 6 — validate & ship (weeks 41–44)
-- milestone F: public demo + testimonials  
+- milestone F: public demo + testimonials
 
 ### Latest demos
 - *TBD*
@@ -61,3 +61,4 @@
     <img src="https://img.shields.io/badge/back%20to%20hub-111?style=for-the-badge" alt="back to hub">
   </a>
 </p>
+
