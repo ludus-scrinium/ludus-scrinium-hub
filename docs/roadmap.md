@@ -10,29 +10,42 @@
 
 # ludus•scrinium — roadmap
 
+![LS Week](https://img.shields.io/badge/LS%20week-1%2F44-informational)
+![LS Complete](https://img.shields.io/badge/LS%20complete-4%25-blue)
+
 ## phase 1 — setup (weeks 1–6)
-- (✓) week 1: hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)
-- [] week 2: prototype surface for playLens (demo clip)
-- [] week 3: asset fields & tags (100-sample table)
-- [] week 4: basic search & filters (live view)
-- [] week 5: usability test plan + pilots
-- [] week 6: producer’s almanac templates
+<!-- LS:ROADMAP_WIDGET_START -->
+### current sprint window (weeks 1–4)
+- **Week 1 (now)**
+  - [x] hub, repos scaffolded; [links live](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)
+- Week 2
+  - [ ] prototype surface for playLens (demo clip)
+- Week 3
+  - [ ] asset fields & tags (100-sample table)
+- Week 4
+  - [ ] basic search & filters (live view)
+
+**Overall:** 17 % complete across 6 goals.
+<!-- LS:ROADMAP_WIDGET_END -->
+
+- [] week 5: usability test plan + pilots  
+- [] week 6: producer’s almanac templates  
 
 ## phase 2 — core systems (weeks 7–18)
-- milestone A: playlens v1 shipped (before/after results)
-- milestone B: asset atlas v1 searchable
+- milestone A: playlens v1 shipped (before/after results)  
+- milestone B: asset atlas v1 searchable  
 
 ## phase 3 — player signal (weeks 19–26)
-- milestone C: patch notes oracle v1 with triage
+- milestone C: patch notes oracle v1 with triage  
 
 ## phase 4 — content at scale (weeks 27–34)
-- milestone D: localization conveyor v1 live
+- milestone D: localization conveyor v1 live  
 
 ## phase 5 — integrate & polish (weeks 35–40)
-- milestone E: all systems connected; studio packet
+- milestone E: all systems connected; studio packet  
 
 ## phase 6 — validate & ship (weeks 41–44)
-- milestone F: public demo + testimonials
+- milestone F: public demo + testimonials  
 
 ### Latest demos
 - *TBD*
