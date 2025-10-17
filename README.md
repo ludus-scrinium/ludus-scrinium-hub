@@ -1,6 +1,5 @@
 ﻿<!-- LS BADGES START -->
 <p align="left">
-  <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/github/license/ludus-scrinium/ludus-scrinium-hub"></a>
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub"><img alt="Repo Stars" src="https://img.shields.io/github/stars/ludus-scrinium/ludus-scrinium-hub"></a>
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/ludus-scrinium/ludus-scrinium-hub"></a>
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/issues"><img alt="Open Issues" src="https://img.shields.io/github/issues/ludus-scrinium/ludus-scrinium-hub"></a>
@@ -9,10 +8,10 @@
 <!-- LS BADGES END -->
 <!-- Hero banner (optional): add /docs/hero.png and it will show up in social previews -->
 <p align="center">
-  <img id="hero" src="docs/hero.png" alt="LUDUS SCRINIUM â€” Game Content Ops Lab" width="820">
+  <img id="hero" src="docs/hero.png" alt="LUDUS SCRINIUM — Game Content Ops Lab" width="820">
 </p>
 
-<h1 id="top" align="center">ludusâ€¢scrinium</h1>
+<h1 id="top" align="center">ludus•scrinium</h1>
 
 <p align="center">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue"></a>
@@ -37,7 +36,7 @@
   <a href="https://github.com/ludus-scrinium/patch-notes-oracle">patch notes oracle</a> â€¢
   <a href="https://github.com/ludus-scrinium/localization-conveyor">localization conveyor</a> â€¢
   <a href="https://github.com/ludus-scrinium/creator-ops-kit">creator ops kit</a> â€¢
-  <a href="https://github.com/ludus-scrinium/producers-almanac">producerâ€™s almanac</a>
+  <a href="https://github.com/ludus-scrinium/producers-almanac">producer's almanac</a>
 </p>
 
 ---
@@ -45,42 +44,42 @@
 a public, working lab for my own simulated video game content operations. six small systems that endeavor to make assets easily searchable, UX changes provable, player feedback actionable, text shippable, fan content validated, and decisions reusable.
 
 ## outcomes
-findable assets â€” ***asset atlas*** (search + tags)
+findable assets — ***asset atlas*** (search + tags)
   
-measured UX improvements â€” ***playlens*** (test â†’ fix â†’ retest)
+measured UX improvements — ***playlens*** (test â†’ fix â†’ retest)
 
-player feedback, into action â€” ***patch notes oracle*** (forum themes, sentiment, triage)
+player feedback, into action — ***patch notes oracle*** (forum themes, sentiment, triage)
 
-text shipped on time â€” ***localization conveyor*** (write â†’ translate â†’ QA â†’ done)
+text shipped on time — ***localization conveyor*** (write â†’ translate â†’ QA â†’ done)
 
-safe creator submissions â€” ***creator ops kit*** (intake, review, recognition)
+safe creator submissions — ***creator ops kit*** (intake, review, recognition)
 
-reusable decisions â€” ***producerâ€™s almanac*** (decision logs, templates)
+reusable decisions — ***producer's almanac*** (decision logs, templates)
 
 <h2 align="right">roadmap</h2>
 
 a monthly, public summary, found here â†’ [roadmap](docs/roadmap.md)  
 
-<p align="right"><em>(full weekly roadmap and decision logs live privately in confluence; summaries land here when theyâ€™re stable.)</em>
+<p align="right"><em>(full weekly roadmap and decision logs live privately in confluence; summaries land here when they're stable.)</em>
 </p>
 
 ## projects
-- **asset atlas** â€” make game files easy to search and reuse, for anyone  
+- **asset atlas** — make game files easy to search and reuse, for anyone  
   repo: <a href="https://github.com/ludus-scrinium/asset-atlas">https://github.com/ludus-scrinium/asset-atlas</a>
-- **playlens** â€” test one screen/flow; show the timed improvement  
+- **playlens** — test one screen/flow; show the timed improvement  
   repo: <a href="https://github.com/ludus-scrinium/playlens">https://github.com/ludus-scrinium/playlens</a>
-- **patch notes oracle** â€” turn player comments into a realistic dev â€œto-doâ€ list  
+- **patch notes oracle** — turn player comments into a realistic dev â€œto-doâ€ list  
   repo: <a href="https://github.com/ludus-scrinium/patch-notes-oracle">https://github.com/ludus-scrinium/patch-notes-oracle</a>
-- **localization conveyor** â€” text from write â†’ translate â†’ QA â†’ ship  
+- **localization conveyor** — text from write â†’ translate â†’ QA â†’ ship  
   repo: <a href="https://github.com/ludus-scrinium/localization-conveyor">https://github.com/ludus-scrinium/localization-conveyor</a>
-- **creator ops kit** â€” safe fan content intake + review + recognition  
+- **creator ops kit** — safe fan content intake + review + recognition  
   repo: <a href="https://github.com/ludus-scrinium/creator-ops-kit">https://github.com/ludus-scrinium/creator-ops-kit</a>
-- **producerâ€™s almanac** â€” decisions, retros, letters to my future self  
+- **producer's almanac** — decisions, retros, letters to my future self  
   repo: <a href="https://github.com/ludus-scrinium/producers-almanac">https://github.com/ludus-scrinium/producers-almanac</a>
 
 <h2 align="right">contact</h2>
 
-  ***kaosisochi "kaosi" unini*** â€” kaosisochiunini@gmail.com â€¢ [linkedin](https://www.linkedin.com/in/kaosisochiunini)
+  ***kaosisochi "kaosi" unini*** — kaosisochiunini@gmail.com â€¢ [linkedin](https://www.linkedin.com/in/kaosisochiunini)
 
 <p align="right">
   <img src="docs/heropfp.png" alt="heropfp" width="120">
