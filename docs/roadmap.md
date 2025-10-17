@@ -11,7 +11,7 @@
 # ludus•scrinium — roadmap
 
 ![LS Week](https://img.shields.io/badge/ls%20week-1%2F44-informational)
-![LS Complete](https://img.shields.io/badge/sprint%20complete-25%25-blue)
+![LS Complete](https://img.shields.io/badge/sprint%20complete-25%25-red)
 
 ## phase 1 — setup (weeks 1–6)
 <!-- LS:ROADMAP_WIDGET_START -->
