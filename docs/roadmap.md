@@ -17,7 +17,7 @@
 <!-- LS:ROADMAP_WIDGET_START -->
 ### current sprint window (weeks 1–4)
 - **week 1 (now)**
-  - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards to playlens!*
+  - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards!*
 - week 2
   - [ ] prototype surface for playLens (demo clip)
 - week 3
