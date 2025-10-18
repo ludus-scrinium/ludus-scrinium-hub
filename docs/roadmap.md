@@ -48,7 +48,7 @@
 - milestone F: public demo + testimonials
 
 ### Latest demos
-- *TBD*
+- *tbd*
 
 <p align="center">
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
