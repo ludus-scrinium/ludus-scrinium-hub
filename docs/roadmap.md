@@ -16,16 +16,16 @@
 ## phase 1 — setup (weeks 1–6)
 <!-- LS:ROADMAP_WIDGET_START -->
 ### current sprint window (weeks 1–4)
-- **Week 1 (now)**
+- **week 1 (now)**
   - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards to playlens!*
-- Week 2
+- week 2
   - [ ] prototype surface for playLens (demo clip)
-- Week 3
+- week 3
   - [ ] asset fields & tags (100-sample table)
-- Week 4
+- week 4
   - [ ] basic search & filters (live view)
 
-**Overall:** 25% complete across 4 goals.
+**overall:** 25% complete across 4 goals
 <!-- LS:ROADMAP_WIDGET_END -->
 
 - [] week 5: usability test plan + pilots
