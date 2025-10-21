@@ -10,6 +10,6 @@ organize, test, and ship simulated game content, documenting *every* step of the
 
 - **readme (source of truth):** [view ludus•scrinium](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)
 - **roadmap (public summary):** [roadmap](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md)
-- **projects:** asset atlas • playlens • patch notes oracle • localization conveyor • creator ops kit • producer’s almanac
+- **projects:** [asset atlas](https://github.com/ludus-scrinium/asset-atlas/blob/main/README.md) • [playlens](https://github.com/ludus-scrinium/playlens/blob/main/README.md) • [patch notes oracle](https://github.com/ludus-scrinium/patch-notes-oracle/blob/main/README.md) • [localization conveyor](https://github.com/ludus-scrinium/localization-conveyor/blob/main/README.md) • [creator ops kit](https://github.com/ludus-scrinium/creator-ops-kit/blob/main/README.md) • [producer’s almanac](https://github.com/ludus-scrinium/producers-almanac/blob/main/README.md)
 
 <p align="right"><img src="./heropfp.png" alt="heropfp" width="80"></p>
