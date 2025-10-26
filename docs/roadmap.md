@@ -19,7 +19,7 @@
 - **week 1 (now)**
   - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards!*
 - week 2
-  - [ ] prototype surface for playLens (demo clip)
+  - [x] prototype surface for playLens (demo clip) • [A/B demo](https://www.linkedin.com/posts/activity-7386397223867072513-kUua?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E) • *a measured example of QA/UX thinking.*
 - week 3
   - [ ] asset fields & tags (100-sample table)
 - week 4
