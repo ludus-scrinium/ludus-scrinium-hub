@@ -22,23 +22,23 @@ description: Multi-phase, 44-week development roadmap for the Ludus Scrinium por
 
 ## Phase 1 — Setup (Weeks 1-6)
 
-### Current Sprint Window (Weeks 1-4)
+### Current Sprint Window
 <!-- LS:ROADMAP_WIDGET_START -->
 
-- Week 1  
+- week 1  
   - [x] Hub and repos scaffolded  
   - [x] Verified all hub links — [view hub README](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)  
   - _Producer’s note:_ first-time GitHub setup was dizzying but gratifying.
 
-- Week 2  
+- week 2  
   - [x] Prototype surface for PlayLens (demo clip)  
   - [x] Published [A/B demo on LinkedIn](https://www.linkedin.com/posts/activity-7386397223867072513-kUua)  
   - _A measured example of QA / UX thinking._
 
-- Week 3  
+- week 3  
   - [ ] Asset Atlas: field definitions + 100-sample table
 
-- Week 4  
+- week 4  
   - [ ] Basic search and filter prototype (live view)
 
 **Overall:** 25 % complete across 4 goals
