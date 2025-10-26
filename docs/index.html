@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Ludus • Scrinium — a portfolio</title>
+  <title>Ludus • Scrinium — Game Ops & Knowledge Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Organize, test, and ship simulated game content, documenting every step of the process. Portfolio hub by Kaosisochi Unini.">
+  <meta name="description" content="I build small, testable pipelines that help game teams ship updates faster—with clearer knowledge and fewer blockers. Demos, roadmaps, and write-ups inside.">
   <link rel="preload" href="./hero.png" as="image">
 </head>
 <body>
@@ -13,56 +13,76 @@
   <header role="banner">
     <figure aria-labelledby="hero-caption">
       <img src="./hero.png" alt="Ludus • Scrinium portfolio hero" width="820">
-      <figcaption id="hero-caption">Ludus • Scrinium portfolio hub.</figcaption>
+      <figcaption id="hero-caption">Ludus • Scrinium — portfolio hub by Kaosisochi Unini.</figcaption>
     </figure>
+    <h1>Ludus • Scrinium</h1>
+    <p><strong>Game knowledge & operations work by Kaosisochi Unini.</strong></p>
+    <p>I build small, testable pipelines so teams can ship updates with fewer blockers. Each project shows the problem, a quick fix, and measurable impact.</p>
 
-    <h1>ludus•scrinium: a portfolio</h1>
-    <p><strong>by kaosisochi unini</strong></p>
-  </header>
-
-  <main id="main">
-    <section aria-labelledby="purpose">
-      <h2 id="purpose">Purpose</h2>
-      <p>organize, test, and ship simulated game content, documenting <em>every</em> step of the process.</p>
-    </section>
-
-    <nav aria-labelledby="key-links">
-      <h2 id="key-links">Key links</h2>
+    <nav aria-label="Primary">
+      <h2>Start here</h2>
       <ul>
         <li>
           <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
-            readme (source of truth): view ludus•scrinium
+            README — what this lab is and how it’s organized
           </a>
         </li>
         <li>
           <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md">
-            roadmap (public summary): roadmap
+            Roadmap — 44-week plan and what’s shipping next
           </a>
         </li>
       </ul>
     </nav>
+  </header>
 
+  <main id="main">
     <section aria-labelledby="projects">
-      <h2 id="projects">projects</h2>
+      <h2 id="projects">Projects</h2>
+      <p>Short demos and write-ups. Click any project to see the repo, the clip, and the notes.</p>
       <ul>
-        <li><a href="https://github.com/ludus-scrinium/asset-atlas/blob/main/README.md">asset atlas</a></li>
-        <li><a href="https://github.com/ludus-scrinium/playlens/blob/main/README.md">playlens</a></li>
-        <li><a href="https://github.com/ludus-scrinium/patch-notes-oracle/blob/main/README.md">patch notes oracle</a></li>
-        <li><a href="https://github.com/ludus-scrinium/localization-conveyor/blob/main/README.md">localization conveyor</a></li>
-        <li><a href="https://github.com/ludus-scrinium/creator-ops-kit/blob/main/README.md">creator ops kit</a></li>
-        <li><a href="https://github.com/ludus-scrinium/producers-almanac/blob/main/README.md">producer’s almanac</a></li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/playlens/blob/main/README.md">PlayLens</a> — Before/after UX tests that measure menu friction. Output: 60–90 s clip + CSV metrics.
+        </li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/patch-notes-oracle/blob/main/README.md">Patch Notes Oracle</a> — Patch note templates and triage that align CS, localization, and player comms.
+        </li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/localization-conveyor/blob/main/README.md">Localization Conveyor</a> — String-first checklists for simultaneous regional releases.
+        </li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/asset-atlas/blob/main/README.md">Asset Atlas</a> — Searchable asset library with tags and fields for reuse across teams.
+        </li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/creator-ops-kit/blob/main/README.md">Creator Ops Kit</a> — Intake, license picker, and audit trail for community content.
+        </li>
+        <li>
+          <a href="https://github.com/ludus-scrinium/producers-almanac/blob/main/README.md">Producer’s Almanac</a> — Lightweight governance: issue/PR templates, labels, release hygiene.
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="about">
+      <h2 id="about">How this works</h2>
+      <p>This is a live lab. I ship small, test in public, and document results. Each repo includes:</p>
+      <ul>
+        <li>A README that explains the goal and the approach.</li>
+        <li>A short demo clip or screenshot.</li>
+        <li>Notes on what improved, what didn’t, and what’s next.</li>
       </ul>
     </section>
   </main>
 
   <footer>
-    <!-- Decorative avatar; empty alt so screen readers skip it -->
+    <!-- Decorative avatar; empty alt for assistive tech -->
     <img src="./heropfp.png" alt="" width="80" height="80">
-    <p>&copy; <span id="y">2025</span> kaosisochi unini</p>
+    <p>&copy; <span id="y">2025</span> Kaosisochi Unini</p>
     <script>
-      (function(){ var y=document.getElementById('y'); if(y){ y.textContent=new Date().getFullYear(); }})();
+      (function () {
+        var y = document.getElementById('y');
+        if (y) y.textContent = new Date().getFullYear();
+      })();
     </script>
   </footer>
 </body>
 </html>
-
