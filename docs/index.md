@@ -6,7 +6,7 @@ ludus: scrinium
 
 <h1 align=right>ludus•scrinium: a portfolio, by kaosisochi unini</h1>
 
-organize, test, and ship simulated game content, documenting *every* step of the process.
+<p>organize, test, and ship simulated game content, documenting *every* step of the process.</p>
 
 - **readme (source of truth):** [view ludus•scrinium](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)
 - **roadmap (public summary):** [roadmap](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md)
