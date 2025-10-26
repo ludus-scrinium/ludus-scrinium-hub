@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Base
+   ==========================================================================
+   Priorities: readability, hierarchy, graceful theming, keyboard flow
+   ========================================================================== */
+
+:root {
+  /* Typography scale */
+  --step--1: 0.9rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.5rem;
+  --step-3: 1.85rem;
+
+  /* Layout */
+  --container: 72rem;
+  --gutter: 1rem;
+  --radius: 12px;
+
+  /* Light theme */
+  --bg: #ffffff;
+  --text: #111111;
+  --muted: #555555;
+  --line: #e9e9e9;
+  --link: #0b63ce;
+  --link-visited: #6a2fc7;
+  --focus: #0aa1ff;
+
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(0,0,0,.06), 0 3px 8px rgba(0,0,0,.06);
+}
+
+/* Auto-dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1115;
+    --text: #e9edf1;
+    --muted: #b6c0cc;
+    --line: #22262e;
+    --link: #5aa6ff;
+    --link-visited: #ba9cff;
+    --focus: #60c2ff;
+    --shadow-1: 0 1px 2px rgba(0,0,0,.4), 0 6px 16px rgba(0,0,0,.35);
+  }
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; }
+
+/* Constrain sections without adding classes */
+header, main, footer {
+  width: min(var(--container), 100% - (var(--gutter) * 2));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Vertical rhythm */
+header { padding-block: 1.25rem; }
+main   { padding-block: 1rem 2rem; }
+footer { padding-block: 1.25rem 2rem; border-top: 1px solid var(--line); }
+
+/* Headings: clear hierarchy, generous whitespace */
+h1, h2, h3 {
+  line-height: 1.25;
+  margin-block: 0.6em 0.35em;
+}
+h1 { font-size: clamp(var(--step-2), 3.5vw, var(--step-3)); }
+h2 { font-size: clamp(1.15rem, 2.2vw, var(--step-2)); }
+h3 { font-size: clamp(1.05rem, 1.8vw, var(--step-1)); }
+
+/* Paragraphs & lists */
+p { margin-block: 0.75em; }
+ul { margin: 0.75em 0 1.25em; padding-left: 1.25rem; }
+li + li { margin-top: 0.25em; }
+
+/* Links: accessible contrast, clear states */
+a {
+  color: var(--link);
+  text-underline-offset: 0.14em;
+  text-decoration-thickness: 1.5px;
+}
+a:visited { color: var(--link-visited); }
+a:hover, a:focus { text-decoration-thickness: 2px; }
+
+/* Focus visibility */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link (targets your existing anchor to #main) */
+a[href="#main"] {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--focus);
+  border-radius: 6px;
+  box-shadow: var(--shadow-1);
+}
+a[href="#main"]:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 1000;
+}
+
+/* Figure treatment (hero image) */
+figure {
+  margin: 0 0 1rem 0;
+  border-radius: var(--radius);
+  overflow: clip;
+  box-shadow: var(--shadow-1);
+}
+figcaption {
+  font-size: var(--step--1);
+  color: var(--muted);
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid var(--line);
+  background: color-mix(in oklab, var(--bg) 92%, var(--text));
+}
+
+/* Navigation lists (keep semantic UL but make them tidy) */
+header nav ul,
+main nav ul {
+  list-style: none;
+  padding: 0;
+}
+header nav ul li,
+main nav ul li { margin: 0.35rem 0; }
+
+/* Project list: readable grid without extra markup */
+#projects + p { color: var(--muted); }
+
+section#projects ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  margin-block: 0.75rem 1.5rem;
+}
+
+section#projects li {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  background: color-mix(in oklab, var(--bg) 96%, var(--text));
+  box-shadow: var(--shadow-1);
+}
+
+section#projects li a {
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Microcopy tone */
+footer p { color: var(--muted); }
+
+/* Motion safety */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* Print: simple, ink-friendly */
+@media print {
+  a { color: black; text-decoration: underline; }
+  figure, img { box-shadow: none !important; }
+  header, main, footer {
+    width: 100%;
+    margin: 0;
+    padding-inline: 0;
+  }
+}
