@@ -10,17 +10,17 @@
 
 # ludus•scrinium — roadmap
 
-![LS Week](https://img.shields.io/badge/ls%20week-3%2F44-informational)
+![LS Week](https://img.shields.io/badge/ls%20week-1%2F44-informational)
 ![LS Complete](https://img.shields.io/badge/sprint%20complete-25%25-red)
 
 ## phase 1 — setup (weeks 1–6)
 <!-- LS:ROADMAP_WIDGET_START -->
 ### current sprint window (weeks 1–4)
-- **week 1 (now)**
+- week 1
   - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards!*
 - week 2
   - [x] prototype surface for playLens (demo clip) • [A/B demo](https://www.linkedin.com/posts/activity-7386397223867072513-kUua?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E) • *a measured example of QA/UX thinking.*
-- week 3
+- **week 3 (now)**
   - [ ] asset fields & tags (100-sample table)
 - week 4
   - [ ] basic search & filters (live view)
