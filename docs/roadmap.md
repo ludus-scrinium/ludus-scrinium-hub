@@ -1,64 +1,99 @@
+---
+title: Ludus • Scrinium — Roadmap
+description: Multi-phase, 44-week development roadmap for the Ludus Scrinium portfolio lab. Tracks current sprints, milestones, and completion progress.
+---
+
 <p align="center">
-  <img src="./hero.png" alt="LUDUS SCRINIUM — roadmap" width="820">
+  <img src="./hero.png" alt="Ludus Scrinium — project roadmap banner" width="820">
 </p>
 
 <p align="center">
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
-    <img src="https://img.shields.io/badge/←%20back%20to%20home-111?style=for-the-badge" alt="back to home">
+    <img src="https://img.shields.io/badge/←%20Back%20to%20Hub-111?style=for-the-badge" alt="Back to hub">
   </a>
 </p>
 
-# ludus•scrinium — roadmap
+# Ludus • Scrinium — Roadmap
 
-![LS Week](https://img.shields.io/badge/ls%20week-1%2F44-informational)
-![LS Complete](https://img.shields.io/badge/sprint%20complete-25%25-red)
+![LS Week](https://img.shields.io/badge/LS%20Week-1%2F44-informational)
+![LS Complete](https://img.shields.io/badge/Sprint%20Complete-25%25-red)
 
-## phase 1 — setup (weeks 1–6)
+---
+
+## Phase 1 — Setup (Weeks 1-6)
+
+### Current Sprint Window (Weeks 1-4)
 <!-- LS:ROADMAP_WIDGET_START -->
-### current sprint window (weeks 1–4)
-- week 1
-  - [x] hub, repos scaffolded • [test out hub links!](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md) • *producer's note: as a first time github user, this was dizzying, but gratifying work. onwards!*
-- week 2
-  - [x] prototype surface for playLens (demo clip) • [A/B demo](https://www.linkedin.com/posts/activity-7386397223867072513-kUua?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E) • *a measured example of QA/UX thinking.*
-- **week 3 (now)**
-  - [ ] asset fields & tags (100-sample table)
-- week 4
-  - [ ] basic search & filters (live view)
 
-**overall:** 25% complete across 4 goals
+- week 1  
+  - [x] Hub and repos scaffolded  
+  - [x] Verified all hub links — [view hub README](https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md)  
+  - _Producer’s note:_ first-time GitHub setup was dizzying but gratifying.
+
+- week 2  
+  - [x] Prototype surface for PlayLens (demo clip)  
+  - [x] Published [A/B demo on LinkedIn](https://www.linkedin.com/posts/activity-7386397223867072513-kUua)  
+  - _A measured example of QA / UX thinking._
+
+- week 3  
+  - [ ] Asset Atlas: field definitions + 100-sample table
+
+- week 4  
+  - [ ] Basic search and filter prototype (live view)
+
+**Overall:** 25 % complete across 4 goals
 <!-- LS:ROADMAP_WIDGET_END -->
 
-- [] week 5: usability test plan + pilots
-- [] week 6: producer’s almanac templates
+- [ ] week 5 — Usability test plan + pilot sessions  
+- [ ] week 6 — Producer’s Almanac templates v1
 
-## phase 2 — core systems (weeks 7–18)
-- milestone A: playlens v1 shipped (before/after results)
-- milestone B: asset atlas v1 searchable
+---
 
-## phase 3 — player signal (weeks 19–26)
-- milestone C: patch notes oracle v1 with triage
+## Phase 2 — Core Systems (Weeks 7-18)
 
-## phase 4 — content at scale (weeks 27–34)
-- milestone D: localization conveyor v1 live
+**Milestones**
+- A  PlayLens v1 shipped (before / after results)  
+- B  Asset Atlas v1 searchable prototype
 
-## phase 5 — integrate & polish (weeks 35–40)
-- milestone E: all systems connected; studio packet
+---
 
-## phase 6 — validate & ship (weeks 41–44)
-- milestone F: public demo + testimonials
+## Phase 3 — Player Signal (Weeks 19-26)
 
-### Latest demos
-- *tbd*
+**Milestone C** — Patch Notes Oracle v1 with triage dashboard
+
+---
+
+## Phase 4 — Content at Scale (Weeks 27-34)
+
+**Milestone D** — Localization Conveyor v1 live with multi-region QA
+
+---
+
+## Phase 5 — Integrate & Polish (Weeks 35-40)
+
+**Milestone E** — All systems connected; studio packet assembled
+
+---
+
+## Phase 6 — Validate & Ship (Weeks 41-44)
+
+**Milestone F** — Public demo + testimonials released
+
+---
+
+### Latest Demos
+*(to be added)*
+
+---
 
 <p align="center">
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
-    <img src="./heropfp.png" alt="heropfp" width="120">
+    <img src="./heropfp.png" alt="Kaosisochi Unini avatar linking back to hub" width="120">
   </a>
 </p>
 
 <p align="center">
   <a href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/README.md">
-    <img src="https://img.shields.io/badge/back%20to%20hub-111?style=for-the-badge" alt="back to hub">
+    <img src="https://img.shields.io/badge/Back%20to%20Hub-111?style=for-the-badge" alt="Back to hub">
   </a>
 </p>
-
