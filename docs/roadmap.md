@@ -22,7 +22,7 @@ description: Multi-phase, 44-week development roadmap for the Ludus Scrinium por
 
 ## Phase 1 — Setup (Weeks 1-6)
 
-### Current Sprint Window
+### Current Sprint Window (Weeks 1-4)
 <!-- LS:ROADMAP_WIDGET_START -->
 
 - week 1  
@@ -41,7 +41,7 @@ description: Multi-phase, 44-week development roadmap for the Ludus Scrinium por
 - week 4  
   - [ ] Basic search and filter prototype (live view)
 
-**Overall:** 25 % complete across 4 goals
+**Overall:** 50 % complete across 4 goals
 <!-- LS:ROADMAP_WIDGET_END -->
 
 - [ ] week 5 — Usability test plan + pilot sessions  
