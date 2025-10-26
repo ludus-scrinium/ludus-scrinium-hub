@@ -16,7 +16,7 @@ description: Multi-phase, 44-week development roadmap for the Ludus Scrinium por
 # Ludus • Scrinium — Roadmap
 
 ![LS Week](https://img.shields.io/badge/LS%20Week-3%2F44-informational)
-![LS Complete](https://img.shields.io/badge/Sprint%20Complete-50%50-red)
+![LS Complete](https://img.shields.io/badge/Sprint%20Complete-50%20-red)
 
 ---
 
