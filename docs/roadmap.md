@@ -1,8 +1,3 @@
----
-title: Ludus • Scrinium — Roadmap
-description: Multi-phase, 44-week development roadmap for the Ludus Scrinium portfolio lab. Tracks current sprints, milestones, and completion progress.
----
-
 <p align="center">
   <img src="./hero.png" alt="Ludus Scrinium — project roadmap banner" width="820">
 </p>
