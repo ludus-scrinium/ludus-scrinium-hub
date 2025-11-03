@@ -10,8 +10,8 @@
 
 # Ludus • Scrinium — Roadmap
 
-![LS Week](https://img.shields.io/badge/LS%20Week-3%2F44-informational)
-![LS Complete](https://img.shields.io/badge/Sprint%20Complete-50%25-red)
+![LS Week](https://img.shields.io/badge/LS%20Week-4%2F44-informational)
+![LS Complete](https://img.shields.io/badge/Sprint%20Complete-75%25-red)
 
 ---
 
@@ -31,12 +31,12 @@
   - _A measured example of QA / UX thinking._
 
 - week 3  
-  - [ ] Asset Atlas: field definitions + 100-sample table
+  - [x] Asset Atlas: field definitions + 100-sample table
 
 - week 4  
   - [ ] Basic search and filter prototype (live view)
 
-**Overall:** 50 % complete across 4 goals
+**Overall:** 75 % complete across 4 goals
 <!-- LS:ROADMAP_WIDGET_END -->
 
 - [ ] week 5 — Usability test plan + pilot sessions  
