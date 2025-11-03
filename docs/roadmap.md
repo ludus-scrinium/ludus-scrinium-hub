@@ -32,7 +32,7 @@
 
 - week 3  
   - [x] Asset Atlas: field definitions + 100-sample table
-  - [ ] Published ["Can You Find the Right File in Under 10 Seconds?"](https://www.linkedin.com/posts/kaosisochiunini_can-you-find-the-right-file-in-under-10-seconds-activity-7391123099137556480-gJZL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E)
+  - [x] Published ["Can You Find the Right File in Under 10 Seconds?"](https://www.linkedin.com/posts/kaosisochiunini_can-you-find-the-right-file-in-under-10-seconds-activity-7391123099137556480-gJZL?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E)
   - _The fun is just getting started._
 
 - week 4  
