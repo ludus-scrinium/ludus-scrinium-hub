@@ -11,7 +11,7 @@
 # Ludus • Scrinium — Roadmap
 
 ![LS Week](https://img.shields.io/badge/LS%20Week-4%2F44-informational)
-![LS Complete](https://img.shields.io/badge/Sprint%20Complete-75%25-red)
+![LS Complete](https://img.shields.io/badge/Sprint%20Complete-100%25-red)
 
 ---
 
@@ -36,9 +36,11 @@
   - _The fun is just getting started._
 
 - week 4  
-  - [ ] Basic search and filter prototype (live view)
+  - [x] Basic search and filter prototype (live view)
+  - [x] Published on [LinkedIn](https://www.linkedin.com/posts/kaosisochiunini_knowledgemanagement-powerapps-uxdesign-activity-7392295811327483904-p_RA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEhkRbcBPZstiRXdx_spRDVzp8Nmq3zUs8E)
+  - _Unexpected roadblocks and redirection._
 
-**Overall:** 75 % complete across 4 goals
+**Overall:** 100 % complete across 4 goals
 <!-- LS:ROADMAP_WIDGET_END -->
 
 - [ ] week 5 — Usability test plan + pilot sessions  
