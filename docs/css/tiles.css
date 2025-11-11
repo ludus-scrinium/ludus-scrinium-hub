@@ -8,7 +8,7 @@
   --ink-dim: #B8B3AA;
   --accent: #E1C699;
   --card-w: min(62vw, 520px);
-  --card-h: calc(var(--card-w) * 5 / 3); /* 3:5 ratio portrait */
+  --card-h: calc(var(--card-w) * 5 / 3); /* 3:5 portrait */
   --radius: 18px;
 
   /* Motion brand (Val Head course mapping) */
@@ -88,14 +88,31 @@ body.starfield::after{
   font-size: .95rem;
   opacity: .8;
 }
-.animate-rise{
+
+/* ============================= */
+/* Reveal-on-scroll visibility   */
+/* Default visible; JS enables   */
+/* animation state (safety)      */
+/* ============================= */
+.no-js .reveal .card,
+.no-js .reveal .hero__inner,
+.no-js .reveal .site-footer{
+  /* visible when JS missing */
+  opacity: 1;
+  transform: none;
+}
+
+.js .reveal .card,
+.js .reveal .hero__inner,
+.js .reveal .site-footer{
+  opacity: 0;
+  transform: translateY(40px) scale(.96);
+}
+.js .reveal.revealed .card,
+.js .reveal.revealed .hero__inner,
+.js .reveal.revealed .site-footer{
   animation: riseIn 900ms var(--ease-hero) both;
-}
-.animate-rise-delayed{
-  animation: riseIn 900ms var(--ease-hero) 120ms both;
-}
-.animate-rise-more{
-  animation: riseIn 900ms var(--ease-hero) 240ms both;
+  animation-delay: calc(var(--stagger) * 1ms);
 }
 
 /* ===================== */
@@ -118,7 +135,7 @@ body.starfield::after{
   opacity:.7;
 }
 
-/* Flip toggle (screen-reader accessible, visually hidden) */
+/* Flip toggle (accessible hidden) */
 .flip-toggle{
   position:absolute !important;
   width:1px; height:1px;
@@ -138,16 +155,14 @@ body.starfield::after{
   position:relative;
   filter: drop-shadow(0 12px 40px rgba(0,0,0,.45));
 }
-/* random shimmer ripple offsets set inline via --shimmer-delay */
 
+/* Inner / flip */
 .card__inner{
   position:relative;
   width:100%; height:100%;
   transform-style: preserve-3d;
   transition: transform 700ms var(--ease-hero);
 }
-
-/* Flip on :checked */
 .flip-toggle:checked + .card .card__inner{
   transform: rotateY(180deg);
 }
@@ -169,10 +184,10 @@ body.starfield::after{
   object-fit: cover;
   display:block;
   opacity: .98;
-  transform: translateZ(0); /* GPU hint */
+  transform: translateZ(0);
 }
 
-/* Shimmer overlay (CSS, not baked into image) */
+/* Shimmer overlay (CSS) */
 .shimmer::after{
   content:"";
   position:absolute; inset:-20%;
@@ -212,7 +227,7 @@ body.starfield::after{
   white-space: nowrap; overflow: hidden;
 }
 
-/* Type-on line using steps() — course pattern */
+/* Type-on line using steps() — fixed width units */
 .type-line{
   display:inline-block;
   width: 0ch;
@@ -241,21 +256,7 @@ body.starfield::after{
 .btn:hover, .btn:focus{ transform: translateY(-1px) scale(1.02); background: rgba(225,198,153,.24); }
 .btn--ghost{ background: transparent; }
 
-/* Reveal-on-scroll (Val Head: delay + fill-mode both) */
-.reveal .card,
-.reveal .hero__inner,
-.reveal .site-footer{
-  opacity: 0;
-  transform: translateY(40px) scale(.96);
-}
-.reveal.revealed .card,
-.reveal.revealed .hero__inner,
-.reveal.revealed .site-footer{
-  animation: riseIn 900ms var(--ease-hero) both;
-  animation-delay: calc(var(--stagger) * 1ms);
-}
-
-/* Coda (two-tile grid, gentler float-in) */
+/* Coda (two-tile grid, gentler motion) */
 .coda{
   min-height: 80vh;
   display:grid;
@@ -263,26 +264,22 @@ body.starfield::after{
   gap: 1.2rem;
   padding: 4rem 1.25rem 6rem;
 }
-.coda__card{
-  display:grid; place-items:center;
-}
+.coda__card{ display:grid; place-items:center; }
 @media (min-width: 920px){
   .coda{
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
   }
 }
-.card--mini{
-  --card-w: min(46vw, 420px);
-}
+.card--mini{ --card-w: min(46vw, 420px); }
 
-/* Coda reveal tone */
-.reveal.coda.revealed .card{
+/* Coda reveal tone (no overshoot) */
+.js .reveal.coda.revealed .card{
   animation: floatIn 650ms var(--ease-coda) both;
   animation-delay: calc( (var(--stagger) + (var(--index,0) * 60)) * 1ms);
 }
 
-/* Keyframes (from course) */
+/* Keyframes (course) */
 @keyframes riseIn{
   0%   { opacity: 0; transform: translateY(40px) scale(.96); }
   85%  { opacity: 1; transform: translateY(-4px) scale(1.02); }
@@ -293,8 +290,8 @@ body.starfield::after{
   to   { opacity:1; transform: translateY(0); }
 }
 
-/* Typing + cursor (steps()) */
-@keyframes typing{ from{ width: 0ch; } to{ width: var(--chars); } }
+/* Typing + cursor (steps()) — unit fix */
+@keyframes typing{ from{ width: 0ch; } to{ width: calc(var(--chars) * 1ch); } }
 @keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
 /* Reduced motion */
@@ -302,16 +299,11 @@ body.starfield::after{
   *{ animation: none !important; transition: none !important; }
 }
 
-/* Small helpers */
+/* Footer */
 .site-footer{
   text-align:center;
   padding: 3rem 1.25rem 4rem;
   color: var(--ink-dim);
-  font-size:.9rem;
+  font-size:. nine;
 }
 
-/* Accessibility: focus ring on card */
-.card:focus-visible{
-  outline: 3px solid rgba(225,198,153,.6);
-  outline-offset: 6px;
-}
