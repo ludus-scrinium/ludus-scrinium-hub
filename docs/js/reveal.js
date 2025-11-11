@@ -1,7 +1,9 @@
-/* IntersectionObserver that toggles .revealed and sets stagger + index.
-   Keeps animation logic purely in CSS (per Val Head’s approach). */
-
+/* Reveal-on-scroll helper (class-based, content safe by default) */
 (function () {
+  // Switch html.no-js -> .js so CSS knows animations are allowed
+  document.documentElement.classList.remove('no-js');
+  document.documentElement.classList.add('js');
+
   const reveals = document.querySelectorAll('.reveal');
 
   // Provide per-section stagger from data attribute
@@ -19,7 +21,6 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        // Unobserve once revealed to avoid retrigger
         io.unobserve(entry.target);
       }
     });
