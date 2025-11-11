@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ludus Scrinium — Tarot Landing (Preview)</title>
+  <link rel="preload" href="assets/cards/playlens-front.webp" as="image" imagesrcset="assets/cards/playlens-front.webp" />
+  <link rel="stylesheet" href="css/tiles.css" />
+</head>
+<body class="starfield">
+
+  <!-- Hero -->
+  <header class="hero reveal" data-stagger="0">
+    <div class="hero__inner">
+      <h1 class="hero__title animate-rise">ludus • scrinium</h1>
+      <p class="hero__tag animate-rise-delayed">a calm, dramatic portfolio of game knowledge & systems</p>
+      <a class="hero__cta animate-rise-more" href="index.html">Back to current site</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO CARD 1 : PlayLens -->
+    <section class="tarot reveal" data-stagger="80">
+      <!-- Flip toggle (CSS-only) -->
+      <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" />
+      <label for="flip-playlens" class="card" id="card-playlens" data-index="1" aria-label="Open PlayLens card">
+        <div class="card__inner">
+          <!-- Front (visual only) -->
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
+            <img
+              src="assets/cards/playlens-front.webp"
+              alt="PlayLens tarot front — abstract gradient art"
+              width="1200" height="2000" loading="lazy" />
+          </figure>
+
+          <!-- Back (HTML/CSS only) -->
+          <article class="card__face card__back">
+            <h2 class="back__title">PlayLens — Screen Flow A/B</h2>
+            <p class="back__line" aria-label="Continuous improvement in A/B testing.">
+              <span class="type-line" style="--chars: 34;">Continuous improvement in A/B testing.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/playlens" target="_blank" rel="noopener">Open repo</a>
+              <a class="btn btn--ghost" href="docs/roadmap.html#playlens">See roadmap</a>
+            </nav>
+          </article>
+        </div>
+      </label>
+      <p class="tap-hint">tap / click to flip</p>
+    </section>
+
+    <!-- HERO CARD 2 : Asset Atlas -->
+    <section class="tarot reveal" data-stagger="120">
+      <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" />
+      <label for="flip-asset" class="card" id="card-asset" data-index="2" aria-label="Open Asset Atlas card">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 3.1s;">
+            <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot front — abstract gradient art"
+                 width="1200" height="2000" loading="lazy" />
+          </figure>
+          <article class="card__face card__back">
+            <h2 class="back__title">Asset Atlas</h2>
+            <p class="back__line" aria-label="Make game files easy to find and reuse.">
+              <span class="type-line" style="--chars: 36;">Make game files easy to find and reuse.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/asset-atlas" target="_blank" rel="noopener">Open repo</a>
+              <a class="btn btn--ghost" href="docs/roadmap.html#asset-atlas">See roadmap</a>
+            </nav>
+          </article>
+        </div>
+      </label>
+      <p class="tap-hint">tap / click to flip</p>
+    </section>
+
+    <!-- HERO CARD 3 : Patch Notes Oracle -->
+    <section class="tarot reveal" data-stagger="160">
+      <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" />
+      <label for="flip-oracle" class="card" id="card-oracle" data-index="3" aria-label="Open Patch Notes Oracle card">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 2.2s;">
+            <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot front — abstract gradient art"
+                 width="1200" height="2000" loading="lazy" />
+          </figure>
+          <article class="card__face card__back">
+            <h2 class="back__title">Patch Notes Oracle</h2>
+            <p class="back__line" aria-label="Turn player comments into a realistic dev to-do list.">
+              <span class="type-line" style="--chars: 52;">Turn player comments into a realistic dev to-do list.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/patch-notes-oracle" target="_blank" rel="noopener">Open repo</a>
+              <a class="btn btn--ghost" href="docs/roadmap.html#patch-notes-oracle">See roadmap</a>
+            </nav>
+          </article>
+        </div>
+      </label>
+      <p class="tap-hint">tap / click to flip</p>
+    </section>
+
+    <!-- HERO CARD 4 : Creator Ops Kit -->
+    <section class="tarot reveal" data-stagger="200">
+      <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" />
+      <label for="flip-creator" class="card" id="card-creator" data-index="4" aria-label="Open Creator Ops Kit card">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 4.4s;">
+            <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot front — abstract gradient art"
+                 width="1200" height="2000" loading="lazy" />
+          </figure>
+          <article class="card__face card__back">
+            <h2 class="back__title">Creator Ops Kit</h2>
+            <p class="back__line" aria-label="Safe fan content intake + review + recognition tiers.">
+              <span class="type-line" style="--chars: 56;">Safe fan content intake + review + recognition tiers.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/creator-ops-kit" target="_blank" rel="noopener">Open repo</a>
+              <a class="btn btn--ghost" href="docs/roadmap.html#creator-ops-kit">See roadmap</a>
+            </nav>
+          </article>
+        </div>
+      </label>
+      <p class="tap-hint">tap / click to flip</p>
+    </section>
+
+    <!-- CODA : Two-tile grid with gentler motion -->
+    <section class="coda reveal" data-stagger="140">
+      <!-- Localization Conveyor -->
+      <div class="coda__card">
+        <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" />
+        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="5" aria-label="Open Localization Conveyor card">
+          <div class="card__inner">
+            <figure class="card__face card__front shimmer" style="--shimmer-delay: 5.8s;">
+              <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot front — abstract gradient art"
+                   width="1200" height="2000" loading="lazy" />
+            </figure>
+            <article class="card__face card__back">
+              <h2 class="back__title">Localization Conveyor</h2>
+              <p class="back__fade">Moving text from: write → translate → QA → ship</p>
+              <nav class="back__cta">
+                <a class="btn" href="https://github.com/ludus-scrinium/localization-conveyor" target="_blank" rel="noopener">Open repo</a>
+                <a class="btn btn--ghost" href="docs/roadmap.html#localization-conveyor">See roadmap</a>
+              </nav>
+            </article>
+          </div>
+        </label>
+      </div>
+
+      <!-- Producer's Almanac -->
+      <div class="coda__card">
+        <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" />
+        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="6" aria-label="Open Producer’s Almanac card">
+          <div class="card__inner">
+            <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
+              <img src="assets/cards/producers-almanac-front.webp" alt="Producer’s Almanac tarot front — abstract gradient art"
+                   width="1200" height="2000" loading="lazy" />
+            </figure>
+            <article class="card__face card__back">
+              <h2 class="back__title">Producer’s Almanac</h2>
+              <p class="back__fade">Decisions, retros, and templates you can reuse.</p>
+              <nav class="back__cta">
+                <a class="btn" href="https://github.com/ludus-scrinium/producers-almanac" target="_blank" rel="noopener">Open repo</a>
+                <a class="btn btn--ghost" href="docs/roadmap.html#producers-almanac">See roadmap</a>
+              </nav>
+            </article>
+          </div>
+        </label>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer reveal" data-stagger="0">
+    <small>© Ludus Scrinium — calm systems, dramatic clarity.</small>
+  </footer>
+
+  <script src="js/reveal.js" defer></script>
+</body>
+</html>
