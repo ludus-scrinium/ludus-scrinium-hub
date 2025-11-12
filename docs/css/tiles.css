@@ -254,11 +254,8 @@ body.starfield::after{
   }
 }
 @media (max-width: 480px){
-  .type-line{
-    width: auto !important;
-    animation: none !important;
-  }
-  .cursor{ display: none; } /* optional: remove blinking bar for cleaner wrap */
+  .hero .type-line{ animation: none !important; width: auto !important; }
+  .hero .cursor{ display:none; }
 }
 /* Type-on line using steps() — unit fix */
 .type-line{
@@ -361,6 +358,7 @@ body.starfield::after{
     opacity: 1 !important;
     transform: none !important;
   }
+}
 
 /* Footer */
 .site-footer{
