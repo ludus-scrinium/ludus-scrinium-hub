@@ -102,15 +102,19 @@ body.starfield::after{
   transform: none;
 }
 
+/* hidden until JS reveals */
 .js .reveal .card,
 .js .reveal .hero__inner,
-.js .reveal .site-footer{
+.js .reveal .site-footer,
+.js .reveal.site-footer {              /* add this line */
   opacity: 0;
   transform: translateY(40px) scale(.96);
 }
+/* animate when revealed */
 .js .reveal.revealed .card,
 .js .reveal.revealed .hero__inner,
-.js .reveal.revealed .site-footer{
+.js .reveal.revealed .site-footer,
+.js .reveal.revealed.site-footer {     /* add this line */
   animation: riseIn 900ms var(--ease-hero) both;
   animation-delay: calc(var(--stagger) * 1ms);
 }
@@ -297,6 +301,14 @@ body.starfield::after{
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
+  /* make sure reveal items still show */
+  .js .reveal .card,
+  .js .reveal .hero__inner,
+  .js .reveal .site-footer,
+  .js .reveal.site-footer {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Footer */
