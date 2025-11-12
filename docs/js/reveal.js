@@ -10,6 +10,11 @@
     if (!el.style.getPropertyValue('--chars')) {
       el.style.setProperty('--chars', String(el.textContent.length));
     }
+  // Adjust typing duration to match text length
+  document.querySelectorAll('.type-line').forEach(el => {
+    const chars = parseInt(el.style.getPropertyValue('--chars')) || el.textContent.length;
+    const msPerChar = 45; // tweak: smaller = faster typing
+    el.style.animationDuration = `${chars * msPerChar}ms`; 
   });
 
   // Pass stagger into CSS var
