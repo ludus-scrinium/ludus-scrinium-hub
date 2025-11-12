@@ -250,7 +250,7 @@ body.starfield::after{
 .back__line{
   margin:0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  white-space: nowrap; overflow: hidden; padding-right: 1ch;
+  white-space: nowrap; overflow: hidden; padding-right: 1ch; letter-spacing: normal;
 }
 
 /* Mobile: allow wrapping so long lines don't clip (course: guard rails for small viewports) */
@@ -275,12 +275,6 @@ body.starfield::after{
   }
   .card .back__line .type-line { animation-play-state: paused; width: auto; display: inline; }
   .card .back__line .cursor { animation-play-state: running; }
-}
-
-@media (min-width: 481px){
-  .card .back__line .type-line {
-    max-width: calc(38 * 1ch); /* tweak number as needed */
-  }
 }
 
 /* Type-on line using steps() — accurate unit & fill */
