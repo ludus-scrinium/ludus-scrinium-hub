@@ -187,13 +187,14 @@ body.starfield::after{
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
+  will-change: transform;
 }
 
 .card__front{
   display:grid; place-items: center;
   background: rgba(0,0,0,.08);
-  transform: rotateY(0deg);
-  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg) translateZ(1px);    /* push slightly forward */
+  -webkit-transform: rotateY(0deg) translateZ(1px);
 }
 .card__front img{
   width:100%; height:100%;
@@ -228,8 +229,8 @@ body.starfield::after{
     radial-gradient(80% 60% at 50% 10%, rgba(255,255,255,.05), transparent 60%),
     rgba(12,18,30,.92);
   border: 1px solid rgba(225,198,153,.22);
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px);  /* match layer depth */
+  -webkit-transform: rotateY(180deg) translateZ(1px);
   display:grid;
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
@@ -251,6 +252,13 @@ body.starfield::after{
     overflow: visible;           /* NEW */
     word-break: break-word;      /* NEW: prevent overflow on long tokens */
   }
+}
+@media (max-width: 480px){
+  .type-line{
+    width: auto !important;
+    animation: none !important;
+  }
+  .cursor{ display: none; } /* optional: remove blinking bar for cleaner wrap */
 }
 /* Type-on line using steps() — unit fix */
 .type-line{
