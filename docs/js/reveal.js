@@ -12,7 +12,7 @@
   // -----------------------------
   const lines = Array.from(document.querySelectorAll('.type-line'));
 
-  // 1) Ensure --chars exists for every line
+  // 1) Ensure --chars exists for every line (course: steps() needs correct count)
   lines.forEach(el => {
     if (!el.style.getPropertyValue('--chars')) {
       el.style.setProperty('--chars', String(el.textContent.length));
@@ -42,16 +42,16 @@
     el.style.animationName = 'typingPx';     // hero uses px-accurate typing
   });
 
-  // 4) Cascade hero lines: title → tagline
+  // 4) Cascade hero lines: title → tagline (course: deliberate sequencing)
   (function cascadeHero() {
     const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
     if (!heroLines.length) return;
 
-    let offset = 120; // small lead-in before first keystroke
+    let offset = 160; // small lead-in before first keystroke
     heroLines.forEach(el => {
       const dur = parseInt(el.dataset._dur || '0');
       el.style.animationDelay = `${offset}ms`;
-      offset += dur + 160; // gap between lines
+      offset += dur + 180; // gap between lines (breath)
     });
   })();
 
