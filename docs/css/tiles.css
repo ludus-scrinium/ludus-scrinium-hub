@@ -12,10 +12,10 @@
   --card-h: calc(var(--card-w) * 5 / 3); /* 3:5 portrait */
   --radius: 18px;
 
-  /* Motion brand (Val Head course mapping) */
-  --ease-hero: cubic-bezier(0.19, 1, 0.22, 1); /* dramatic ease-in-out (expressive) */
-  --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1); /* gentle ease-out (rest)  */
-  --ease-overshoot: cubic-bezier(0.68, -0.55, 0.27, 1.55); /* course: overshoot */
+  /* Motion tokens (per course) */
+  --ease-hero: cubic-bezier(0.19, 1, 0.22, 1);           /* expressive in-out */
+  --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1);      /* gentle ease-out   */
+  --ease-overshoot: cubic-bezier(0.68, -0.55, 0.27, 1.55);/* back/overshoot   */
 }
 
 /* Base */
@@ -120,7 +120,7 @@ body.starfield::after{
 .js.reveal-ready .reveal.revealed.site-footer{
   opacity: 1;
   transform: none;
-  animation: riseIn 900ms var(--ease-hero) both; /* fill-mode: both (course) */
+  animation: riseIn 900ms var(--ease-hero) both;
   animation-delay: calc(var(--stagger) * 1ms);
 }
 
@@ -160,15 +160,16 @@ body.starfield::after{
   border-radius: var(--radius);
   cursor:pointer;
   perspective: 1600px;
-  will-change: transform;
   display:block;
   position:relative;
-  filter: drop-shadow(0 12px 40px rgba(0,0,0,.45));
-  transition: transform 220ms ease-out; /* subtle hover lift */
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,.42));
+  transition: transform 220ms var(--ease-coda);
 }
 
-/* Micro-interaction: a tiny tilt cue (course: “motion communicates affordance”) */
-.card:hover{
+/* Micro-interaction: a tiny tilt cue */
+.card:hover,
+.card:focus-visible{
+  outline: none;
   transform: translateY(-2px) rotateZ(-0.25deg);
 }
 
@@ -178,8 +179,7 @@ body.starfield::after{
   width:100%; height:100%;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  transition: transform 700ms var(--ease-overshoot); /* overshoot feel per course */
-  will-change: transform;
+  transition: transform 700ms var(--ease-overshoot);
 }
 .flip-toggle:checked + .card .card__inner{
   transform: rotateY(180deg);
@@ -194,13 +194,12 @@ body.starfield::after{
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transform: translateZ(0);
-  will-change: transform;
 }
 
 .card__front{
   display:grid; place-items: center;
   background: rgba(0,0,0,.08);
-  transform: rotateY(0deg) translateZ(1px);    /* push slightly forward */
+  transform: rotateY(0deg) translateZ(1px);
   -webkit-transform: rotateY(0deg) translateZ(1px);
 }
 .card__front img{
@@ -208,11 +207,9 @@ body.starfield::after{
   object-fit: cover;
   display:block;
   opacity: .98;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
-/* Shimmer overlay (CSS) */
+/* Shimmer overlay */
 .shimmer::after{
   content:"";
   position:absolute; inset:-20%;
@@ -236,7 +233,7 @@ body.starfield::after{
     radial-gradient(80% 60% at 50% 10%, rgba(255,255,255,.05), transparent 60%),
     rgba(12,18,30,.92);
   border: 1px solid rgba(225,198,153,.22);
-  transform: rotateY(180deg) translateZ(1px);  /* match layer depth */
+  transform: rotateY(180deg) translateZ(1px);
   -webkit-transform: rotateY(180deg) translateZ(1px);
   display:grid;
   grid-template-rows: auto auto 1fr;
@@ -253,28 +250,26 @@ body.starfield::after{
   white-space: nowrap; overflow: hidden; padding-right: 1ch; letter-spacing: normal;
 }
 
-/* Mobile: allow wrapping so long lines don't clip (course: guard rails for small viewports) */
+/* Mobile: consolidate into one block */
 @media (max-width: 480px){
   .back__line{
     white-space: normal;
     overflow: visible;
     word-break: break-word;
   }
-}
-
-/* Keep hero typing on mobile but reduce fuss: hide cursor only */
-@media (max-width: 480px){
+  .card .back__line .type-line { animation-play-state: paused; width: auto; display: inline; }
+  .card .back__line .cursor { animation-play-state: running; }
   .hero .cursor{ display: none; }
 }
 
-/* Simpler mobile motion: pause type-on, keep cursor */
-@media (max-width: 480px){
-  .card .back__line{
-    white-space: normal;      /* was nowrap */
-    overflow: visible;        /* was hidden */
+/* Desktop-only coda friendliness (optional; JS auto-wrap also handles this) */
+@media (min-width: 921px){
+  .coda .back__line.wrap{
+    white-space: normal;
+    overflow: visible;
+    word-break: break-word;
   }
-  .card .back__line .type-line { animation-play-state: paused; width: auto; display: inline; }
-  .card .back__line .cursor { animation-play-state: running; }
+  .coda .back__line.wrap .type-line{ animation: none; width: auto; display: inline; }
 }
 
 /* Type-on line using steps() — accurate unit & fill */
@@ -282,41 +277,35 @@ body.starfield::after{
   display:inline-block;
   width: 0ch;
   animation: typing 1200ms steps(var(--chars)) 240ms both;
-  animation-play-state: paused;               /* don’t run until triggered */
+  animation-play-state: paused;
 }
-
 /* Start typing only when the card back is visible */
 .flip-toggle:checked + .card .card__back .type-line{
   animation-play-state: running;
 }
 
-/* Hero: pixel-accurate typing (course: steps() + cubic-bezier via JS) */
+/* Hero: pixel-accurate typing */
 .hero .type-line{
   white-space: nowrap;
   display: inline-block;
   width: 0;                    /* will animate to measured px width */
   animation-name: typingPx;    /* JS sets duration & delay */
   animation-timing-function: steps(var(--chars));
-  animation-fill-mode: both;   /* backwards for the pre-delay, forwards to hold */
+  animation-fill-mode: both;
   animation-play-state: paused;
 }
-.hero.revealed .type-line{
-  animation-play-state: running;  /* start when hero is revealed */
-}
+.hero.revealed .type-line{ animation-play-state: running; }
 
-/* Blinking caret (course: steps(1) for distinct holds) */
+/* Blinking caret */
 .cursor{
   display:inline-block;
   margin-left: .1ch;
   animation: blink .8s steps(1) infinite;
   opacity:.9;
 }
+@keyframes typingPx{ from { width: 0; } to { width: var(--px); } }
 
-@keyframes typingPx{
-  from { width: 0; }
-  to   { width: var(--px); }   /* JS measures true pixel width */
-}
-
+/* Back CTAs */
 .back__cta{
   align-self:end;
   display:flex; gap:.6rem; flex-wrap: wrap;
@@ -329,9 +318,10 @@ body.starfield::after{
   color: var(--ink);
   text-decoration:none;
   border: 1px solid rgba(225,198,153,.28);
-  transition: transform 150ms ease-out, background 150ms ease-out;
+  transition: transform 150ms var(--ease-coda), background 150ms var(--ease-coda);
 }
-.btn:hover, .btn:focus{ transform: translateY(-1px) scale(1.02); background: rgba(225,198,153,.24); }
+.btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn:hover, .btn:focus-visible{ transform: translateY(-1px) scale(1.02); background: rgba(225,198,153,.24); }
 .btn--ghost{ background: transparent; }
 
 /* Coda (two-tile grid, gentler motion) */
@@ -354,30 +344,25 @@ body.starfield::after{
 /* Coda reveal tone (no overshoot) */
 .js .reveal.coda.revealed .card{
   animation: floatIn 650ms var(--ease-coda) both;
-  animation-delay: calc( (var(--stagger) + (var(--index,0) * 60)) * 1ms);
+  animation-delay: calc( (var(--stagger) + (var(--index,0) * 80)) * 1ms);
 }
 
-/* Keyframes (course) */
+/* Keyframes */
 @keyframes riseIn{
   0%   { opacity: 0; transform: translateY(40px) scale(.96); }
-  85%  { opacity: 1; transform: translateY(-4px) scale(1.02); } /* overshoot */
+  85%  { opacity: 1; transform: translateY(-4px) scale(1.02); }
   100% { transform: translateY(0) scale(1); }
 }
 @keyframes floatIn{
   from { opacity:0; transform: translateY(20px); }
   to   { opacity:1; transform: translateY(0); }
 }
-
-/* Typing + cursor (steps()) */
-@keyframes typing {
-  from { width: 0ch; }
-  to { width: calc((var(--chars) + 1) * 1ch); } /* +1ch safety for cursor */
-}
+@keyframes typing { from { width: 0ch; } to { width: calc((var(--chars) + 1) * 1ch); } }
 @keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
-/* Keep the cursor visible on final line */
+/* Keep the cursor inline at the end of the final wrapped line */
 .back__line.wrap .cursor{
-  display:block;
+  display:inline-block;
   line-height:1;
 }
 
