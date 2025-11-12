@@ -10,6 +10,31 @@
     if (!el.style.getPropertyValue('--chars')) {
       el.style.setProperty('--chars', String(el.textContent.length));
     }
+  // Adjust typing duration to match text length (+ allow per-element speed)
+  document.querySelectorAll('.type-line').forEach(el => {
+    const chars = parseInt(el.style.getPropertyValue('--chars')) || el.textContent.length;
+    const msPerChar = parseInt(el.getAttribute('data-ms-per-char') || '45'); // default speed
+    const dur = chars * msPerChar;
+    el.style.animationDuration = `${dur}ms`;
+    // keep any explicit delay if you add data-delay later, else leave default from CSS
+    if (el.hasAttribute('data-delay')) {
+      el.style.animationDelay = `${parseInt(el.getAttribute('data-delay'))}ms`;
+    }
+    el.dataset._dur = String(dur); // stash for sequencing
+  });
+
+  // Make the HERO cascade: title finishes, then tagline starts
+  (function cascadeHero(){
+    const lines = Array.from(document.querySelectorAll('.hero .type-line'));
+    if (!lines.length) return;
+    let offset = 120; // small lead-in before first keystroke
+    lines.forEach((el, i) => {
+      const dur = parseInt(el.dataset._dur || '0');
+      // give each line its own delay so line 2 waits for line 1, etc.
+      el.style.animationDelay = `${offset}ms`;
+      offset += dur + 160; // gap between lines
+    });
+  })();  
   // Adjust typing duration to match text length
   document.querySelectorAll('.type-line').forEach(el => {
     const chars = parseInt(el.style.getPropertyValue('--chars')) || el.textContent.length;
