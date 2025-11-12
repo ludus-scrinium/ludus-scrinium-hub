@@ -273,6 +273,11 @@ body.starfield::after{
   animation-play-state: running;              /* NEW */
 }
 
+/* Start typing when the HERO enters view */
+.hero.revealed .type-line{
+  animation-play-state: running;
+}
+
 .cursor{
   display:inline-block; margin-left:.25ch;
   animation: blink 500ms steps(1) infinite;
