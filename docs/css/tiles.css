@@ -254,8 +254,8 @@ body.starfield::after{
   }
 }
 @media (max-width: 480px){
-  .hero .type-line{ animation: none !important; width: auto !important; }
-  .hero .cursor{ display:none; }
+  .type-line{ animation: none !important; width: auto !important; }
+  .cursor{ display: none; }
 }
 /* Type-on line using steps() — unit fix */
 .type-line{
