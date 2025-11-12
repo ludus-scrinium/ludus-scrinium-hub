@@ -7,13 +7,15 @@
   --ink: #EAE7E1;
   --ink-dim: #B8B3AA;
   --accent: #E1C699;
+
   --card-w: min(62vw, 520px);
   --card-h: calc(var(--card-w) * 5 / 3); /* 3:5 portrait */
   --radius: 18px;
 
   /* Motion brand (Val Head course mapping) */
-  --ease-hero: cubic-bezier(0.19, 1, 0.22, 1); /* dramatic ease-in-out */
-  --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1); /* gentle ease-out */
+  --ease-hero: cubic-bezier(0.19, 1, 0.22, 1); /* dramatic ease-in-out (expressive) */
+  --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1); /* gentle ease-out (rest)  */
+  --ease-overshoot: cubic-bezier(0.68, -0.55, 0.27, 1.55); /* course: overshoot */
 }
 
 /* Base */
@@ -91,8 +93,7 @@ body.starfield::after{
 
 /* ============================= */
 /* Reveal-on-scroll visibility   */
-/* Default visible; hide only    */
-/* after the JS is mounted       */
+/* (Val Head: sequence + fill)   */
 /* ============================= */
 
 /* visible when JS is missing */
@@ -103,7 +104,7 @@ body.starfield::after{
   transform: none;
 }
 
-/* hide only when the reveal system signals it's mounted */
+/* hide only after reveal system mounts */
 .js.reveal-ready .reveal .card,
 .js.reveal-ready .reveal .hero__inner,
 .js.reveal-ready .reveal .site-footer,
@@ -117,9 +118,9 @@ body.starfield::after{
 .js.reveal-ready .reveal.revealed .hero__inner,
 .js.reveal-ready .reveal.revealed .site-footer,
 .js.reveal-ready .reveal.revealed.site-footer{
-  opacity: 1;                 /* fallback so it's visible even if animations are off */
-  transform: none;            /* fallback */
-  animation: riseIn 900ms var(--ease-hero) both;
+  opacity: 1;
+  transform: none;
+  animation: riseIn 900ms var(--ease-hero) both; /* fill-mode: both (course) */
   animation-delay: calc(var(--stagger) * 1ms);
 }
 
@@ -163,6 +164,12 @@ body.starfield::after{
   display:block;
   position:relative;
   filter: drop-shadow(0 12px 40px rgba(0,0,0,.45));
+  transition: transform 220ms ease-out; /* subtle hover lift */
+}
+
+/* Micro-interaction: a tiny tilt cue (course: “motion communicates affordance”) */
+.card:hover{
+  transform: translateY(-2px) rotateZ(-0.25deg);
 }
 
 /* Inner / flip */
@@ -171,7 +178,7 @@ body.starfield::after{
   width:100%; height:100%;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  transition: transform 700ms var(--ease-hero);
+  transition: transform 700ms var(--ease-overshoot); /* overshoot feel per course */
   will-change: transform;
 }
 .flip-toggle:checked + .card .card__inner{
@@ -245,49 +252,59 @@ body.starfield::after{
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   white-space: nowrap; overflow: hidden;
 }
-/* Mobile: allow wrapping so long lines don't clip */
+
+/* Mobile: allow wrapping so long lines don't clip (course: guard rails for small viewports) */
 @media (max-width: 480px){
   .back__line{
-    white-space: normal;         /* NEW */
-    overflow: visible;           /* NEW */
-    word-break: break-word;      /* NEW: prevent overflow on long tokens */
+    white-space: normal;
+    overflow: visible;
+    word-break: break-word;
   }
 }
+
+/* Keep hero typing on mobile but reduce fuss: hide cursor only */
 @media (max-width: 480px){
-  .hero .type-line{ animation: none !important; width: auto !important; }
   .hero .cursor{ display: none; }
 }
-/* Type-on line using steps() — unit fix */
+
+/* Type-on line using steps() — accurate unit & fill */
 .type-line{
   display:inline-block;
   width: 0ch;
   animation: typing 1200ms steps(var(--chars)) 240ms both;
-  animation-play-state: paused;               /* NEW: don't start on page load */
+  animation-play-state: paused;               /* don’t run until triggered */
 }
 
 /* Start typing only when the card back is visible */
 .flip-toggle:checked + .card .card__back .type-line{
-  animation-play-state: running;              /* NEW */
+  animation-play-state: running;
 }
 
-/* Hero: pixel-accurate typing to avoid wrapping on proportional fonts */
+/* Hero: pixel-accurate typing (course: steps() + cubic-bezier via JS) */
 .hero .type-line{
-  white-space: nowrap;         /* prevent line breaks */
+  white-space: nowrap;
   display: inline-block;
   width: 0;                    /* will animate to measured px width */
-  animation-name: typingPx;    /* JS will set duration & delay */
-  animation-timing-function: steps(var(--chars)); /* still step per char */
-  animation-fill-mode: both;
+  animation-name: typingPx;    /* JS sets duration & delay */
+  animation-timing-function: steps(var(--chars));
+  animation-fill-mode: both;   /* backwards for the pre-delay, forwards to hold */
   animation-play-state: paused;
 }
-
 .hero.revealed .type-line{
   animation-play-state: running;  /* start when hero is revealed */
 }
 
+/* Blinking caret (course: steps(1) for distinct holds) */
+.cursor{
+  display:inline-block;
+  margin-left: .1ch;
+  animation: blink .8s steps(1) infinite;
+  opacity:.9;
+}
+
 @keyframes typingPx{
   from { width: 0; }
-  to   { width: var(--px); }   /* <- real pixel width provided by JS */
+  to   { width: var(--px); }   /* JS measures true pixel width */
 }
 
 .back__cta{
@@ -333,7 +350,7 @@ body.starfield::after{
 /* Keyframes (course) */
 @keyframes riseIn{
   0%   { opacity: 0; transform: translateY(40px) scale(.96); }
-  85%  { opacity: 1; transform: translateY(-4px) scale(1.02); }
+  85%  { opacity: 1; transform: translateY(-4px) scale(1.02); } /* overshoot */
   100% { transform: translateY(0) scale(1); }
 }
 @keyframes floatIn{
@@ -341,14 +358,13 @@ body.starfield::after{
   to   { opacity:1; transform: translateY(0); }
 }
 
-/* Typing + cursor (steps()) — unit fix */
+/* Typing + cursor (steps()) */
 @keyframes typing{ from{ width: 0ch; } to{ width: calc(var(--chars) * 1ch); } }
 @keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
-  /* keep reveal items visible when animations are disabled */
   .js .reveal .card,
   .js .reveal .hero__inner,
   .js .reveal .site-footer,
@@ -373,4 +389,3 @@ body.starfield::after{
   color: var(--ink-dim);
   font-size: .9rem;
 }
-
