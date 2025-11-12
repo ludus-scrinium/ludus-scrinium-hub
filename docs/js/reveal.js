@@ -1,30 +1,40 @@
-/* Reveal-on-scroll helper (class-based, content safe by default) */
+/* Reveal-on-scroll helper (robust at page load) */
 (function () {
-  // Switch html.no-js -> .js so CSS knows animations are allowed
-  document.documentElement.classList.remove('no-js');
-  document.documentElement.classList.add('js');
+  const root = document.documentElement;
+  root.classList.remove('no-js'); root.classList.add('js');
 
-  const reveals = document.querySelectorAll('.reveal');
+  const reveals = Array.from(document.querySelectorAll('.reveal'));
 
-  // Provide per-section stagger from data attribute
-  reveals.forEach(el => {
+  // Pass stagger into CSS var
+  for (const el of reveals) {
     const stagger = Number(el.getAttribute('data-stagger') || 0);
     el.style.setProperty('--stagger', stagger);
-  });
-
-  // Assign a stable index to each .card for coda staggering
+  }
+  // Index for coda
   document.querySelectorAll('.coda .card').forEach((card, i) => {
     card.style.setProperty('--index', i);
   });
 
+  // Observer: fire on any intersection at all, generous top/bottom margins
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    for (const entry of entries) {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
         io.unobserve(entry.target);
       }
-    });
-  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+    }
+  }, { rootMargin: '20% 0px 20% 0px', threshold: 0 });
 
-  reveals.forEach(el => io.observe(el));
+  // Observe everything
+  for (const el of reveals) io.observe(el);
+
+  // ALSO: immediately reveal elements already in view on load (hero, etc.)
+  const vh = window.innerHeight || document.documentElement.clientHeight;
+  for (const el of reveals) {
+    const r = el.getBoundingClientRect();
+    if (r.top < vh * 0.9 && r.bottom > 0) {
+      el.classList.add('revealed');
+      io.unobserve(el);
+    }
+  }
 })();
