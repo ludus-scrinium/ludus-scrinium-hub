@@ -304,6 +304,6 @@ body.starfield::after{
   text-align:center;
   padding: 3rem 1.25rem 4rem;
   color: var(--ink-dim);
-  font-size:. nine;
+  font-size: .9rem;
 }
 
