@@ -4,6 +4,13 @@
   root.classList.remove('no-js'); root.classList.add('js');
 
   const reveals = Array.from(document.querySelectorAll('.reveal'));
+  // Auto-size typing: set --chars from actual text length
+  document.querySelectorAll('.type-line').forEach(el => {
+    // Only set if not already provided inline
+    if (!el.style.getPropertyValue('--chars')) {
+      el.style.setProperty('--chars', String(el.textContent.length));
+    }
+  });
 
   // Pass stagger into CSS var
   for (const el of reveals) {
