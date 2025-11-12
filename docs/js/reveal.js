@@ -95,3 +95,48 @@
   // Signal that the reveal system is mounted (CSS now safe to hide/animate)
   root.classList.add('reveal-ready');
 })();
+
+/* ----------------------------------------------- */
+/* Card back: auto-wrap detection + --chars update */
+/* ----------------------------------------------- */
+(function(){
+  const SEL = '.card .back__line';
+  const lines = document.querySelectorAll(SEL);
+
+  function chWidthFor(el){
+    const probe = document.createElement('span');
+    probe.textContent = '0';
+    probe.style.visibility = 'hidden';
+    probe.style.position = 'absolute';
+    el.appendChild(probe);
+    const w = probe.getBoundingClientRect().width || 8;
+    probe.remove();
+    return w;
+  }
+
+  function updateBackLines(){
+    lines.forEach(line=>{
+      const type = line.querySelector('.type-line');
+      if(!type) return;
+
+      // ensure correct --chars
+      const text = type.textContent;
+      const chars = [...text].length;
+      type.style.setProperty('--chars', chars);
+
+      // test if it fits on one line
+      const cw = chWidthFor(line);
+      const usable = line.clientWidth - parseFloat(getComputedStyle(line).paddingRight || '0');
+      const capacity = Math.floor(usable / cw) - 1;
+      const needsWrap = chars > capacity;
+
+      line.classList.toggle('wrap', needsWrap);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', updateBackLines, {once:true});
+  window.addEventListener('resize', () => { clearTimeout(updateBackLines._t); updateBackLines._t = setTimeout(updateBackLines, 150); });
+  document.addEventListener('change', e=>{
+    if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 80);
+  });
+})();
