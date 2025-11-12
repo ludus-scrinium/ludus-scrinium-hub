@@ -37,4 +37,7 @@
       io.unobserve(el);
     }
   }
+  
+  // signal that the reveal system is mounted; CSS can now hide/animate safely
+  document.documentElement.classList.add('reveal-ready');
 })();
