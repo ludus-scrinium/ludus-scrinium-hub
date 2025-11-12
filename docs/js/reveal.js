@@ -15,13 +15,14 @@
   // 1) Ensure --chars exists for every line (course: steps() needs correct count)
   lines.forEach(el => {
     if (!el.style.getPropertyValue('--chars')) {
-      el.style.setProperty('--chars', String(el.textContent.length));
+      const chars = [...el.textContent].length;
+      el.style.setProperty('--chars', String(chars));
     }
   });
 
   // 2) Duration per element (supports data-ms-per-char + optional data-delay)
   lines.forEach(el => {
-    const chars = parseInt(el.style.getPropertyValue('--chars')) || el.textContent.length;
+    const chars = parseInt(el.style.getPropertyValue('--chars')) || [...el.textContent].length;
     const msPerChar = parseInt(el.getAttribute('data-ms-per-char') || '45'); // default speed
     const dur = chars * msPerChar;
 
