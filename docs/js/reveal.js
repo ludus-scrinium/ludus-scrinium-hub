@@ -18,6 +18,8 @@
       const chars = [...el.textContent].length;
       el.style.setProperty('--chars', String(chars));
     }
+    // Always hold pre/post states (animation-fill-mode: both)
+    el.style.animationFillMode = 'both';
   });
 
   // 2) Duration per element (supports data-ms-per-char + optional data-delay)
@@ -34,14 +36,22 @@
   });
 
   // 3) HERO: measure true pixel width and switch to pixel-accurate animation
-  document.querySelectorAll('.hero .type-line').forEach(el => {
-    const prevWidth = el.style.width;
-    el.style.width = 'auto';                 // let it expand to full text
-    const px = el.scrollWidth;               // real pixel width
-    el.style.setProperty('--px', `${px}px`); // drives @keyframes typingPx
-    el.style.width = prevWidth;              // restore
-    el.style.animationName = 'typingPx';     // hero uses px-accurate typing
-  });
+  function measureHero() {
+    document.querySelectorAll('.hero .type-line').forEach(el => {
+      const prevWidth = el.style.width;
+      el.style.width = 'auto';                 // let it expand to full text
+      const px = el.scrollWidth;               // real pixel width
+      el.style.setProperty('--px', `${px}px`); // drives @keyframes typingPx
+      el.style.width = prevWidth;              // restore
+      el.style.animationName = 'typingPx';     // hero uses px-accurate typing
+    });
+  }
+  if ('fonts' in document && document.fonts.ready) {
+    document.fonts.ready.then(measureHero);
+  } else {
+    // Fallback
+    window.addEventListener('load', measureHero, { once: true });
+  }
 
   // 4) Cascade hero lines: title → tagline (course: deliberate sequencing)
   (function cascadeHero() {
@@ -59,7 +69,6 @@
   // -----------------------------
   // Reveal-on-scroll wiring
   // -----------------------------
-  // Pass stagger into a CSS var per section
   reveals.forEach(el => {
     const stagger = Number(el.getAttribute('data-stagger') || 0);
     el.style.setProperty('--stagger', stagger);
@@ -107,8 +116,7 @@
   function chWidthFor(el){
     const probe = document.createElement('span');
     probe.textContent = '0';
-    probe.style.visibility = 'hidden';
-    probe.style.position = 'absolute';
+    probe.style.cssText = 'visibility:hidden;position:absolute;white-space:nowrap;';
     el.appendChild(probe);
     const w = probe.getBoundingClientRect().width || 8;
     probe.remove();
@@ -125,19 +133,21 @@
       const chars = [...text].length;
       type.style.setProperty('--chars', chars);
 
-      // test if it fits on one line
+      // capacity in ch (reserve 1ch for cursor padding)
       const cw = chWidthFor(line);
-      const usable = line.clientWidth - parseFloat(getComputedStyle(line).paddingRight || '0');
+      const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
+      const usable = line.clientWidth - pr;
       const capacity = Math.floor(usable / cw) - 1;
-      const needsWrap = chars > capacity;
 
-      line.classList.toggle('wrap', needsWrap);
+      line.classList.toggle('wrap', chars > capacity);
     });
   }
 
-  window.addEventListener('DOMContentLoaded', updateBackLines, {once:true});
+  // Run after layout has settled
+  const defer = fn => Promise.resolve().then(fn);
+  window.addEventListener('DOMContentLoaded', () => defer(updateBackLines), {once:true});
   window.addEventListener('resize', () => { clearTimeout(updateBackLines._t); updateBackLines._t = setTimeout(updateBackLines, 150); });
   document.addEventListener('change', e=>{
-    if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 80);
+    if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 100);
   });
 })();
