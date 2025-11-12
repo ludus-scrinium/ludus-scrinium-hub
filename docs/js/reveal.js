@@ -49,6 +49,21 @@
       offset += Math.max(120, Math.floor(dur * 0.85)); // overlap a little for rhythm
     });
 
+    const tagLine = document.querySelector('.hero-line--tag');
+    const authorCursor = document.querySelector('.cursor--author');
+
+  if (tagLine && authorCursor) {
+    const tagDelay = parseInt(tagLine.style.animationDelay || '0');
+    const tagDur   = parseInt(tagLine.dataset._dur || '0');
+    const showAuthorCursorAt = tagDelay + tagDur + 40; // small buffer
+
+    authorCursor.style.visibility = 'hidden';
+    setTimeout(() => {
+      authorCursor.style.visibility = 'visible';
+    }, showAuthorCursorAt);
+  }
+
+
     // Breath micro-motion on tagline after author settles
     const tag = document.querySelector('.hero__tag');
     const last = heroLines[heroLines.length - 1];
