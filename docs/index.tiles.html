@@ -144,7 +144,11 @@
             </figure>
             <article class="card__face card__back">
               <h2 class="back__title">Localization Conveyor</h2>
-              <p class="back__fade">Moving text from: write → translate → QA → ship</p>
+              <p class="back__line" aria-label="Moving text from write to translate to QA to ship.">
+                <span class="type-line" data-ms-per-char="45">
+                  Moving text from: write → translate → QA → ship
+                </span><span class="cursor" aria-hidden="true">|</span>
+              </p>
               <nav class="back__cta">
                 <a class="btn" href="https://github.com/ludus-scrinium/localization-conveyor" target="_blank" rel="noopener">Open repo</a>
                 <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#localization-conveyor">See roadmap</a>
@@ -159,13 +163,17 @@
         <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" />
         <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="6" aria-label="Open Producer’s Almanac card">
           <div class="card__inner">
-            <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s%;">
+            <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
               <img src="assets/cards/producers-almanac-front.webp" alt="Producer’s Almanac tarot front — abstract gradient art"
                    width="1200" height="2000" loading="lazy" />
             </figure>
             <article class="card__face card__back">
               <h2 class="back__title">Producer’s Almanac</h2>
-              <p class="back__fade">Decisions, retros, and templates you can reuse.</p>
+              <p class="back__line" aria-label="Decisions, retros, and templates you can reuse.">
+                <span class="type-line" data-ms-per-char="45" data-delay="120">
+                  Decisions, retros, and templates you can reuse.
+                </span><span class="cursor" aria-hidden="true">|</span>
+              </p>
               <nav class="back__cta">
                 <a class="btn" href="https://github.com/ludus-scrinium/producers-almanac" target="_blank" rel="noopener">Open repo</a>
                 <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#producers-almanac">See roadmap</a>
