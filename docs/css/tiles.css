@@ -6,6 +6,7 @@
   --bg-deeper:#0B1320;
   --ink: #EAE7E1;
   --ink-dim: #B8B3AA;
+  --ink-navy:  #0B1320;
   --accent: #E1C699;
 
   --card-w: min(62vw, 520px);
@@ -81,7 +82,7 @@ body.starfield::after{
   margin: 0 0 .25rem;
 }
 .hero__author{
-  color: var(--ink-dim);
+  color: var(--ink-navy);
   margin: 0 0 1rem;
 }
 
@@ -214,9 +215,10 @@ body.starfield::after{
 /* Paragraph jump (desktop only) */
 @media (min-width: 921px){
   .paragraph-cursor .cursor{
-    display:block;
+    display: inline-block;
     margin-left: 0;
-    margin-top: calc(2 * 1em); /* ~ two lines */
+    transform: translateY(2em);      /* visually jump down ~2 lines */
+    transition: transform 260ms var(--ease-hero);
   }
 }
 
