@@ -305,15 +305,22 @@ body.starfield::after{
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce){
   *{ animation: none !important; transition: none !important; }
-  /* make sure reveal items still show */
+  /* keep reveal items visible when animations are disabled */
   .js .reveal .card,
   .js .reveal .hero__inner,
   .js .reveal .site-footer,
-  .js .reveal.site-footer {
+  .js .reveal.site-footer,
+  .js.reveal-ready .reveal .card,
+  .js.reveal-ready .reveal .hero__inner,
+  .js.reveal-ready .reveal .site-footer,
+  .js.reveal-ready .reveal.site-footer,
+  .js.reveal-ready .reveal.revealed .card,
+  .js.reveal-ready .reveal.revealed .hero__inner,
+  .js.reveal-ready .reveal.revealed .site-footer,
+  .js.reveal-ready .reveal.revealed.site-footer{
     opacity: 1 !important;
     transform: none !important;
   }
-}
 
 /* Footer */
 .site-footer{
