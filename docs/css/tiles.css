@@ -267,6 +267,12 @@ body.starfield::after{
   .hero .cursor{ display: none; }
 }
 
+/* Simpler mobile motion: pause type-on, keep cursor */
+@media (max-width: 480px){
+  .card .back__line .type-line { animation-play-state: paused; width: auto; }
+  .card .back__line .cursor { animation-play-state: running; }
+}
+
 /* Type-on line using steps() — accurate unit & fill */
 .type-line{
   display:inline-block;
