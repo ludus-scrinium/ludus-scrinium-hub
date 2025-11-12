@@ -91,30 +91,34 @@ body.starfield::after{
 
 /* ============================= */
 /* Reveal-on-scroll visibility   */
-/* Default visible; JS enables   */
-/* animation state (safety)      */
+/* Default visible; hide only    */
+/* after the JS is mounted       */
 /* ============================= */
+
+/* visible when JS is missing */
 .no-js .reveal .card,
 .no-js .reveal .hero__inner,
 .no-js .reveal .site-footer{
-  /* visible when JS missing */
   opacity: 1;
   transform: none;
 }
 
-/* hidden until JS reveals */
-.js .reveal .card,
-.js .reveal .hero__inner,
-.js .reveal .site-footer,
-.js .reveal.site-footer {              /* add this line */
+/* hide only when the reveal system signals it's mounted */
+.js.reveal-ready .reveal .card,
+.js.reveal-ready .reveal .hero__inner,
+.js.reveal-ready .reveal .site-footer,
+.js.reveal-ready .reveal.site-footer{
   opacity: 0;
   transform: translateY(40px) scale(.96);
 }
-/* animate when revealed */
-.js .reveal.revealed .card,
-.js .reveal.revealed .hero__inner,
-.js .reveal.revealed .site-footer,
-.js .reveal.revealed.site-footer {     /* add this line */
+
+/* show/animate when revealed */
+.js.reveal-ready .reveal.revealed .card,
+.js.reveal-ready .reveal.revealed .hero__inner,
+.js.reveal-ready .reveal.revealed .site-footer,
+.js.reveal-ready .reveal.revealed.site-footer{
+  opacity: 1;                 /* fallback so it's visible even if animations are off */
+  transform: none;            /* fallback */
   animation: riseIn 900ms var(--ease-hero) both;
   animation-delay: calc(var(--stagger) * 1ms);
 }
