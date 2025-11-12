@@ -270,19 +270,25 @@ body.starfield::after{
   animation-play-state: running;              /* NEW */
 }
 
-/* Start typing when the HERO enters view */
+/* Hero: pixel-accurate typing to avoid wrapping on proportional fonts */
+.hero .type-line{
+  white-space: nowrap;         /* prevent line breaks */
+  display: inline-block;
+  width: 0;                    /* will animate to measured px width */
+  animation-name: typingPx;    /* JS will set duration & delay */
+  animation-timing-function: steps(var(--chars)); /* still step per char */
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
 .hero.revealed .type-line{
-  animation-play-state: running;
+  animation-play-state: running;  /* start when hero is revealed */
 }
 
-.cursor{
-  display:inline-block; margin-left:.25ch;
-  animation: blink 500ms steps(1) infinite;
-  opacity:.9;
+@keyframes typingPx{
+  from { width: 0; }
+  to   { width: var(--px); }   /* <- real pixel width provided by JS */
 }
-
-@keyframes typing{ from{ width: 0ch; } to{ width: calc(var(--chars) * 1ch); } }
-@keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
 .back__cta{
   align-self:end;
