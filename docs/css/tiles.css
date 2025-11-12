@@ -82,7 +82,7 @@ body.starfield::after{
   margin: 0 0 .25rem;
 }
 .hero__author{
-  color: var(--ink-navy);
+  color: var(--ink);
   margin: 0 0 1rem;
 }
 
