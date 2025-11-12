@@ -381,26 +381,10 @@ body.starfield::after{
 }
 @keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
-/* =============================================== */
-/* Wrap-aware typing adjustments (card backs only) */
-/* =============================================== */
-
-/* Cards that need multi-line descriptors */
-.back__line.wrap{
-  white-space: normal;
-  overflow: visible;
-  word-break: break-word;
-}
-
-.back__line.wrap .type-line{
-  animation: none;          /* disable steps() typing */
-  width: auto;              /* let text flow naturally */
-  display: inline;          /* normal wrapping */
-}
-
 /* Keep the cursor visible on final line */
 .back__line.wrap .cursor{
-  display:inline;            /* stays after last char */
+  display:block;
+  line-height:1;
 }
 
 /* Reduced motion */
