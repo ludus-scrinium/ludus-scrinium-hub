@@ -269,7 +269,11 @@ body.starfield::after{
 
 /* Simpler mobile motion: pause type-on, keep cursor */
 @media (max-width: 480px){
-  .card .back__line .type-line { animation-play-state: paused; width: auto; }
+  .card .back__line{
+    white-space: normal;      /* was nowrap */
+    overflow: visible;        /* was hidden */
+  }
+  .card .back__line .type-line { animation-play-state: paused; width: auto; display: inline; }
   .card .back__line .cursor { animation-play-state: running; }
 }
 
