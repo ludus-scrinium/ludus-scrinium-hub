@@ -159,6 +159,7 @@ body.starfield::after{
   border-radius: var(--radius);
   cursor:pointer;
   perspective: 1600px;
+  will-change: transform;
   display:block;
   position:relative;
   filter: drop-shadow(0 12px 40px rgba(0,0,0,.45));
@@ -169,10 +170,13 @@ body.starfield::after{
   position:relative;
   width:100%; height:100%;
   transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
   transition: transform 700ms var(--ease-hero);
+  will-change: transform;
 }
 .flip-toggle:checked + .card .card__inner{
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
 }
 
 /* Faces */
@@ -181,11 +185,15 @@ body.starfield::after{
   border-radius: var(--radius);
   overflow:hidden;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .card__front{
   display:grid; place-items: center;
   background: rgba(0,0,0,.08);
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
 }
 .card__front img{
   width:100%; height:100%;
@@ -193,6 +201,7 @@ body.starfield::after{
   display:block;
   opacity: .98;
   transform: translateZ(0);
+  will-change: transform;
 }
 
 /* Shimmer overlay (CSS) */
@@ -220,6 +229,7 @@ body.starfield::after{
     rgba(12,18,30,.92);
   border: 1px solid rgba(225,198,153,.22);
   transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
   display:grid;
   grid-template-rows: auto auto 1fr;
   gap: 1rem;
@@ -234,18 +244,35 @@ body.starfield::after{
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   white-space: nowrap; overflow: hidden;
 }
-
-/* Type-on line using steps() — fixed width units */
+/* Mobile: allow wrapping so long lines don't clip */
+@media (max-width: 480px){
+  .back__line{
+    white-space: normal;         /* NEW */
+    overflow: visible;           /* NEW */
+    word-break: break-word;      /* NEW: prevent overflow on long tokens */
+  }
+}
+/* Type-on line using steps() — unit fix */
 .type-line{
   display:inline-block;
   width: 0ch;
   animation: typing 1200ms steps(var(--chars)) 240ms both;
+  animation-play-state: paused;               /* NEW: don't start on page load */
 }
+
+/* Start typing only when the card back is visible */
+.flip-toggle:checked + .card .card__back .type-line{
+  animation-play-state: running;              /* NEW */
+}
+
 .cursor{
   display:inline-block; margin-left:.25ch;
   animation: blink 500ms steps(1) infinite;
   opacity:.9;
 }
+
+@keyframes typing{ from{ width: 0ch; } to{ width: calc(var(--chars) * 1ch); } }
+@keyframes blink{ 0%,50% {opacity:1;} 50.01%,100% {opacity:0;} }
 
 .back__cta{
   align-self:end;
