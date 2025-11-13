@@ -269,6 +269,15 @@ body.starfield::after{
     animation-play-state: running;
   }
 
+  /* Hero cursors: show title only */
+  .cursor--tag,
+  .cursor--author{
+    display: none !important;
+  }
+}
+
+/* Hero cursors: hide tag/author cursors on larger screens too */
+
   /* Hero cursors: hide tag/author cursors on larger screens too */
 @media (min-width: 481px){
   .cursor--tag,
