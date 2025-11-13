@@ -552,53 +552,29 @@
   // ================================
   // Enhanced Coda Collision Prevention
   // ================================
-  (function codaSpacing(){
-    const coda = document.querySelector('.coda');
-    if (!coda) return;
+  (function fixCodaCollision(){
+  const coda = document.querySelector('.coda');
+  if(!coda) return;
 
-    const codaToggles = coda.querySelectorAll('.flip-toggle');
+  const codaToggles = coda.querySelectorAll('.flip-toggle');
 
-    function refreshCodaFlipClasses() {
-      const cards = Array.from(coda.querySelectorAll('.coda__card'));
-
-      // Clear previous state
-      cards.forEach(card => {
-        card.classList.remove('is-flipped', 'after-flipped');
-      });
-
-      // Mark flipped card + the card immediately after it
-      codaToggles.forEach(toggle => {
-        const card = toggle.closest('.coda__card');
-        if (!card) return;
-
-        if (toggle.checked) {
-          card.classList.add('is-flipped');
-          const next = card.nextElementSibling;
-          if (next && next.classList.contains('coda__card')) {
-            next.classList.add('after-flipped');
-          }
-        }
-      });
-    }
-
-  function updateCodaSpacing() {
-    const anyFlipped = Array.from(codaToggles).some(t => t.checked);
-    scheduleRaf(() => {
-      coda.classList.toggle('has-flipped-card', anyFlipped);
-      refreshCodaFlipClasses();
+  function updateCodaSpacing(){
+      const anyFlipped = Array.from(codaToggles).some(t => t.checked);
+      scheduleRaf(() => {
+        coda.classList.toggle('has-flipped-card', anyFlipped);
     });
   }
-
+  
   codaToggles.forEach(toggle => {
-    toggle.addEventListener('change', () => {
-      setTimeout(updateCodaSpacing, 50);
+      toggle.addEventListener('change', () => {
+        setTimeout(updateCodaSpacing, 50);
     });
-  });
+   });
 
-  updateCodaSpacing();
+    updateCodaSpacing();
+    // Re-check on resize with passive flag
+    const throttledResize = throttle(updateCodaSpacing, 200);
 
-  const throttledResize = throttle(updateCodaSpacing, 200);
-  window.addEventListener('resize', throttledResize, { passive: true });
 })();
 
     // Re-check on resize with passive flag
