@@ -17,12 +17,17 @@
   --radius: 18px;
 
   /* ================================ */
-  /* Cosmic Motion Tokens - Enhanced */
+  /* Enhanced Cosmic Motion Tokens   */
   /* ================================ */
   --ease-hero: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1);
   
-  /* Cosmic curves with overshoot & reversal */
+  /* Spring physics easings */
+  --ease-spring: cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  --ease-spring-gentle: cubic-bezier(0.5, -0.3, 0.5, 1.3);
+  --ease-anticipate: cubic-bezier(0.68, -0.2, 0.265, 1.35);
+  
+  /* Enhanced cosmic curves */
   --ease-cosmic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-drift: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-snap: cubic-bezier(0.95, 0.05, 0.795, 0.035);
@@ -42,10 +47,19 @@
   --hint-glow: rgba(225, 198, 153, 0.2);
   --hint-duration: 2.8s;
   --hint-touch-size: 44px; /* iOS guideline */
+  
+  /* Performance tokens */
+  --will-change-transform: transform;
+  --will-change-opacity: opacity;
 }
 
 /* Base */
-* { box-sizing: border-box; }
+* { 
+  box-sizing: border-box; 
+  /* Prevent touch delay on mobile */
+  touch-action: manipulation;
+}
+
 html, body { height: 100%; }
 body{
   margin:0;
@@ -71,14 +85,17 @@ body.starfield::after{
   mix-blend-mode: screen;
   opacity: .14;
   z-index: -1;
-  will-change: transform;
+  will-change: transform, opacity;
   transition: opacity 1200ms var(--ease-drift);
+  transform: translateZ(0); /* Force GPU layer */
 }
+
 body.starfield::before{
   background-image: radial-gradient(#ffffff 0.8px, transparent 1px);
   background-size: 2px 2px;
   animation: driftDust 120s linear infinite;
 }
+
 body.starfield::after{
   background-image:
     radial-gradient(#ffffff 1px, transparent 1.5px),
@@ -89,60 +106,103 @@ body.starfield::after{
   animation: driftStars 90s linear infinite;
 }
 
-/* Depth layers - smoother transitions */
-body.starfield.depth-1::before{ opacity: .18; }
-body.starfield.depth-1::after{ opacity: .14; }
-body.starfield.depth-2::before{ opacity: .22; }
-body.starfield.depth-2::after{ opacity: .18; }
-body.starfield.depth-3::before{ opacity: .26; }
-body.starfield.depth-3::after{ opacity: .22; }
+/* Depth layers with parallax */
+body.starfield.depth-1::before{ 
+  opacity: .18; 
+  transform: translateZ(-10px) scale(1.01);
+}
+body.starfield.depth-1::after{ 
+  opacity: .14;
+  transform: translateZ(-5px) scale(1.005);
+}
+body.starfield.depth-2::before{ 
+  opacity: .22;
+  transform: translateZ(-20px) scale(1.02);
+}
+body.starfield.depth-2::after{ 
+  opacity: .18;
+  transform: translateZ(-15px) scale(1.015);
+}
+body.starfield.depth-3::before{ 
+  opacity: .26;
+  transform: translateZ(-30px) scale(1.03);
+}
+body.starfield.depth-3::after{ 
+  opacity: .22;
+  transform: translateZ(-25px) scale(1.025);
+}
 
-@keyframes driftDust { to{ transform: translate3d(0, 600px, 0); } }
-@keyframes driftStars{ to{ transform: translate3d(200px, 400px, 0); } }
+@keyframes driftDust { 
+  to{ transform: translate3d(0, 600px, 0); } 
+}
+@keyframes driftStars{ 
+  to{ transform: translate3d(200px, 400px, 0); } 
+}
 
 /* ===================== */
-/* Floating Particles    */
-/* Mobile: reduced count */
+/* Enhanced Floating Particles with Orbital Motion */
 /* ===================== */
 .particle{
   position: fixed;
-  width: 3px; height: 3px;
+  width: 3px; 
+  height: 3px;
   background: radial-gradient(circle, var(--accent-glow), transparent);
   border-radius: 50%;
   pointer-events: none;
   opacity: 0;
   z-index: 1;
-  will-change: transform, opacity;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
   filter: blur(0.5px);
-  animation: particleFloat var(--duration, 8s) var(--ease-organic) infinite;
+  animation: particleOrbit var(--duration, 8s) var(--ease-organic) infinite;
   animation-delay: var(--delay, 0s);
 }
 
-@keyframes particleFloat{
+/* Orbital motion with arc principle */
+@keyframes particleOrbit{
   0%{ 
-    transform: translate3d(var(--x-start), var(--y-start), 0) scale(0); 
+    transform: 
+      translate3d(var(--x-start), var(--y-start), 0) 
+      rotate(0deg) 
+      translateX(0) 
+      scale(0);
     opacity: 0; 
   }
   10%{ 
     opacity: var(--opacity, 0.4); 
-    transform: translate3d(var(--x-start), var(--y-start), 0) scale(1);
+    transform: 
+      translate3d(var(--x-start), var(--y-start), 0)
+      rotate(36deg)
+      translateX(20px)
+      scale(1);
   }
   50%{ 
-    transform: translate3d(var(--x-mid), var(--y-mid), 0) scale(var(--scale-mid, 1.2));
+    transform: 
+      translate3d(var(--x-mid), var(--y-mid), 0)
+      rotate(180deg)
+      translateX(40px)
+      scale(var(--scale-mid, 1.2));
     opacity: var(--opacity, 0.4);
   }
   90%{ 
-    opacity: var(--opacity, 0.4); 
+    opacity: var(--opacity, 0.4);
+    transform:
+      translate3d(var(--x-end), var(--y-end), 0)
+      rotate(324deg)
+      translateX(10px)
+      scale(0.8);
   }
   100%{ 
-    transform: translate3d(var(--x-end), var(--y-end), 0) scale(0); 
+    transform: 
+      translate3d(var(--x-end), var(--y-end), 0)
+      rotate(360deg)
+      translateX(0)
+      scale(0);
     opacity: 0; 
   }
 }
 
 /* ============================= */
-/* Particle Burst System         */
-/* Triggered on card flip        */
+/* Enhanced Particle Burst with Follow-through */
 /* ============================= */
 #particle-bursts{
   position: fixed;
@@ -158,28 +218,45 @@ body.starfield.depth-3::after{ opacity: .22; }
   background: radial-gradient(circle, var(--accent), transparent);
   border-radius: 50%;
   opacity: 0;
-  will-change: transform, opacity;
-  animation: burstOut 800ms var(--ease-cosmic) forwards;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
+  animation: burstOutSpring 900ms var(--ease-spring) forwards;
 }
 
-@keyframes burstOut{
+@keyframes burstOutSpring{
   0%{
     opacity: 1;
     transform: translate3d(0, 0, 0) scale(1);
   }
-  50%{
-    opacity: 0.8;
+  40%{
+    opacity: 0.9;
+    transform: 
+      translate3d(
+        calc(var(--burst-x) * 0.6), 
+        calc(var(--burst-y) * 0.6), 
+        0
+      ) 
+      scale(1.2);
+  }
+  70%{
+    opacity: 0.5;
+    transform: 
+      translate3d(
+        calc(var(--burst-x) * 1.1), 
+        calc(var(--burst-y) * 1.1), 
+        0
+      ) 
+      scale(0.6);
   }
   100%{
     opacity: 0;
-    transform: translate3d(var(--burst-x), var(--burst-y), 0) scale(0.3);
+    transform: 
+      translate3d(var(--burst-x), var(--burst-y), 0) 
+      scale(0);
   }
 }
 
 /* ================================== */
-/* GLOBAL HINT SYSTEM                 */
-/* Smart positioning, cosmic aesthetic */
-/* Vision: sensory deprivation tank   */
+/* Enhanced Global Hint with Spring Physics */
 /* ================================== */
 .global-hint{
   position: fixed;
@@ -191,17 +268,25 @@ body.starfield.depth-3::after{ opacity: .22; }
   opacity: 0;
   transition: 
     opacity 600ms var(--ease-organic), 
-    transform 500ms var(--ease-cosmic),
-    bottom 500ms var(--ease-cosmic);
-  will-change: transform, opacity;
+    transform 500ms var(--ease-spring-gentle),
+    bottom 500ms var(--ease-spring-gentle);
+  will-change: var(--will-change-transform), var(--will-change-opacity);
 }
 
 .global-hint.visible{
   opacity: 1;
+  animation: hintFloat 4s var(--ease-float) infinite;
+}
+
+@keyframes hintFloat{
+  0%, 100%{ transform: translateX(-50%) translateY(0) translateZ(0); }
+  25%{ transform: translateX(-50%) translateY(-3px) translateZ(0); }
+  75%{ transform: translateX(-50%) translateY(2px) translateZ(0); }
 }
 
 .global-hint.hidden{
   opacity: 0;
+  transform: translateX(-50%) translateY(10px) translateZ(0);
 }
 
 /* Position above when card in upper viewport */
@@ -211,20 +296,20 @@ body.starfield.depth-3::after{ opacity: .22; }
   transform: translateX(-50%) translateY(0) translateZ(0);
 }
 
-/* Hint text with frosted glass effect */
+/* Hint text with enhanced frosted glass */
 .hint-text{
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.2rem;
+  padding: 0.75rem 1.3rem;
   min-height: var(--hint-touch-size);
   background: var(--hint-bg);
   border: 1px solid var(--hint-border);
   border-radius: 24px;
   color: var(--ink-dim);
   font-size: 0.85rem;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px) saturate(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
   box-shadow: 
     0 4px 16px rgba(0, 0, 0, 0.4),
     0 0 24px var(--hint-glow),
@@ -234,7 +319,7 @@ body.starfield.depth-3::after{ opacity: .22; }
   overflow: hidden;
 }
 
-/* Cosmic shimmer on hint */
+/* Cosmic shimmer optimization */
 .hint-text::before{
   content: "";
   position: absolute;
@@ -247,6 +332,7 @@ body.starfield.depth-3::after{ opacity: .22; }
   );
   animation: hintShimmer 4s linear infinite;
   animation-delay: 1s;
+  will-change: var(--will-change-transform);
 }
 
 @keyframes hintShimmer{
@@ -254,54 +340,18 @@ body.starfield.depth-3::after{ opacity: .22; }
   100%{ transform: translateX(100%) translateZ(0); }
 }
 
-/* Hint ornaments - organic blooms */
-.hint-ornament{
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
-}
-
-.hint-bloom{
-  fill: var(--accent-glow);
-  animation: bloomPulse var(--hint-duration) var(--ease-cosmic) infinite;
-}
-
-.hint-ornament--left .hint-bloom{
-  animation-delay: 0s;
-}
-
-.hint-ornament--right .hint-bloom{
-  animation-delay: calc(var(--hint-duration) / 2);
-}
-
-@keyframes bloomPulse{
-  0%, 100%{ 
-    r: 2;
-    opacity: 0.6;
-  }
-  50%{ 
-    r: 3;
-    opacity: 0.9;
-  }
-}
-
-/* Enhanced breathing animation */
+/* Enhanced breathing with anticipation */
 @keyframes hintBreathe{
   0%, 100%{ 
     transform: scale(1) translateY(0) translateZ(0); 
     opacity: 0.85;
-    box-shadow: 
-      0 4px 16px rgba(0, 0, 0, 0.4),
-      0 0 24px var(--hint-glow),
-      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  20%{
+    transform: scale(0.98) translateY(1px) translateZ(0);
   }
   50%{ 
     transform: scale(1.04) translateY(-3px) translateZ(0); 
     opacity: 1;
-    box-shadow: 
-      0 8px 24px rgba(0, 0, 0, 0.5),
-      0 0 36px var(--hint-glow),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -312,36 +362,8 @@ body.cards-flipped .global-hint{
   pointer-events: none;
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px){
-  .global-hint{
-    bottom: 1.5rem;
-  }
-  
-  .global-hint.above{
-    top: 10vh;
-  }
-  
-  .hint-text{
-    font-size: 0.8rem;
-    padding: 0.55rem 1rem;
-  }
-  
-  .hint-ornament{
-    width: 14px;
-    height: 14px;
-  }
-}
-
-/* Backdrop-filter fallback for older browsers */
-@supports not (backdrop-filter: blur(12px)){
-  .hint-text{
-    background: rgba(14, 26, 43, 0.92);
-  }
-}
-
 /* ===================== */
-/* Connection Lines      */
+/* Connection Lines Canvas */
 /* ===================== */
 .connection-canvas{
   position: fixed;
@@ -350,11 +372,14 @@ body.cards-flipped .global-hint{
   z-index: 2;
   opacity: 0;
   transition: opacity 1200ms var(--ease-out);
+  will-change: var(--will-change-opacity);
 }
-.connection-canvas.visible{ opacity: 1; }
+.connection-canvas.visible{ 
+  opacity: 1; 
+}
 
 /* ===================== */
-/* Hero                  */
+/* Hero with Subtle Breath */
 /* ===================== */
 .hero{
   min-height: 90vh;
@@ -363,7 +388,14 @@ body.cards-flipped .global-hint{
   padding: 6rem 1.25rem 2rem;
   text-align:center;
   position: relative;
+  animation: heroBreath 12s var(--ease-float) infinite;
 }
+
+@keyframes heroBreath{
+  0%, 100%{ transform: translateY(0); }
+  50%{ transform: translateY(-5px); }
+}
+
 .hero__title{
   font-size: clamp(2rem, 5vw, 3.2rem);
   letter-spacing: .02em;
@@ -372,11 +404,13 @@ body.cards-flipped .global-hint{
   text-shadow: 0 0 18px rgba(225,198,153,.08);
   position: relative;
 }
+
 .hero__tag{
   color: var(--ink-dim);
   margin: 0 0 .25rem;
   position: relative;
 }
+
 .hero__author{
   color: var(--ink);
   margin: 0 0 1rem;
@@ -384,11 +418,14 @@ body.cards-flipped .global-hint{
 }
 
 /* ============================= */
-/* Reveal-on-scroll visibility   */
+/* Enhanced Reveal with Anticipation */
 /* ============================= */
 .no-js .reveal .card,
 .no-js .reveal .hero__inner,
-.no-js .reveal .site-footer{ opacity: 1; transform: none; }
+.no-js .reveal .site-footer{ 
+  opacity: 1; 
+  transform: none; 
+}
 
 .js.reveal-ready .reveal .card,
 .js.reveal-ready .reveal .hero__inner,
@@ -405,12 +442,12 @@ body.cards-flipped .global-hint{
 .js.reveal-ready .reveal.revealed.site-footer{
   opacity: 1; 
   transform: none;
-  animation: riseInAnticipate 1100ms var(--ease-cosmic) both;
+  animation: riseInAnticipate 1100ms var(--ease-anticipate) both;
   animation-delay: calc(var(--stagger) * 1ms);
 }
 
 /* ===================== */
-/* Tarot hero sections   */
+/* Tarot sections */
 /* ===================== */
 .tarot{
   min-height: 100vh;
@@ -418,14 +455,14 @@ body.cards-flipped .global-hint{
   place-items: center;
   padding: 4rem 1.25rem;
   position:relative;
-  /* Fix z-fighting on card hover */
   isolation: isolate;
 }
 
 /* Flip toggle (visually hidden) */
 .flip-toggle{
   position:absolute !important; 
-  width:1px; height:1px; 
+  width:1px; 
+  height:1px; 
   margin:-1px; 
   border:0; 
   padding:0;
@@ -435,9 +472,7 @@ body.cards-flipped .global-hint{
 }
 
 /* ================================== */
-/* Card - Enhanced with Squash/Stretch */
-/* Transform-origin variation          */
-/* Performance: GPU layers             */
+/* Card with Enhanced Anticipation & Spring Physics */
 /* ================================== */
 .card{
   width: var(--card-w); 
@@ -448,52 +483,66 @@ body.cards-flipped .global-hint{
   display:block; 
   position:relative;
   filter: drop-shadow(0 12px 32px rgba(0,0,0,.42));
-  transition: transform 280ms var(--ease-out), filter 280ms var(--ease-out);
+  transition: 
+    transform 320ms var(--ease-spring-gentle), 
+    filter 280ms var(--ease-out);
   transform-origin: center center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  will-change: transform, filter;
+  will-change: var(--will-change-transform);
+  /* Idle breath animation */
+  animation: cardBreath 8s var(--ease-float) infinite;
+  animation-delay: calc(var(--index, 0) * 0.5s);
 }
 
-/* Squash & Stretch on hover - more pronounced */
+@keyframes cardBreath{
+  0%, 100%{ transform: translateY(0) rotateZ(0deg); }
+  50%{ transform: translateY(-2px) rotateZ(0.2deg); }
+}
+
+/* Enhanced hover with anticipation */
 .card:hover, .card:focus-visible{ 
-  outline: outline: 3px solid var(--accent); outline-offset: 3px; 
-  transform: translateY(-10px) rotateZ(-0.8deg) scale(1.04, 0.96);
+  outline: none;
+  animation: cardHoverAnticipate 400ms var(--ease-anticipate) forwards;
   filter: drop-shadow(0 24px 52px rgba(0,0,0,.58));
 }
 
-/* Anticipation: wind-up before flip */
+@keyframes cardHoverAnticipate{
+  0%{ transform: translateY(0) scale(1); }
+  30%{ transform: translateY(2px) scale(0.98); }
+  100%{ transform: translateY(-10px) rotateZ(-0.8deg) scale(1.04, 0.96); }
+}
+
+/* Active state with squash */
 .card:active{
   transform: translateY(-2px) scale(0.97, 1.03) rotateZ(0.5deg);
-  transition-duration: 120ms;
+  transition-duration: 80ms;
   transition-timing-function: var(--ease-snap);
 }
 
-/* Inner / flip - asymmetric cosmic timing */
+/* Inner flip with elastic overshoot */
 .card__inner{
   position:relative; 
   width:100%; 
   height:100%;
   transform-style: preserve-3d; 
   -webkit-transform-style: preserve-3d;
-  transition: transform 850ms var(--ease-cosmic);
-  will-change: transform;
+  transition: transform 850ms var(--ease-spring);
+  will-change: var(--will-change-transform);
 }
 
 .flip-toggle:checked + .card .card__inner{ 
   transform: rotateY(180deg); 
   -webkit-transform: rotateY(180deg);
-  transition: transform 450ms var(--ease-out);
-  transition-duration: 850ms;
 }
 
 /* Faster flip back (asymmetric) */
 .flip-toggle:not(:checked) + .card .card__inner{
-  transition-duration: 450ms;
-  transition-timing-function: var(--ease-in);
+  transition-duration: 600ms;
+  transition-timing-function: var(--ease-anticipate);
 }
 
-/* Transform-origin variation by card index */
+/* Transform-origin variation */
 .card[data-index="0"] .card__inner{ transform-origin: 45% 48%; }
 .card[data-index="1"] .card__inner{ transform-origin: 55% 52%; }
 .card[data-index="2"] .card__inner{ transform-origin: 48% 50%; }
@@ -501,7 +550,7 @@ body.cards-flipped .global-hint{
 .card[data-index="4"] .card__inner{ transform-origin: 50% 48%; }
 .card[data-index="5"] .card__inner{ transform-origin: 50% 52%; }
 
-/* Faces */
+/* Card faces */
 .card__face{
   position:absolute; 
   inset:0; 
@@ -534,8 +583,7 @@ body.cards-flipped .global-hint{
 }
 
 /* ================================= */
-/* Art Nouveau Organic Ornaments     */
-/* SVG with bloom animation          */
+/* Enhanced Organic Ornaments */
 /* ================================= */
 .ornament{
   position: absolute;
@@ -544,17 +592,11 @@ body.cards-flipped .global-hint{
   opacity: 0;
   transition: opacity 600ms var(--ease-organic);
   pointer-events: none;
+  will-change: var(--will-change-opacity);
 }
 
-.ornament--tl{
-  top: 10px;
-  left: 10px;
-}
-
-.ornament--br{
-  bottom: 10px;
-  right: 10px;
-}
+.ornament--tl{ top: 10px; left: 10px; }
+.ornament--br{ bottom: 10px; right: 10px; }
 
 .ornament__stem{
   fill: none;
@@ -564,20 +606,22 @@ body.cards-flipped .global-hint{
   opacity: 0;
   stroke-dasharray: 40;
   stroke-dashoffset: 40;
-  transition: stroke-dashoffset 800ms var(--ease-organic), opacity 600ms var(--ease-organic);
+  transition: 
+    stroke-dashoffset 800ms var(--ease-organic), 
+    opacity 600ms var(--ease-organic);
 }
 
 .ornament__bloom{
   fill: var(--accent-glow);
   opacity: 0;
   transform-origin: center;
-  transition: r 600ms var(--ease-cosmic), opacity 600ms var(--ease-organic);
+  transition: 
+    r 600ms var(--ease-spring-gentle), 
+    opacity 600ms var(--ease-organic);
 }
 
-/* Hover state - organic growth */
-.card:hover .ornament{
-  opacity: 0.8;
-}
+/* Hover state - organic growth with pulse */
+.card:hover .ornament{ opacity: 0.8; }
 
 .card:hover .ornament__stem{
   opacity: 1;
@@ -588,43 +632,60 @@ body.cards-flipped .global-hint{
   opacity: 0.9;
   r: 3;
   transition-delay: 200ms;
+  animation: bloomPulse 2s var(--ease-float) infinite;
 }
 
 .card:hover .ornament__bloom--2{
   opacity: 0.7;
   r: 2.5;
   transition-delay: 350ms;
+  animation: bloomPulse 2s var(--ease-float) 0.5s infinite;
 }
 
 .card:hover .ornament__bloom--3{
   opacity: 0.7;
   r: 2.5;
   transition-delay: 500ms;
+  animation: bloomPulse 2s var(--ease-float) 1s infinite;
 }
 
-/* Shimmer - enhanced with follow-through */
+@keyframes bloomPulse{
+  0%, 100%{ transform: scale(1); }
+  50%{ transform: scale(1.2); }
+}
+
+/* Optimized shimmer */
 .shimmer::after{
   content:""; 
   position:absolute; 
   inset:-20%;
-  background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.12) 50%, rgba(255,255,255,0) 70%);
+  background: linear-gradient(
+    120deg, 
+    rgba(255,255,255,0) 30%, 
+    rgba(255,255,255,.12) 50%, 
+    rgba(255,255,255,0) 70%
+  );
   background-size: 200% 200%; 
-  opacity:.22;
-  animation: shimmerPass 140s linear infinite; 
+  opacity: 0;
+  animation: shimmerPass 140s linear infinite paused; 
   animation-delay: var(--shimmer-delay, 0s); 
   pointer-events: none;
-  will-change: transform;
+  will-change: var(--will-change-transform);
+}
+
+.card:hover .shimmer::after{
+  opacity: .22;
+  animation-play-state: running;
 }
 
 @keyframes shimmerPass{ 
-  0%{transform: translate3d(-8%, -6%, 0);} 
-  50%{transform: translate3d(6%, 5%, 0);} 
-  100%{transform: translate3d(-8%, -6%, 0);} 
+  0%{ transform: translate3d(-8%, -6%, 0); } 
+  50%{ transform: translate3d(6%, 5%, 0); } 
+  100%{ transform: translate3d(-8%, -6%, 0); } 
 }
 
 /* ================================ */
-/* Back - Enhanced gradient pulse   */
-/* Focal element staging            */
+/* Enhanced Card Back with Glow Pulse */
 /* ================================ */
 .card__back{
   background: 
@@ -641,53 +702,68 @@ body.cards-flipped .global-hint{
   overflow: hidden;
 }
 
-/* Background pulse on reveal */
+/* Enhanced background pulse */
 .card__back::before{
   content: "";
   position: absolute;
   inset: -50%;
-  background: radial-gradient(circle at center, rgba(225,198,153,.12), transparent 70%);
+  background: radial-gradient(
+    circle at center, 
+    rgba(225,198,153,.12), 
+    transparent 70%
+  );
   opacity: 0;
   animation: none;
+  will-change: var(--will-change-transform), var(--will-change-opacity);
 }
 
 .flip-toggle:checked + .card .card__back::before{
-  animation: backgroundPulse 2.4s var(--ease-cosmic) 0.5s forwards;
+  animation: backgroundPulseEnhanced 2.4s var(--ease-spring-gentle) 0.5s forwards;
 }
 
-@keyframes backgroundPulse{
-  0%{ opacity: 0; transform: scale(0.7) translateZ(0); }
-  50%{ opacity: 1; transform: scale(1.3) translateZ(0); }
-  100%{ opacity: 0; transform: scale(1.6) translateZ(0); }
+@keyframes backgroundPulseEnhanced{
+  0%{ 
+    opacity: 0; 
+    transform: scale(0.7) translateZ(0); 
+  }
+  40%{ 
+    opacity: 0.8; 
+    transform: scale(1.1) translateZ(0); 
+  }
+  60%{ 
+    opacity: 1; 
+    transform: scale(1.4) translateZ(0); 
+  }
+  100%{ 
+    opacity: 0; 
+    transform: scale(1.6) translateZ(0); 
+  }
 }
 
-/* ================================ */
-/* Focal Element: Title Persistence */
-/* Breathe animation on reveal      */
-/* ================================ */
+/* Title with enhanced breath */
 .back__title{ 
   margin:0; 
   font-size: clamp(1.2rem, 3.2vw, 1.7rem);
   position: relative;
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 600ms var(--ease-out) 200ms, transform 600ms var(--ease-cosmic) 200ms;
+  transition: 
+    opacity 600ms var(--ease-out) 200ms, 
+    transform 600ms var(--ease-spring-gentle) 200ms;
 }
 
 .flip-toggle:checked + .card .back__title{
   opacity: 1;
   transform: translateY(0);
-  animation: focalBreathe 3.6s var(--ease-organic) 1.2s infinite;
+  animation: focalBreathe 3.6s var(--ease-float) 1.2s infinite;
 }
 
 @keyframes focalBreathe{
   0%, 100%{ transform: scale(1) translateZ(0); }
-  50%{ transform: scale(1.015) translateZ(0); }
+  50%{ transform: scale(1.02) translateZ(0); }
 }
 
-/* ================================ */
-/* Sequential Content Staging       */
-/* ================================ */
+/* Sequential content with spring entrance */
 .back__line{
   margin:0; 
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -697,7 +773,9 @@ body.cards-flipped .global-hint{
   letter-spacing: normal;
   opacity: 0;
   transform: translateX(-15px);
-  transition: opacity 500ms var(--ease-out) 400ms, transform 500ms var(--ease-cosmic) 400ms;
+  transition: 
+    opacity 500ms var(--ease-out) 400ms, 
+    transform 500ms var(--ease-spring-gentle) 400ms;
 }
 
 .flip-toggle:checked + .card .back__line{
@@ -705,23 +783,298 @@ body.cards-flipped .global-hint{
   transform: translateX(0);
 }
 
-/* Mobile wrap */
-@media (max-width: 768px){
+/* Type-on animation */
+.type-line{
+  display:inline-block; 
+  width: 0ch;
+  animation: typing 1200ms steps(var(--chars)) 240ms both;
+  animation-play-state: paused;
+}
+
+.flip-toggle:checked + .card .card__back .type-line{ 
+  animation-play-state: running; 
+}
+
+/* Hero typing */
+.hero .type-line{
+  white-space: nowrap; 
+  display: inline-block; 
+  width: 0;
+  animation-name: typingPx; 
+  animation-timing-function: steps(var(--chars));
+  animation-fill-mode: both; 
+  animation-play-state: paused;
+}
+
+.hero.revealed .type-line{ 
+  animation-play-state: running; 
+}
+
+/* Enhanced cursor with spring */
+.cursor{ 
+  display:inline-block; 
+  margin-left: .1ch; 
+  animation: blinkSpring .9s var(--ease-spring-gentle) infinite; 
+  opacity:.9;
+  transition: 
+    opacity 300ms var(--ease-out),
+    transform 320ms var(--ease-spring-gentle);
+}
+
+@keyframes blinkSpring{ 
+  0%, 48%{ 
+    opacity:1; 
+    transform: scaleY(1);
+  } 
+  49%{ 
+    transform: scaleY(0.8);
+  }
+  50%, 100%{ 
+    opacity:0; 
+    transform: scaleY(1);
+  }
+}
+
+@keyframes typingPx{ 
+  from { width: 0; } 
+  to { width: var(--px); } 
+}
+
+@keyframes typing{ 
+  from{ width: 0ch; } 
+  to{ width: calc((var(--chars) + 1) * 1ch); } 
+}
+
+/* Paragraph jump with spring */
+@media (min-width: 921px){
+  .paragraph-cursor .cursor{
+    display: inline-block;
+    margin-left: 0;
+    transform: translateY(2em);
+    transition: transform 320ms var(--ease-spring);
+  }
+}
+
+/* Enhanced breath animation */
+.hero__tag.breathe{
+  animation: breathEnhanced 1100ms var(--ease-anticipate) both;
+  animation-delay: var(--breath-delay, 0ms);
+}
+
+@keyframes breathEnhanced{
+  0%   { transform: none; }
+  20%  { transform: scale(0.98); }
+  40%  { transform: skewX(1.5deg) scale(1.02); }
+  60%  { transform: skewX(-1.5deg) scale(1.02); }
+  80%  { transform: scale(1.01); }
+  100% { transform: none; }
+}
+
+/* ================================ */
+/* Enhanced CTAs with Secondary Pulse */
+/* ================================ */
+.back__cta{ 
+  align-self:end; 
+  display:flex; 
+  gap:.6rem; 
+  flex-wrap: wrap; 
+  opacity: 0;
+  transform: translateY(15px);
+  transition: 
+    opacity 500ms var(--ease-out) 600ms, 
+    transform 500ms var(--ease-spring-gentle) 600ms;
+}
+
+.flip-toggle:checked + .card .back__cta{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn{
+  display:inline-flex; 
+  align-items:center; 
+  justify-content:center;
+  padding:.75rem 1rem; 
+  min-height: var(--hint-touch-size);
+  border-radius: 10px;
+  background: rgba(225,198,153,.16); 
+  color: var(--ink); 
+  text-decoration:none;
+  border: 1px solid rgba(225,198,153,.28);
+  transition: 
+    transform 200ms var(--ease-spring-gentle), 
+    background 200ms var(--ease-out), 
+    box-shadow 200ms var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center, 
+    rgba(225,198,153,.4), 
+    transparent
+  );
+  opacity: 0;
+  transform: scale(0);
+  transition: 
+    opacity 400ms var(--ease-organic), 
+    transform 400ms var(--ease-spring);
+}
+
+.btn:hover, .btn:focus-visible{ 
+  transform: translateY(-3px) scale(1.03); 
+  background: rgba(225,198,153,.26);
+  box-shadow: 
+    0 6px 16px rgba(225,198,153,.3),
+    0 0 20px rgba(225,198,153,.15);
+}
+
+.btn:hover::before{
+  opacity: 1;
+  transform: scale(2);
+}
+
+.btn:active{
+  transform: translateY(-1px) scale(0.96);
+  transition-duration: 70ms;
+}
+
+.btn--ghost{ 
+  background: transparent; 
+}
+
+.btn:focus-visible{ 
+  outline: 3px solid var(--accent); 
+  outline-offset: 3px;
+  animation: focusGlow 1.5s var(--ease-float) infinite;
+}
+
+@keyframes focusGlow{
+  0%, 100%{ 
+    box-shadow: 
+      0 6px 16px rgba(225,198,153,.3),
+      0 0 20px rgba(225,198,153,.15);
+  }
+  50%{ 
+    box-shadow: 
+      0 8px 20px rgba(225,198,153,.4),
+      0 0 30px rgba(225,198,153,.25);
+  }
+}
+
+/* ================================== */
+/* Enhanced Coda with Staggered Entrance */
+/* ================================== */
+.coda{ 
+  min-height: 80vh; 
+  display:grid; 
+  align-content:center; 
+  gap: 1.2rem; 
+  padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
+  position: relative;
+  transition: gap 400ms var(--ease-spring-gentle);
+  grid-auto-rows: minmax(min-content, max-content);
+}
+
+.coda__card{ 
+  display:grid; 
+  place-items:center; 
+  position: relative;
+  z-index: 1;
+  transition: margin 400ms var(--ease-spring-gentle);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* Staggered entrance for coda cards */
+.js .reveal.coda.revealed .coda__card{
+  animation: codaStaggerIn 800ms var(--ease-spring-gentle) both;
+  animation-delay: calc((var(--stagger) + (var(--index, 0) * 150)) * 1ms);
+}
+
+@keyframes codaStaggerIn{
+  0%{
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100%{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Desktop: Two columns */
+@media (min-width: 920px){
+  .coda{ 
+    grid-template-columns: 1fr 1fr; 
+    gap: 2.5rem;
+    align-content: center;
+  }
+  
+  .coda.has-flipped-card{
+    gap: 4rem;
+  }
+}
+
+/* Mobile: Enhanced spacing */
+@media (max-width: 919px){
+  .coda{
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-content: start;
+    min-height: auto;
+  }
+  
+  .coda__card{
+    margin-bottom: 1.5rem;
+  }
+  
+  .coda.has-flipped-card{
+    gap: 5rem;
+  }
+  
+  .coda__card:has(.flip-toggle:checked){
+    margin-bottom: 4rem;
+  }
+  
+  .coda__card:has(.flip-toggle:checked) + .coda__card{
+    margin-top: 3rem;
+  }
+  
+  /* Mobile wrap fixes */
   .back__line{ 
     white-space: normal; 
     overflow: visible; 
     word-break: break-word; 
   }
+  
   .card .back__line .type-line { 
     animation-play-state: paused; 
     width: auto; 
     display: inline; 
   }
+  
   .card .back__line .cursor { 
     animation-play-state: running; 
   }
+  
   .cursor--tag, .cursor--author { 
-    display: none !important; 
+    display: none !important;
+    visibility: hidden;
+  }
+}
+
+.card--mini{ 
+  --card-w: min(46vw, 420px); 
+}
+
+@media (max-width: 919px){
+  .card--mini{
+    --card-w: min(85vw, 420px);
   }
 }
 
@@ -739,294 +1092,84 @@ body.cards-flipped .global-hint{
   }
 }
 
-/* Type-on animation */
-.type-line{
-  display:inline-block; 
-  width: 0ch;
-  animation: typing 1200ms steps(var(--chars)) 240ms both;
-  animation-play-state: paused;
-}
-
-.flip-toggle:checked + .card .card__back .type-line{ 
-  animation-play-state: running; 
-}
-
-/* Hero typing (pixel-accurate) */
-.hero .type-line{
-  white-space: nowrap; 
-  display: inline-block; 
-  width: 0;
-  animation-name: typingPx; 
-  animation-timing-function: steps(var(--chars));
-  animation-fill-mode: both; 
-  animation-play-state: paused;
-}
-
-.hero.revealed .type-line{ 
-  animation-play-state: running; 
-}
-
-/* ================================ */
-/* Cursor with Follow-Through       */
-/* Bounce overshoot when complete   */
-/* ================================ */
-.cursor{ 
-  display:inline-block; 
-  margin-left: .1ch; 
-  animation: blink .9s steps(1) infinite; 
-  opacity:.9;
-  transition: opacity 300ms var(--ease-out);
-}
-
-@keyframes typingPx{ 
-  from { width: 0; } 
-  to { width: var(--px); } 
-}
-
-/* Paragraph jump (desktop only) */
-@media (min-width: 921px){
-  .paragraph-cursor .cursor{
-    display: inline-block;
-    margin-left: 0;
-    transform: translateY(2em);
-    transition: transform 320ms var(--ease-cosmic);
-  }
-}
-
-/* Breath micro-motion on hero tag */
-.hero__tag{
-  animation: none;
-}
-
-.hero__tag.breathe{
-  animation: breath 1100ms var(--ease-cosmic) both;
-  animation-delay: var(--breath-delay, 0ms);
-}
-
-@keyframes breath{
-  0%   { transform: none; }
-  35%  { transform: skewX(1.5deg) scale(1.01); }
-  65%  { transform: skewX(-1.5deg) scale(1.01); }
-  100% { transform: none; }
-}
-
-/* ================================ */
-/* CTAs - Enhanced with Anticipation */
-/* Secondary actions on hover       */
-/* ================================ */
-.back__cta{ 
-  align-self:end; 
-  display:flex; 
-  gap:.6rem; 
-  flex-wrap: wrap; 
-  opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 500ms var(--ease-out) 600ms, transform 500ms var(--ease-cosmic) 600ms;
-}
-
-.flip-toggle:checked + .card .back__cta{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.btn{
-  display:inline-flex; 
-  align-items:center; 
-  justify-content:center;
-  padding:.6rem .9rem; 
-  min-height: var(--hint-touch-size); /* Touch target size */
-  border-radius: 10px;
-  background: rgba(225,198,153,.16); 
-  color: var(--ink); 
-  text-decoration:none;
-  border: 1px solid rgba(225,198,153,.28);
-  transition: transform 200ms var(--ease-out), background 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(225,198,153,.4), transparent);
-  opacity: 0;
-  transform: scale(0);
-  transition: opacity 400ms var(--ease-organic), transform 400ms var(--ease-cosmic);
-}
-
-.btn:focus-visible{ 
-  outline: 3px solid var(--accent); 
-  outline-offset: 3px; 
-}
-
-.btn:hover, .btn:focus-visible{ 
-  transform: translateY(-3px) scale(1.03); 
-  background: rgba(225,198,153,.26);
-  box-shadow: 0 6px 16px rgba(225,198,153,.3);
-}
-
-.btn:hover::before{
-  opacity: 1;
-  transform: scale(2);
-}
-
-/* Anticipation: pull-back before click */
-.btn:active{
-  transform: translateY(-1px) scale(0.96);
-  transition-duration: 70ms;
-}
-
-.btn--ghost{ 
-  background: transparent; 
-}
-
-/* ================================== */
-/* Coda Grid - Adaptive Spacing       */
-/* Mobile collision prevention        */
-/* ================================== */
-.coda{ 
-  min-height: 80vh; 
-  display:grid; 
-  align-content:center; 
-  gap: 1.2rem; 
-  padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
-  position: relative;
-  transition: gap 400ms var(--ease-organic);
-  grid-auto-rows: minmax(min-content, max-content);
-}
-
-.coda__card{ 
-  display:grid; 
-  place-items:center; 
-  position: relative;
-  z-index: 1;
-  transition: margin 400ms var(--ease-organic);
-}
-
-/* Desktop: Two columns */
-@media (min-width: 920px){
-  .coda{ 
-    grid-template-columns: 1fr 1fr; 
-    gap: 2.5rem;
-    align-content: center;
-  }
-  
-  /* Expand gap when cards flipped (prevents collision) */
-  .coda.has-flipped-card{
-    gap: 3.5rem;
-  }
-}
-
-/* Mobile: Single column with adaptive spacing */
-@media (max-width: 919px){
-  .coda{
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    align-content: start;
-    min-height: auto;
-  }
-  
-  .coda__card{
-    margin-bottom: 1rem;
-  }
-  
-  /* Expand gap when cards flipped (prevents collision) */
-  .coda.has-flipped-card{
-    gap: 4.5rem;
-  }
-  
-  /* Individual card spacing when flipped */
-  .coda__card:has(.flip-toggle:checked){
-    margin-bottom: 3.5rem;
-  }
-  
-  .coda__card:has(.flip-toggle:checked) + .coda__card{
-    margin-top: 2.5rem;
-  }
-}
-
-.card--mini{ 
-  --card-w: min(46vw, 420px); 
-}
-
-/* Mobile: Ensure mini cards fit viewport */
-@media (max-width: 919px){
-  .card--mini{
-    --card-w: min(85vw, 420px);
-  }
-}
-
-/* Coda reveal - with true arc motion */
+/* Coda reveal with arc motion */
 .js .reveal.coda.revealed .card{
-  animation: floatInArc 1000ms var(--ease-cosmic) both;
-  animation-delay: calc( (var(--stagger) + (var(--index,0) * 100)) * 1ms);
+  animation: floatInArc 1000ms var(--ease-spring-gentle) both;
+  animation-delay: calc((var(--stagger) + (var(--index,0) * 100)) * 1ms);
 }
 
 /* ================================== */
-/* Enhanced Keyframes                 */
-/* Applying 12 Animation Principles   */
+/* Enhanced Keyframes with All 12 Principles */
 /* ================================== */
 
-/* Anticipation micro-bounce before rise */
+/* Anticipation with squash and stretch */
 @keyframes riseInAnticipate{
   0%{ 
     opacity: 0; 
-    transform: translate3d(0, 50px, 0) scale(.94) rotateZ(1deg); 
+    transform: translate3d(0, 50px, 0) scale(.94, 1.02) rotateZ(1deg); 
   }
-  12%{ 
-    transform: translate3d(0, 48px, 0) scale(.95) rotateZ(0.8deg); 
+  15%{ 
+    transform: translate3d(0, 52px, 0) scale(.92, 1.04) rotateZ(1.2deg); 
   }
-  20%{ 
-    transform: translate3d(0, 52px, 0) scale(.92) rotateZ(1.2deg); 
+  30%{
+    transform: translate3d(0, 45px, 0) scale(.96, 1.01) rotateZ(0.5deg);
   }
-  82%{ 
+  70%{ 
     opacity: 1; 
-    transform: translate3d(0, -5px, 0) scale(1.02) rotateZ(-0.3deg); 
+    transform: translate3d(0, -3px, 0) scale(1.01, 0.99) rotateZ(-0.2deg); 
+  }
+  85%{
+    transform: translate3d(0, 1px, 0) scale(0.99, 1.01) rotateZ(0.1deg);
   }
   100%{ 
     transform: translate3d(0, 0, 0) scale(1) rotateZ(0deg); 
   }
 }
 
-/* True arc motion with bezier curve path */
+/* Arc motion with follow-through */
 @keyframes floatInArc{ 
   0%{
     opacity:0; 
-    transform: translate3d(-15px, 35px, 0) rotate(3deg) scale(0.94);
+    transform: 
+      translate3d(-15px, 35px, 0) 
+      rotate(3deg) 
+      scale(0.94);
   }
-  40%{
-    transform: translate3d(8px, -8px, 0) rotate(-1deg) scale(1.02);
+  30%{
+    transform: 
+      translate3d(10px, -5px, 0) 
+      rotate(-0.5deg) 
+      scale(1.01);
+  }
+  50%{
+    opacity:1;
+    transform: 
+      translate3d(-2px, -10px, 0) 
+      rotate(-1deg) 
+      scale(1.02);
   }
   70%{
-    opacity:1;
-    transform: translate3d(-3px, 2px, 0) rotate(0.3deg) scale(1.01);
+    transform: 
+      translate3d(3px, 3px, 0) 
+      rotate(0.3deg) 
+      scale(0.99);
+  }
+  85%{
+    transform: 
+      translate3d(-1px, -2px, 0) 
+      rotate(-0.1deg) 
+      scale(1.01);
   }
   100%{
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    transform: 
+      translate3d(0, 0, 0) 
+      rotate(0deg) 
+      scale(1);
   }
-}
-
-@keyframes typing{ 
-  from{ width: 0ch; } 
-  to{ width: calc((var(--chars) + 1) * 1ch); } 
-}
-
-/* Cursor blink with follow-through bounce */
-@keyframes blink{ 
-  0%,48%{opacity:1;} 
-  49%,100%{opacity:0;} 
-}
-
-/* Wrapping caret stays inline */
-.back__line.wrap .cursor{ 
-  display:inline-block; 
-  line-height:1; 
 }
 
 /* ================================ */
-/* Reduced Motion - Accessibility   */
-/* Comprehensive alternatives       */
+/* Enhanced Reduced Motion Support */
 /* ================================ */
 @media (prefers-reduced-motion: reduce){
   *,
@@ -1037,58 +1180,49 @@ body.cards-flipped .global-hint{
     transition-duration: 0.01ms !important;
   }
   
-  /* Hide purely decorative animations */
-  .particle{ display: none !important; }
-  .burst-particle{ display: none !important; }
-  .shimmer::after{ animation: none !important; }
-  
-  /* Stop starfield motion */
+  /* Disable decorative animations */
+  .particle,
+  .burst-particle,
+  .shimmer::after,
   body.starfield::before,
-  body.starfield::after{ 
-    animation: none !important; 
+  body.starfield::after { 
+    animation: none !important;
+    display: none !important;
   }
   
   /* Instant reveals */
   .js .reveal .card,
   .js .reveal .hero__inner,
   .js .reveal .site-footer,
-  .js .reveal.site-footer,
-  .js.reveal-ready .reveal .card,
-  .js.reveal-ready .reveal .hero__inner,
-  .js.reveal-ready .reveal .site-footer,
-  .js.reveal-ready .reveal.site-footer,
   .js.reveal-ready .reveal.revealed .card,
-  .js.reveal-ready .reveal.revealed .hero__inner,
-  .js.reveal-ready .reveal.revealed .site-footer,
-  .js.reveal-ready .reveal.revealed.site-footer{
+  .js.reveal-ready .reveal.revealed .hero__inner{
     opacity: 1 !important; 
     transform: none !important;
+    animation: none !important;
   }
   
-  /* Keep ornaments visible but static */
-  .ornament{
-    opacity: 0.6 !important;
-  }
-  .ornament__stem{
+  /* Static ornaments */
+  .ornament{ opacity: 0.6 !important; }
+  .ornament__stem{ 
     opacity: 1 !important;
     stroke-dashoffset: 0 !important;
   }
-  .ornament__bloom{
+  .ornament__bloom{ 
     opacity: 0.7 !important;
     r: 2.5 !important;
+    animation: none !important;
   }
   
-  /* Static hint (no breathing) */
-  .global-hint .hint-text{
+  /* Static hint */
+  .global-hint .hint-text,
+  .hint-bloom { 
     animation: none !important;
   }
-  .hint-text::before{
+  
+  /* Remove breath animations */
+  .hero,
+  .card { 
     animation: none !important;
-  }
-  .hint-bloom{
-    animation: none !important;
-    r: 2.5 !important;
-    opacity: 0.7 !important;
   }
 }
 
@@ -1098,4 +1232,33 @@ body.cards-flipped .global-hint{
   padding: 3rem 1.25rem calc(4rem + env(safe-area-inset-bottom)); 
   color: var(--ink-dim); 
   font-size: .9rem;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px){
+  .global-hint{
+    bottom: 1.5rem;
+    max-width: 90vw;
+  }
+  
+  .global-hint.above{
+    top: 10vh;
+  }
+  
+  .hint-text{
+    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+  }
+  
+  .hint-ornament{
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* Backdrop-filter fallback */
+@supports not (backdrop-filter: blur(12px)){
+  .hint-text{
+    background: rgba(14, 26, 43, 0.92);
+  }
 }
