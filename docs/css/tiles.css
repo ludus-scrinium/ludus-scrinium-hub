@@ -276,6 +276,14 @@ body.starfield::after{
   }
 }
 
+/* Hero cursors: hide tag/author cursors on larger screens too */
+@media (min-width: 481px){
+  .cursor--tag,
+  .cursor--author{
+    display: none;
+  }
+}
+
 /* Coda: desktop wrap assistance */
 @media (min-width: 921px){
   .coda .back__line.wrap{
