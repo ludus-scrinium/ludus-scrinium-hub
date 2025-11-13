@@ -2,7 +2,7 @@
 /* Enhanced Reveal + Typing + Particles     */
 /* + Global Hint + Adaptive Coda            */
 /* Performance optimized, mobile-first      */
-/* All 42 improvements implemented          */
+/* All fixes and 12 animation principles    */
 /* ========================================= */
 (function () {
   'use strict';
@@ -15,29 +15,51 @@
   const lines = Array.from(document.querySelectorAll('.type-line'));
   
   // =====================
-  // Utility: Throttle
+  // Performance: RAF batching
+  // =====================
+  const rafTasks = new Set();
+  let rafId = null;
+  
+  function scheduleRaf(task) {
+    rafTasks.add(task);
+    if (!rafId) {
+      rafId = requestAnimationFrame(() => {
+        const tasks = Array.from(rafTasks);
+        rafTasks.clear();
+        rafId = null;
+        tasks.forEach(fn => fn());
+      });
+    }
+  }
+  
+  // =====================
+  // Utility: Enhanced Throttle
   // =====================
   function throttle(func, wait) {
     let timeout = null;
     let previous = 0;
+    let pending = false;
     
     return function(...args) {
       const now = Date.now();
       const remaining = wait - (now - previous);
+      
+      const execute = () => {
+        previous = Date.now();
+        timeout = null;
+        pending = false;
+        func.apply(this, args);
+      };
       
       if (remaining <= 0 || remaining > wait) {
         if (timeout) {
           clearTimeout(timeout);
           timeout = null;
         }
-        previous = now;
-        func.apply(this, args);
-      } else if (!timeout) {
-        timeout = setTimeout(() => {
-          previous = Date.now();
-          timeout = null;
-          func.apply(this, args);
-        }, remaining);
+        execute();
+      } else if (!pending) {
+        pending = true;
+        timeout = setTimeout(execute, remaining);
       }
     };
   }
@@ -46,22 +68,23 @@
   // Device Detection
   // =====================
   const isMobile = () => window.innerWidth < 768;
-  const isLowEnd = () => {
-    // Detect low-end devices by hardware concurrency
-    return navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-  };
+  const isLowEnd = () => navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+  const prefersReducedMotion = () => 
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   
-  const PARTICLE_COUNT = isMobile() ? (isLowEnd() ? 8 : 12) : 20;
+  const PARTICLE_COUNT = prefersReducedMotion() ? 0 : 
+    (isMobile() ? (isLowEnd() ? 8 : 12) : 20);
 
   // =====================
-  // Typing Setup
+  // Typing Setup with Performance
   // =====================
   lines.forEach(el => {
     if (!el.style.getPropertyValue('--chars')) {
       const chars = Array.from(el.textContent).length;
       el.style.setProperty('--chars', String(chars));
     }
-    const chars = parseInt(el.style.getPropertyValue('--chars')) || Array.from(el.textContent).length;
+    const chars = parseInt(el.style.getPropertyValue('--chars')) || 
+      Array.from(el.textContent).length;
     const msPerChar = parseInt(el.getAttribute('data-ms-per-char') || '45');
     const dur = chars * msPerChar;
     el.style.animationDuration = `${dur}ms`;
@@ -72,42 +95,52 @@
     el.style.animationFillMode = 'both';
   });
 
-  // Measure hero pixel width for typingPx
+  // Measure hero with RAF batching
   function measureHero() {
-    document.querySelectorAll('.hero .type-line').forEach(el => {
-      const prevWidth = el.style.width;
-      el.style.width = 'auto';
-      const px = el.scrollWidth;
-      el.style.setProperty('--px', `${px}px`);
-      el.style.width = prevWidth;
-      el.style.animationName = 'typingPx';
+    scheduleRaf(() => {
+      document.querySelectorAll('.hero .type-line').forEach(el => {
+        const prevWidth = el.style.width;
+        el.style.width = 'auto';
+        const px = el.scrollWidth;
+        el.style.setProperty('--px', `${px}px`);
+        el.style.width = prevWidth;
+        el.style.animationName = 'typingPx';
+      });
     });
   }
   
-  // Wait for fonts to load before measuring
+  // Wait for fonts with proper timing
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
     .then(measureHero)
     .then(() => {
-      // Fix: cursor visibility after font load
-      setTimeout(() => {
+      // Fix: Enhanced cursor visibility with proper initial state
+      scheduleRaf(() => {
         const tagLine = document.querySelector('.hero-line--tag');
+        const authorLine = document.querySelector('.hero-line--author');
         const authorCursor = document.querySelector('.cursor--author');
 
-        if (tagLine && authorCursor) {
+        if (tagLine && authorCursor && authorLine) {
           const tagDelay = parseInt(tagLine.style.animationDelay || '0');
-          const tagDur   = parseInt(tagLine.dataset._dur || '0');
+          const tagDur = parseInt(tagLine.dataset._dur || '0');
           const showAuthorCursorAt = tagDelay + tagDur + 40;
 
+          // Set initial state properly
           authorCursor.style.visibility = 'hidden';
+          authorCursor.style.opacity = '0';
+          
           setTimeout(() => {
-            authorCursor.style.visibility = 'visible';
+            scheduleRaf(() => {
+              authorCursor.style.visibility = 'visible';
+              authorCursor.style.opacity = '0.9';
+              authorCursor.style.transition = 'opacity 300ms ease-out';
+            });
           }, showAuthorCursorAt);
         }
-      }, 100);
+      });
     });
 
   // =====================
-  // Hero Cascade
+  // Hero Cascade with Spring
   // =====================
   (function cascadeHero() {
     const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
@@ -120,7 +153,7 @@
       offset += Math.max(140, Math.floor(dur * 0.88));
     });
 
-    // Breath micro-motion on tagline
+    // Enhanced breath with anticipation
     const tag = document.querySelector('.hero__tag');
     const last = heroLines[heroLines.length - 1];
     if (tag && last) {
@@ -133,7 +166,7 @@
   })();
 
   // =====================
-  // Reveal-on-Scroll
+  // Enhanced Reveal-on-Scroll
   // =====================
   reveals.forEach(el => {
     const stagger = Number(el.getAttribute('data-stagger') || 0);
@@ -144,32 +177,39 @@
     card.style.setProperty('--index', i);
   });
 
+  // Improved intersection observer
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('revealed');
+        scheduleRaf(() => {
+          entry.target.classList.add('revealed');
+        });
         io.unobserve(entry.target);
       }
     });
-  }, { rootMargin: '20% 0px 20% 0px', threshold: 0 });
+  }, { 
+    rootMargin: '20% 0px 20% 0px', 
+    threshold: 0 
+  });
 
   reveals.forEach(el => io.observe(el));
 
   // Reveal items already in view
-  const vh = window.innerHeight || document.documentElement.clientHeight;
-  reveals.forEach(el => {
-    const r = el.getBoundingClientRect();
-    if (r.top < vh * 0.9 && r.bottom > 0) {
-      el.classList.add('revealed');
-      io.unobserve(el);
-    }
+  scheduleRaf(() => {
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    reveals.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.9 && r.bottom > 0) {
+        el.classList.add('revealed');
+        io.unobserve(el);
+      }
+    });
   });
 
   root.classList.add('reveal-ready');
 
   // ================================
-  // Card Back: Auto-wrap Detection
-  // RAF-wrapped for next frame
+  // Card Back: Auto-wrap with Performance
   // ================================
   (function(){
     const SEL = '.card .back__line';
@@ -178,7 +218,8 @@
     function chWidthFor(el){
       const probe = document.createElement('span');
       probe.textContent = '0';
-      probe.style.cssText = 'visibility:hidden;position:absolute;white-space:nowrap;';
+      probe.style.cssText = 
+        'visibility:hidden;position:absolute;white-space:nowrap;';
       el.appendChild(probe);
       const w = probe.getBoundingClientRect().width || 8;
       probe.remove();
@@ -186,28 +227,26 @@
     }
 
     function updateBackLines(){
-      requestAnimationFrame(() => {
-        // Batch reads
-        const measurements = Array.from(lines).map(line => {
-          const type = line.querySelector('.type-line');
-          if (!type) return null;
-          
-          const text = type.textContent;
-          const chars = Array.from(text).length;
-          const cw = chWidthFor(line);
-          const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
-          const usable = line.clientWidth - pr;
-          const capacity = Math.floor(usable / cw) - 1;
-          
-          return { line, type, chars, capacity };
-        }).filter(Boolean);
+      // Batch reads
+      const measurements = Array.from(lines).map(line => {
+        const type = line.querySelector('.type-line');
+        if (!type) return null;
+        
+        const text = type.textContent;
+        const chars = Array.from(text).length;
+        const cw = chWidthFor(line);
+        const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
+        const usable = line.clientWidth - pr;
+        const capacity = Math.floor(usable / cw) - 1;
+        
+        return { line, type, chars, capacity };
+      }).filter(Boolean);
 
-        // Batch writes (next frame)
-        requestAnimationFrame(() => {
-          measurements.forEach(({ line, type, chars, capacity }) => {
-            type.style.setProperty('--chars', chars);
-            line.classList.toggle('wrap', chars > capacity);
-          });
+      // Batch writes
+      scheduleRaf(() => {
+        measurements.forEach(({ line, type, chars, capacity }) => {
+          type.style.setProperty('--chars', chars);
+          line.classList.toggle('wrap', chars > capacity);
         });
       });
     }
@@ -216,20 +255,24 @@
     window.addEventListener('DOMContentLoaded', () => defer(updateBackLines), {once:true});
     
     const throttledUpdate = throttle(updateBackLines, 200);
-    window.addEventListener('resize', throttledUpdate);
+    window.addEventListener('resize', throttledUpdate, {passive: true});
     
-    document.addEventListener('change', e=>{
-      if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 150);
+    document.addEventListener('change', e => {
+      if(e.target.matches('.flip-toggle')) {
+        setTimeout(updateBackLines, 150);
+      }
     });
   })();
 
   // =====================
-  // Desktop: Cursor Paragraph Jump
+  // Desktop: Enhanced Cursor Jump
   // =====================
   (function(){
     const PAIRS = [
-      { toggle: '#flip-oracle', line: '#card-oracle .type-line', container: '#card-oracle .back__line' },
-      { toggle: '#flip-creator', line: '#card-creator .type-line', container: '#card-creator .back__line' },
+      { toggle: '#flip-oracle', line: '#card-oracle .type-line', 
+        container: '#card-oracle .back__line' },
+      { toggle: '#flip-creator', line: '#card-creator .type-line', 
+        container: '#card-creator .back__line' },
     ];
     const isDesktop = () => matchMedia('(min-width: 921px)').matches;
     const timers = new Map();
@@ -243,17 +286,27 @@
       t.addEventListener('change', () => {
         if(!isDesktop()){
           cont.classList.remove('paragraph-cursor');
-          if(timers.has(cont)){ clearTimeout(timers.get(cont)); timers.delete(cont); }
+          if(timers.has(cont)){ 
+            clearTimeout(timers.get(cont)); 
+            timers.delete(cont); 
+          }
           return;
         }
         if(t.checked){
           const dur = parseInt(line.dataset._dur || '0');
           const delay = parseInt(line.style.animationDelay || '0');
           const when = dur + delay + 80;
-          const id = setTimeout(() => cont.classList.add('paragraph-cursor'), when);
+          const id = setTimeout(() => {
+            scheduleRaf(() => {
+              cont.classList.add('paragraph-cursor');
+            });
+          }, when);
           timers.set(cont, id);
-        }else{
-          if(timers.has(cont)){ clearTimeout(timers.get(cont)); timers.delete(cont); }
+        } else {
+          if(timers.has(cont)){ 
+            clearTimeout(timers.get(cont)); 
+            timers.delete(cont); 
+          }
           cont.classList.remove('paragraph-cursor');
         }
       });
@@ -263,9 +316,11 @@
   })();
 
   // ================================
-  // Floating Particles
+  // Enhanced Floating Particles with Orbits
   // ================================
   (function initParticles(){
+    if (prefersReducedMotion()) return;
+    
     const container = document.getElementById('particles');
     if(!container) return;
 
@@ -275,14 +330,17 @@
       const p = document.createElement('div');
       p.className = 'particle';
       
+      // Enhanced particle physics
       const duration = 7 + Math.random() * 9;
       const delay = Math.random() * 6;
       const opacity = 0.25 + Math.random() * 0.35;
       const xStart = Math.random() * 100;
       const yStart = 25 + Math.random() * 55;
-      const xMid = xStart + (Math.random() - 0.5) * 35;
-      const yMid = yStart + (Math.random() - 0.5) * 45;
-      const xEnd = xMid + (Math.random() - 0.5) * 25;
+      
+      // Arc motion paths
+      const xMid = xStart + (Math.random() - 0.5) * 40;
+      const yMid = yStart + (Math.random() - 0.5) * 50;
+      const xEnd = xMid + (Math.random() - 0.5) * 30;
       const yEnd = yStart + 45 + Math.random() * 45;
       const scaleMid = 0.85 + Math.random() * 0.7;
 
@@ -299,19 +357,29 @@
         --scale-mid: ${scaleMid};
       `;
 
+      // Fix: Set initial opacity before append
+      p.style.opacity = '0';
       container.appendChild(p);
       particles.push(p);
     }
 
+    // Smooth fade-in
     setTimeout(() => {
-      particles.forEach(p => p.style.opacity = '1');
+      scheduleRaf(() => {
+        particles.forEach(p => {
+          p.style.transition = 'opacity 1200ms ease-out';
+          p.style.opacity = '1';
+        });
+      });
     }, 2400);
   })();
 
   // ================================
-  // Particle Burst System
+  // Enhanced Particle Burst with Spring
   // ================================
   (function initParticleBursts(){
+    if (prefersReducedMotion()) return;
+    
     const burstContainer = document.getElementById('particle-bursts');
     if(!burstContainer) return;
 
@@ -355,8 +423,7 @@
   })();
 
   // ================================
-  // GLOBAL HINT SYSTEM
-  // Smart positioning, state-aware
+  // Enhanced Global Hint System
   // ================================
   (function initGlobalHint(){
     const hint = document.getElementById('globalHint');
@@ -367,7 +434,7 @@
     let anyCardFlipped = false;
     let debounceTimer = null;
 
-    // Check flip state with debounce
+    // Check flip state with proper debouncing
     function updateFlipState(){
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
@@ -376,7 +443,9 @@
         anyCardFlipped = !!flipped;
 
         if(anyCardFlipped !== wasFlipped){
-          document.body.classList.toggle('cards-flipped', anyCardFlipped);
+          scheduleRaf(() => {
+            document.body.classList.toggle('cards-flipped', anyCardFlipped);
+          });
           
           if(anyCardFlipped){
             hideHint();
@@ -385,7 +454,7 @@
       }, 50);
     }
 
-    // Show hint with viewport boundary detection
+    // Show hint with improved boundary detection
     function showHint(card){
       if(anyCardFlipped) return;
       
@@ -393,27 +462,30 @@
       const rect = card.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
-      // Boundary detection
+      // Enhanced boundary detection
       const spaceBelow = viewportHeight - rect.bottom;
       const spaceAbove = rect.top;
       
       hint.classList.remove('above');
       
-      // Position above if insufficient space below
-      if(spaceBelow < 100 && spaceAbove > 150){
+      if(spaceBelow < 120 && spaceAbove > 180){
         hint.classList.add('above');
       }
       
-      hint.classList.add('visible');
-      hint.classList.remove('hidden');
-      hint.setAttribute('aria-hidden', 'false');
+      scheduleRaf(() => {
+        hint.classList.add('visible');
+        hint.classList.remove('hidden');
+        hint.setAttribute('aria-hidden', 'false');
+      });
       hintVisible = true;
     }
 
     function hideHint(){
-      hint.classList.remove('visible');
-      hint.classList.add('hidden');
-      hint.setAttribute('aria-hidden', 'true');
+      scheduleRaf(() => {
+        hint.classList.remove('visible');
+        hint.classList.add('hidden');
+        hint.setAttribute('aria-hidden', 'true');
+      });
       currentCard = null;
       hintVisible = false;
     }
@@ -422,7 +494,7 @@
     const cards = document.querySelectorAll('.card');
     
     cards.forEach(card => {
-      // Mouse events (desktop)
+      // Mouse events
       card.addEventListener('mouseenter', () => {
         if(!anyCardFlipped){
           showHint(card);
@@ -433,7 +505,7 @@
         hideHint();
       });
 
-      // Touch events (mobile)
+      // Touch events with passive flag
       let touchTimer;
       card.addEventListener('touchstart', () => {
         if(anyCardFlipped) return;
@@ -448,7 +520,7 @@
         setTimeout(hideHint, 300);
       }, {passive: true});
 
-      // Focus events (keyboard)
+      // Focus events with ARIA sync
       card.addEventListener('focus', () => {
         if(!anyCardFlipped){
           showHint(card);
@@ -467,7 +539,7 @@
 
     updateFlipState();
 
-    // Hide on scroll
+    // Hide on scroll with passive flag
     const throttledHideOnScroll = throttle(() => {
       if(hintVisible && !anyCardFlipped){
         hideHint();
@@ -478,8 +550,7 @@
   })();
 
   // ================================
-  // Coda Card Collision Fix
-  // Dynamic spacing management
+  // Enhanced Coda Collision Prevention
   // ================================
   (function fixCodaCollision(){
     const coda = document.querySelector('.coda');
@@ -489,7 +560,9 @@
     
     function updateCodaSpacing(){
       const anyFlipped = Array.from(codaToggles).some(t => t.checked);
-      coda.classList.toggle('has-flipped-card', anyFlipped);
+      scheduleRaf(() => {
+        coda.classList.toggle('has-flipped-card', anyFlipped);
+      });
     }
 
     codaToggles.forEach(toggle => {
@@ -500,13 +573,13 @@
 
     updateCodaSpacing();
 
-    // Re-check on resize
+    // Re-check on resize with passive flag
     const throttledResize = throttle(updateCodaSpacing, 200);
-    window.addEventListener('resize', throttledResize);
+    window.addEventListener('resize', throttledResize, {passive: true});
   })();
 
   // ================================
-  // Depth-Aware Starfield
+  // Enhanced Depth-Aware Starfield
   // ================================
   (function depthStarfield(){
     let lastDepth = 0;
@@ -516,14 +589,17 @@
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = Math.min(scrolled / Math.max(docHeight, 1), 1);
       
+      // Enhanced parallax depth calculation
       let depth = 0;
-      if(progress > 0.25) depth = 1;
-      if(progress > 0.5) depth = 2;
-      if(progress > 0.75) depth = 3;
+      if(progress > 0.2) depth = 1;
+      if(progress > 0.45) depth = 2;
+      if(progress > 0.7) depth = 3;
 
       if(depth !== lastDepth){
-        document.body.classList.remove('depth-1', 'depth-2', 'depth-3');
-        if(depth > 0) document.body.classList.add(`depth-${depth}`);
+        scheduleRaf(() => {
+          document.body.classList.remove('depth-1', 'depth-2', 'depth-3');
+          if(depth > 0) document.body.classList.add(`depth-${depth}`);
+        });
         lastDepth = depth;
       }
     }
@@ -535,16 +611,20 @@
   })();
 
   // ================================
-  // Connection Lines - Immersive
-  // Performance optimized RAF
+  // Enhanced Connection Lines with Arc Motion
   // ================================
   (function initConnections(){
+    if (prefersReducedMotion()) return;
+    
     const canvas = document.getElementById('connections');
     if(!canvas) return;
 
     let ctx;
     try {
-      ctx = canvas.getContext('2d', { alpha: true });
+      ctx = canvas.getContext('2d', { 
+        alpha: true,
+        desynchronized: true 
+      });
     } catch(e) {
       console.warn('Canvas not supported:', e);
       return;
@@ -574,12 +654,15 @@
       resize();
       if(canvas.classList.contains('visible')) drawConnections();
     }, 200);
-    window.addEventListener('resize', throttledResize);
+    window.addEventListener('resize', throttledResize, {passive: true});
 
-    // Get card positions (batched)
-    function getAllCardPositions(){
+    // Get card positions with caching
+    let cachedPositions = null;
+    function getAllCardPositions(force = false){
+      if (!force && cachedPositions) return cachedPositions;
+      
       const cards = Array.from(document.querySelectorAll('.card'));
-      return cards.map((card, index) => {
+      cachedPositions = cards.map((card, index) => {
         const rect = card.getBoundingClientRect();
         const section = card.closest('[data-project]');
         
@@ -594,9 +677,11 @@
           rect: rect
         };
       }).filter(c => c.element.offsetParent !== null);
+      
+      return cachedPositions;
     }
 
-    // Draw curved line
+    // Draw curved line with arc principle
     function drawCurvedLine(from, to, progress, mobile){
       if(progress <= 0) return;
 
@@ -612,12 +697,18 @@
       ctx.lineCap = 'round';
 
       if(mobile){
+        // Simple arc for mobile
         const offsetX = 18 * Math.sin(from.index);
         ctx.beginPath();
         ctx.moveTo(from.x + offsetX, from.bottom);
-        ctx.lineTo(to.x + offsetX, to.top);
+        
+        const cp1x = from.x + offsetX + 20;
+        const cp1y = (from.bottom + to.top) / 2;
+        
+        ctx.quadraticCurveTo(cp1x, cp1y, to.x + offsetX, to.top);
         ctx.stroke();
       } else {
+        // Enhanced bezier curve with arc motion
         const curveOffset = 90 + (from.index * 35);
         const direction = from.index % 2 === 0 ? 1 : -1;
         
@@ -628,17 +719,10 @@
 
         ctx.beginPath();
         ctx.moveTo(from.x, from.bottom);
-        
-        const steps = Math.floor(progress * 100);
-        for(let i = 0; i <= steps; i++){
-          const t = i / 100;
-          const t1 = 1 - t;
-          const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
-          const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
-          ctx.lineTo(x, y);
-        }
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, to.x, to.top);
         ctx.stroke();
 
+        // Enhanced glow effect
         if(pulseValue > 0.7){
           ctx.globalAlpha = (pulseValue - 0.7) * 0.5 * progress;
           ctx.strokeStyle = '#D4B589';
@@ -646,14 +730,7 @@
           ctx.filter = 'blur(8px)';
           ctx.beginPath();
           ctx.moveTo(from.x, from.bottom);
-          
-          for(let i = 0; i <= steps; i++){
-            const t = i / 100;
-            const t1 = 1 - t;
-            const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
-            const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
-            ctx.lineTo(x, y);
-          }
+          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, to.x, to.top);
           ctx.stroke();
         }
       }
@@ -662,7 +739,7 @@
     }
 
     function drawConnections(){
-      const cards = getAllCardPositions();
+      const cards = getAllCardPositions(true);
       if(cards.length < 2) return;
 
       canvas.classList.add('visible');
@@ -674,7 +751,10 @@
     }
 
     function animate(){
-      if(!canvas.classList.contains('visible') || !isAnimating) return;
+      if(!canvas.classList.contains('visible') || !isAnimating) {
+        stopAnimation();
+        return;
+      }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -693,14 +773,14 @@
         const to = cards[i + 1];
         
         const staggerDelay = i * 0.18;
-        const thisLineProgress = Math.max(0, Math.min(1, (lineProgress - staggerDelay) / 0.82));
+        const thisLineProgress = Math.max(0, 
+          Math.min(1, (lineProgress - staggerDelay) / 0.82));
         
         drawCurvedLine(from, to, thisLineProgress, mobile);
       }
 
-      // Cancel RAF when animation complete AND no interaction
+      // Auto-stop after completion
       if(lineProgress >= 1 && !document.querySelector('.card:hover')){
-        // Continue pulsing for 5 more seconds, then stop
         const timeSinceComplete = Date.now() - (animationStartTime + 2400);
         if(timeSinceComplete > 5000){
           stopAnimation();
@@ -717,6 +797,7 @@
         animFrame = null;
       }
       isAnimating = false;
+      cachedPositions = null;
     }
 
     // Start when first card revealed
@@ -744,11 +825,12 @@
       });
     });
 
+    // Cleanup
     window.addEventListener('beforeunload', stopAnimation);
   })();
 
   // ================================
-  // Keyboard Navigation + ARIA
+  // Enhanced Keyboard Navigation
   // ================================
   (function keyboardNav(){
     document.querySelectorAll('.card').forEach(card => {
@@ -760,9 +842,29 @@
             toggle.checked = !toggle.checked;
             toggle.dispatchEvent(new Event('change'));
             
-            // Update ARIA states
-            card.setAttribute('aria-pressed', toggle.checked ? 'true' : 'false');
-            card.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false');
+            // Update ARIA states properly
+            scheduleRaf(() => {
+              const pressed = toggle.checked ? 'true' : 'false';
+              card.setAttribute('aria-pressed', pressed);
+              card.setAttribute('aria-expanded', pressed);
+            });
+          }
+        }
+        
+        // Add arrow key navigation
+        if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+          const cards = Array.from(document.querySelectorAll('.card'));
+          const currentIndex = cards.indexOf(card);
+          let nextIndex = currentIndex;
+          
+          if(e.key === 'ArrowRight'){
+            nextIndex = Math.min(currentIndex + 1, cards.length - 1);
+          } else {
+            nextIndex = Math.max(currentIndex - 1, 0);
+          }
+          
+          if(nextIndex !== currentIndex){
+            cards[nextIndex].focus();
           }
         }
       });
@@ -770,7 +872,7 @@
   })();
 
   // ================================
-  // Prevent Card Flip Viewport Jump
+  // Enhanced Viewport Jump Prevention
   // ================================
   (function preventFlipJump(){
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
@@ -781,17 +883,14 @@
         const currentScrollY = window.scrollY;
         const currentScrollX = window.scrollX;
         
-        let isFlipping = true;
         let frameCount = 0;
-        const maxFrames = 60;
+        const maxFrames = 30;
         
         const maintainPosition = () => {
-          if(isFlipping && frameCount < maxFrames){
+          if(frameCount < maxFrames){
             window.scrollTo(currentScrollX, currentScrollY);
             frameCount++;
             requestAnimationFrame(maintainPosition);
-          } else {
-            isFlipping = false;
           }
         };
         
@@ -802,10 +901,9 @@
 
   // ================================
   // Optional: Single Card Mode
-  // Set to true for one-at-a-time
   // ================================
   (function improveFlipBehavior(){
-    const SINGLE_CARD_MODE = false; // Change to true if desired
+    const SINGLE_CARD_MODE = false;
     
     if(SINGLE_CARD_MODE){
       const toggles = document.querySelectorAll('.flip-toggle');
@@ -818,8 +916,10 @@
                 other.checked = false;
                 const otherCard = other.nextElementSibling;
                 if(otherCard){
-                  otherCard.setAttribute('aria-pressed', 'false');
-                  otherCard.setAttribute('aria-expanded', 'false');
+                  scheduleRaf(() => {
+                    otherCard.setAttribute('aria-pressed', 'false');
+                    otherCard.setAttribute('aria-expanded', 'false');
+                  });
                 }
               }
             });
@@ -830,13 +930,26 @@
   })();
 
   // ================================
+  // Performance monitoring
+  // ================================
+  if (window.performance && performance.mark) {
+    performance.mark('ludus-scrinium-initialized');
+  }
+
+  // ================================
   // Cleanup on SPA navigation
   // ================================
-  if(typeof window.ludusCleanup === 'undefined'){
-    window.ludusCleanup = function(){
-      console.log('Cleaning up Ludus Scrinium animations...');
-      // Add cleanup logic if needed for SPA
-    };
-  }
+  window.ludusCleanup = function(){
+    console.log('Cleaning up Ludus Scrinium animations...');
+    
+    // Clear all timers and animations
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+    }
+    rafTasks.clear();
+    
+    // Remove event listeners if needed
+    reveals.forEach(el => io.unobserve(el));
+  };
 
 })();
