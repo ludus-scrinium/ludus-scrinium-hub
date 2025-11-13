@@ -269,14 +269,7 @@ body.starfield::after{
     animation-play-state: running;
   }
 
-  /* Hero cursors: show title only */
-  .cursor--tag,
-  .cursor--author{
-    display: none !important;
-  }
-}
-
-/* Hero cursors: hide tag/author cursors on larger screens too */
+  /* Hero cursors: hide tag/author cursors on larger screens too */
 @media (min-width: 481px){
   .cursor--tag,
   .cursor--author{
@@ -364,7 +357,7 @@ body.starfield::after{
     position: absolute;
     left: 0;
     margin-left: 0;
-    transform: translateY(1.4em); /* tweak for perfect alignment */
+    transform: translateY(7.0em); /* tweak for perfect alignment */
     transition: transform 260ms var(--ease-hero);
   }
 }
