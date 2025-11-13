@@ -3,14 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ludus Scrinium — Tarot Landing (Preview)</title>
+  <title>Ludus Scrinium — Game Content Dev Ops Lab</title>
+  <meta name="description" content="A sensory space for game content development operations — systems-thinking, deep imagination, thoughtful communication.">
   <link rel="preload" href="assets/cards/playlens-front.webp" as="image" />
   <link rel="stylesheet" href="css/tiles.css" />
 </head>
 <body class="starfield">
 
+  <!-- Connection lines canvas -->
+  <canvas class="connection-canvas" id="connections" aria-hidden="true"></canvas>
+
+  <!-- Particle system container -->
+  <div id="particles" aria-hidden="true"></div>
+
   <!-- Hero -->
-  <header class="hero reveal" data-stagger="0">
+  <header class="hero reveal" data-stagger="0" role="banner">
     <div class="hero__inner">
       <h1 class="hero__title">
         <span class="type-line hero-line hero-line--title" data-ms-per-char="65">ludus • scrinium</span>
@@ -24,7 +31,7 @@
 
       <p class="hero__author">
         <span class="type-line hero-line hero-line--author" data-ms-per-char="55">by kaosisochi unini</span>
-        <span class="cursor cursor--author" aria-hidden="true">|</span>
+        <span class="cursor cursor--author" aria-hidden="true">-</span>
       </p>
     </div>
   </header>
@@ -32,9 +39,9 @@
   <main>
 
     <!-- HERO CARD 1 : PlayLens -->
-    <section class="tarot reveal" data-stagger="80">
+    <section class="tarot reveal" data-stagger="80" data-project="playlens">
       <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" />
-      <label for="flip-playlens" class="card" id="card-playlens" data-index="1" aria-label="Open PlayLens card">
+      <label for="flip-playlens" class="card" id="card-playlens" data-index="1" aria-label="Open PlayLens card" tabindex="0">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
             <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
@@ -56,9 +63,9 @@
     </section>
 
     <!-- HERO CARD 2 : Asset Atlas -->
-    <section class="tarot reveal" data-stagger="120">
+    <section class="tarot reveal" data-stagger="120" data-project="asset-atlas">
       <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" />
-      <label for="flip-asset" class="card" id="card-asset" data-index="2" aria-label="Open Asset Atlas card">
+      <label for="flip-asset" class="card" id="card-asset" data-index="2" aria-label="Open Asset Atlas card" tabindex="0">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 3.1s;">
             <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
@@ -80,9 +87,9 @@
     </section>
 
     <!-- HERO CARD 3 : Patch Notes Oracle -->
-    <section class="tarot reveal" data-stagger="160">
+    <section class="tarot reveal" data-stagger="160" data-project="patch-notes">
       <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" />
-      <label for="flip-oracle" class="card" id="card-oracle" data-index="3" aria-label="Open Patch Notes Oracle card">
+      <label for="flip-oracle" class="card" id="card-oracle" data-index="3" aria-label="Open Patch Notes Oracle card" tabindex="0">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 2.2s;">
             <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
@@ -104,9 +111,9 @@
     </section>
 
     <!-- HERO CARD 4 : Creator Ops Kit -->
-    <section class="tarot reveal" data-stagger="200">
+    <section class="tarot reveal" data-stagger="200" data-project="creator-ops">
       <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" />
-      <label for="flip-creator" class="card" id="card-creator" data-index="4" aria-label="Open Creator Ops Kit card">
+      <label for="flip-creator" class="card" id="card-creator" data-index="4" aria-label="Open Creator Ops Kit card" tabindex="0">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 4.4s;">
             <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
@@ -130,9 +137,9 @@
     <!-- CODA : Two-tile grid with gentler motion -->
     <section class="coda reveal" data-stagger="140">
       <!-- Localization Conveyor -->
-      <div class="coda__card">
+      <div class="coda__card" data-project="localization">
         <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" />
-        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="5" aria-label="Open Localization Conveyor card">
+        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="5" aria-label="Open Localization Conveyor card" tabindex="0">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 5.8s;">
               <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
@@ -140,7 +147,7 @@
             <article class="card__face card__back">
               <h2 class="back__title">Localization Conveyor</h2>
               <p class="back__line" aria-label="Moving text from write to translate to QA to ship.">
-                <span class="type-line" data-ms-per-char="45">Moving text from: write → translate → QA → ship</span>
+                <span class="type-line" data-ms-per-char="45">Moving text from: write → translate → QA → ship.</span>
                 <span class="cursor" aria-hidden="true">|</span>
               </p>
               <nav class="back__cta">
@@ -153,15 +160,15 @@
       </div>
 
       <!-- Producer's Almanac -->
-      <div class="coda__card">
+      <div class="coda__card" data-project="almanac">
         <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" />
-        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="6" aria-label="Open Producer’s Almanac card">
+        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="6" aria-label="Open Producer's Almanac card" tabindex="0">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
-              <img src="assets/cards/producers-almanac-front.webp" alt="Producer’s Almanac tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+              <img src="assets/cards/producers-almanac-front.webp" alt="Producer's Almanac tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
             </figure>
             <article class="card__face card__back">
-              <h2 class="back__title">Producer’s Almanac</h2>
+              <h2 class="back__title">Producer's Almanac</h2>
               <p class="back__line" aria-label="Decisions, retros, and templates you can reuse.">
                 <span class="type-line" data-ms-per-char="45" data-delay="120">Decisions, retros, and templates you can reuse.</span>
                 <span class="cursor" aria-hidden="true">|</span>
@@ -179,7 +186,7 @@
   </main>
 
   <footer class="site-footer reveal" data-stagger="0">
-    <small>© Ludus Scrinium — game content dev ops lab.</small>
+    <small>© ludus scrinium — game content dev ops lab</small>
   </footer>
 
   <script src="js/reveal.js" defer></script>
