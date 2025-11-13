@@ -884,7 +884,7 @@
         const currentScrollX = window.scrollX;
         
         let frameCount = 0;
-        const maxFrames = 30;
+        const maxFrames = 10;
         
         const maintainPosition = () => {
           if(frameCount < maxFrames){
