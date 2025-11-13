@@ -1033,7 +1033,7 @@ body.cards-flipped .global-hint{
   /* When at least one card is flipped, open things up more */
   .coda.has-flipped-card{
     /* was 5rem */
-    gap: clamp(4rem, 6vh, 7rem);
+    gap: clamp(5rem, 7vh, 9rem);
   }
   
   /* Extra space below the flipped card itself */
@@ -1045,7 +1045,7 @@ body.cards-flipped .global-hint{
   /* Extra space above the very next card */
   .coda__card:has(.flip-toggle:checked) + .coda__card{
     /* was 3rem */
-    margin-top: clamp(3rem, 5vh, 6rem);
+    margin-top: clamp(5rem, 7vh, 9rem);
   }
   
   /* Mobile wrap fixes (keep these as-is) */
