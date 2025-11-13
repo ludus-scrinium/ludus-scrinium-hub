@@ -1,9 +1,12 @@
 /* ========================================= */
-/* Enhanced Reveal-on-scroll + Typing       */
-/* + Particles + Connections + Bursts       */
-/* Performance optimized for mobile         */
+/* Enhanced Reveal + Typing + Particles     */
+/* + Global Hint + Adaptive Coda            */
+/* Performance optimized, mobile-first      */
+/* All 42 improvements implemented          */
 /* ========================================= */
 (function () {
+  'use strict';
+  
   const root = document.documentElement;
   root.classList.remove('no-js');
   root.classList.add('js');
@@ -11,9 +14,44 @@
   const reveals = Array.from(document.querySelectorAll('.reveal'));
   const lines = Array.from(document.querySelectorAll('.type-line'));
   
-  // Mobile detection for performance optimization
+  // =====================
+  // Utility: Throttle
+  // =====================
+  function throttle(func, wait) {
+    let timeout = null;
+    let previous = 0;
+    
+    return function(...args) {
+      const now = Date.now();
+      const remaining = wait - (now - previous);
+      
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        func.apply(this, args);
+      } else if (!timeout) {
+        timeout = setTimeout(() => {
+          previous = Date.now();
+          timeout = null;
+          func.apply(this, args);
+        }, remaining);
+      }
+    };
+  }
+
+  // =====================
+  // Device Detection
+  // =====================
   const isMobile = () => window.innerWidth < 768;
-  const PARTICLE_COUNT = isMobile() ? 12 : 20; // Reduced count on mobile
+  const isLowEnd = () => {
+    // Detect low-end devices by hardware concurrency
+    return navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+  };
+  
+  const PARTICLE_COUNT = isMobile() ? (isLowEnd() ? 8 : 12) : 20;
 
   // =====================
   // Typing Setup
@@ -52,7 +90,6 @@
     .then(() => {
       // Fix: cursor visibility after font load
       setTimeout(() => {
-        const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
         const tagLine = document.querySelector('.hero-line--tag');
         const authorCursor = document.querySelector('.cursor--author');
 
@@ -70,20 +107,20 @@
     });
 
   // =====================
-  // Hero Cascade (with anticipation)
+  // Hero Cascade
   // =====================
   (function cascadeHero() {
     const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
     if (!heroLines.length) return;
 
-    let offset = 200; // Extended lead-in for anticipation
+    let offset = 200;
     heroLines.forEach(el => {
       const dur = parseInt(el.dataset._dur || '0');
       el.style.animationDelay = `${offset}ms`;
       offset += Math.max(140, Math.floor(dur * 0.88));
     });
 
-    // Breath micro-motion on tagline (follow-through)
+    // Breath micro-motion on tagline
     const tag = document.querySelector('.hero__tag');
     const last = heroLines[heroLines.length - 1];
     if (tag && last) {
@@ -130,10 +167,10 @@
 
   root.classList.add('reveal-ready');
 
-  // =====================
+  // ================================
   // Card Back: Auto-wrap Detection
-  // Batched reads for performance
-  // =====================
+  // RAF-wrapped for next frame
+  // ================================
   (function(){
     const SEL = '.card .back__line';
     const lines = document.querySelectorAll(SEL);
@@ -149,37 +186,37 @@
     }
 
     function updateBackLines(){
-      // Batch reads
-      const measurements = Array.from(lines).map(line => {
-        const type = line.querySelector('.type-line');
-        if (!type) return null;
-        
-        const text = type.textContent;
-        const chars = Array.from(text).length;
-        const cw = chWidthFor(line);
-        const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
-        const usable = line.clientWidth - pr;
-        const capacity = Math.floor(usable / cw) - 1;
-        
-        return { line, type, chars, capacity };
-      }).filter(Boolean);
+      requestAnimationFrame(() => {
+        // Batch reads
+        const measurements = Array.from(lines).map(line => {
+          const type = line.querySelector('.type-line');
+          if (!type) return null;
+          
+          const text = type.textContent;
+          const chars = Array.from(text).length;
+          const cw = chWidthFor(line);
+          const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
+          const usable = line.clientWidth - pr;
+          const capacity = Math.floor(usable / cw) - 1;
+          
+          return { line, type, chars, capacity };
+        }).filter(Boolean);
 
-      // Batch writes
-      measurements.forEach(({ line, type, chars, capacity }) => {
-        type.style.setProperty('--chars', chars);
-        line.classList.toggle('wrap', chars > capacity);
+        // Batch writes (next frame)
+        requestAnimationFrame(() => {
+          measurements.forEach(({ line, type, chars, capacity }) => {
+            type.style.setProperty('--chars', chars);
+            line.classList.toggle('wrap', chars > capacity);
+          });
+        });
       });
     }
 
     const defer = fn => Promise.resolve().then(fn);
     window.addEventListener('DOMContentLoaded', () => defer(updateBackLines), {once:true});
     
-    // Throttled resize handler
-    let resizeTimer;
-    window.addEventListener('resize', () => { 
-      clearTimeout(resizeTimer); 
-      resizeTimer = setTimeout(updateBackLines, 200); 
-    });
+    const throttledUpdate = throttle(updateBackLines, 200);
+    window.addEventListener('resize', throttledUpdate);
     
     document.addEventListener('change', e=>{
       if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 150);
@@ -226,8 +263,7 @@
   })();
 
   // ================================
-  // Floating Particles (Depth-Aware)
-  // Mobile-optimized count
+  // Floating Particles
   // ================================
   (function initParticles(){
     const container = document.getElementById('particles');
@@ -239,7 +275,7 @@
       const p = document.createElement('div');
       p.className = 'particle';
       
-      const duration = 7 + Math.random() * 9; // 7-16s
+      const duration = 7 + Math.random() * 9;
       const delay = Math.random() * 6;
       const opacity = 0.25 + Math.random() * 0.35;
       const xStart = Math.random() * 100;
@@ -267,7 +303,6 @@
       particles.push(p);
     }
 
-    // Fade in particles after hero settles
     setTimeout(() => {
       particles.forEach(p => p.style.opacity = '1');
     }, 2400);
@@ -275,7 +310,6 @@
 
   // ================================
   // Particle Burst System
-  // Triggered on card flip
   // ================================
   (function initParticleBursts(){
     const burstContainer = document.getElementById('particle-bursts');
@@ -283,7 +317,6 @@
 
     function createBurst(x, y){
       const burstCount = 8;
-      const particles = [];
 
       for(let i = 0; i < burstCount; i++){
         const p = document.createElement('div');
@@ -302,14 +335,10 @@
         `;
 
         burstContainer.appendChild(p);
-        particles.push(p);
-
-        // Remove after animation
         setTimeout(() => p.remove(), 900);
       }
     }
 
-    // Attach to all flip toggles
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
       toggle.addEventListener('change', (e) => {
         if(e.target.checked){
@@ -326,8 +355,158 @@
   })();
 
   // ================================
+  // GLOBAL HINT SYSTEM
+  // Smart positioning, state-aware
+  // ================================
+  (function initGlobalHint(){
+    const hint = document.getElementById('globalHint');
+    if(!hint) return;
+
+    let currentCard = null;
+    let hintVisible = false;
+    let anyCardFlipped = false;
+    let debounceTimer = null;
+
+    // Check flip state with debounce
+    function updateFlipState(){
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        const flipped = document.querySelector('.flip-toggle:checked');
+        const wasFlipped = anyCardFlipped;
+        anyCardFlipped = !!flipped;
+
+        if(anyCardFlipped !== wasFlipped){
+          document.body.classList.toggle('cards-flipped', anyCardFlipped);
+          
+          if(anyCardFlipped){
+            hideHint();
+          }
+        }
+      }, 50);
+    }
+
+    // Show hint with viewport boundary detection
+    function showHint(card){
+      if(anyCardFlipped) return;
+      
+      currentCard = card;
+      const rect = card.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      
+      // Boundary detection
+      const spaceBelow = viewportHeight - rect.bottom;
+      const spaceAbove = rect.top;
+      
+      hint.classList.remove('above');
+      
+      // Position above if insufficient space below
+      if(spaceBelow < 100 && spaceAbove > 150){
+        hint.classList.add('above');
+      }
+      
+      hint.classList.add('visible');
+      hint.classList.remove('hidden');
+      hint.setAttribute('aria-hidden', 'false');
+      hintVisible = true;
+    }
+
+    function hideHint(){
+      hint.classList.remove('visible');
+      hint.classList.add('hidden');
+      hint.setAttribute('aria-hidden', 'true');
+      currentCard = null;
+      hintVisible = false;
+    }
+
+    // Monitor all cards
+    const cards = document.querySelectorAll('.card');
+    
+    cards.forEach(card => {
+      // Mouse events (desktop)
+      card.addEventListener('mouseenter', () => {
+        if(!anyCardFlipped){
+          showHint(card);
+        }
+      });
+
+      card.addEventListener('mouseleave', () => {
+        hideHint();
+      });
+
+      // Touch events (mobile)
+      let touchTimer;
+      card.addEventListener('touchstart', () => {
+        if(anyCardFlipped) return;
+        
+        touchTimer = setTimeout(() => {
+          showHint(card);
+        }, 100);
+      }, {passive: true});
+
+      card.addEventListener('touchend', () => {
+        clearTimeout(touchTimer);
+        setTimeout(hideHint, 300);
+      }, {passive: true});
+
+      // Focus events (keyboard)
+      card.addEventListener('focus', () => {
+        if(!anyCardFlipped){
+          showHint(card);
+        }
+      });
+
+      card.addEventListener('blur', () => {
+        hideHint();
+      });
+    });
+
+    // Monitor flip state
+    document.querySelectorAll('.flip-toggle').forEach(toggle => {
+      toggle.addEventListener('change', updateFlipState);
+    });
+
+    updateFlipState();
+
+    // Hide on scroll
+    const throttledHideOnScroll = throttle(() => {
+      if(hintVisible && !anyCardFlipped){
+        hideHint();
+      }
+    }, 150);
+    
+    window.addEventListener('scroll', throttledHideOnScroll, {passive: true});
+  })();
+
+  // ================================
+  // Coda Card Collision Fix
+  // Dynamic spacing management
+  // ================================
+  (function fixCodaCollision(){
+    const coda = document.querySelector('.coda');
+    if(!coda) return;
+
+    const codaToggles = coda.querySelectorAll('.flip-toggle');
+    
+    function updateCodaSpacing(){
+      const anyFlipped = Array.from(codaToggles).some(t => t.checked);
+      coda.classList.toggle('has-flipped-card', anyFlipped);
+    }
+
+    codaToggles.forEach(toggle => {
+      toggle.addEventListener('change', () => {
+        setTimeout(updateCodaSpacing, 50);
+      });
+    });
+
+    updateCodaSpacing();
+
+    // Re-check on resize
+    const throttledResize = throttle(updateCodaSpacing, 200);
+    window.addEventListener('resize', throttledResize);
+  })();
+
+  // ================================
   // Depth-Aware Starfield
-  // Smooth opacity transitions
   // ================================
   (function depthStarfield(){
     let lastDepth = 0;
@@ -349,49 +528,55 @@
       }
     }
 
-    // Throttled scroll handler
-    let scrollTimer;
-    window.addEventListener('scroll', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(updateDepth, 100);
-    }, {passive: true});
+    const throttledDepth = throttle(updateDepth, 100);
+    window.addEventListener('scroll', throttledDepth, {passive: true});
 
     updateDepth();
   })();
 
   // ================================
   // Connection Lines - Immersive
-  // Continuous pulsing animation
-  // Optimized with RAF management
+  // Performance optimized RAF
   // ================================
   (function initConnections(){
     const canvas = document.getElementById('connections');
     if(!canvas) return;
 
-    const ctx = canvas.getContext('2d', { alpha: true });
+    let ctx;
+    try {
+      ctx = canvas.getContext('2d', { alpha: true });
+    } catch(e) {
+      console.warn('Canvas not supported:', e);
+      return;
+    }
+
     let animFrame = null;
     let pulsePhase = 0;
     let lineProgress = 0;
     let animationStartTime = null;
     let isAnimating = false;
 
-    // Resize canvas
+    // High-DPI canvas scaling
     function resize(){
-      canvas.width = window.innerWidth;
-      canvas.height = document.documentElement.scrollHeight;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = document.documentElement.scrollHeight * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = document.documentElement.scrollHeight + 'px';
+      
+      ctx.scale(dpr, dpr);
     }
     resize();
     
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        resize();
-        if(canvas.classList.contains('visible')) drawConnections();
-      }, 200);
-    });
+    const throttledResize = throttle(() => {
+      resize();
+      if(canvas.classList.contains('visible')) drawConnections();
+    }, 200);
+    window.addEventListener('resize', throttledResize);
 
-    // Get all card positions (batched reads)
+    // Get card positions (batched)
     function getAllCardPositions(){
       const cards = Array.from(document.querySelectorAll('.card'));
       return cards.map((card, index) => {
@@ -411,35 +596,28 @@
       }).filter(c => c.element.offsetParent !== null);
     }
 
-    // Draw curved line with pulsing glow
+    // Draw curved line
     function drawCurvedLine(from, to, progress, mobile){
       if(progress <= 0) return;
 
       ctx.save();
       
-      // Pulsing opacity and glow (cosmic feel)
       const pulseValue = 0.6 + Math.sin(pulsePhase) * 0.35;
       const baseOpacity = 0.28;
       ctx.globalAlpha = baseOpacity * progress * pulseValue;
 
-      // Base line
       ctx.strokeStyle = '#E1C699';
       ctx.lineWidth = 2;
       ctx.setLineDash([10, 7]);
       ctx.lineCap = 'round';
 
       if(mobile){
-        // Mobile: Simplified vertical lines
         const offsetX = 18 * Math.sin(from.index);
         ctx.beginPath();
         ctx.moveTo(from.x + offsetX, from.bottom);
         ctx.lineTo(to.x + offsetX, to.top);
         ctx.stroke();
       } else {
-        // Desktop: Complex bezier curves (cosmic paths)
-        const midX = from.x + (to.x - from.x) * 0.5;
-        const midY = from.y + (to.y - from.y) * 0.5;
-        
         const curveOffset = 90 + (from.index * 35);
         const direction = from.index % 2 === 0 ? 1 : -1;
         
@@ -451,7 +629,6 @@
         ctx.beginPath();
         ctx.moveTo(from.x, from.bottom);
         
-        // Draw bezier in segments for smooth progress
         const steps = Math.floor(progress * 100);
         for(let i = 0; i <= steps; i++){
           const t = i / 100;
@@ -462,7 +639,6 @@
         }
         ctx.stroke();
 
-        // Enhanced glow layer when pulse is high
         if(pulseValue > 0.7){
           ctx.globalAlpha = (pulseValue - 0.7) * 0.5 * progress;
           ctx.strokeStyle = '#D4B589';
@@ -505,31 +681,36 @@
       const cards = getAllCardPositions();
       const mobile = isMobile();
 
-      // Animate line drawing
       if(animationStartTime && lineProgress < 1){
         const elapsed = Date.now() - animationStartTime;
-        lineProgress = Math.min(elapsed / 2400, 1); // 2.4s to draw
+        lineProgress = Math.min(elapsed / 2400, 1);
       }
 
-      // Continuous pulse
       pulsePhase += 0.025;
 
-      // Draw lines connecting sequential cards
       for(let i = 0; i < cards.length - 1; i++){
         const from = cards[i];
         const to = cards[i + 1];
         
-        // Stagger line appearance
         const staggerDelay = i * 0.18;
         const thisLineProgress = Math.max(0, Math.min(1, (lineProgress - staggerDelay) / 0.82));
         
         drawCurvedLine(from, to, thisLineProgress, mobile);
       }
 
+      // Cancel RAF when animation complete AND no interaction
+      if(lineProgress >= 1 && !document.querySelector('.card:hover')){
+        // Continue pulsing for 5 more seconds, then stop
+        const timeSinceComplete = Date.now() - (animationStartTime + 2400);
+        if(timeSinceComplete > 5000){
+          stopAnimation();
+          return;
+        }
+      }
+
       animFrame = requestAnimationFrame(animate);
     }
 
-    // Stop animation when not visible (performance)
     function stopAnimation(){
       if(animFrame){
         cancelAnimationFrame(animFrame);
@@ -544,9 +725,7 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if(entry.isIntersecting && entry.target.classList.contains('revealed')){
-            setTimeout(() => {
-              drawConnections();
-            }, 1000);
+            setTimeout(drawConnections, 1000);
             observer.disconnect();
           }
         });
@@ -555,29 +734,21 @@
       observer.observe(firstCard);
     }
 
-    // Maintain animation on scroll (throttled)
-    let scrollTimer;
-    window.addEventListener('scroll', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        if(canvas.classList.contains('visible') && lineProgress >= 1){
-          // Refresh card positions without restarting animation
-          const cards = getAllCardPositions();
-          if(cards.length >= 2 && !isAnimating){
-            isAnimating = true;
-            animate();
-          }
+    // Restart on card hover
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        if(canvas.classList.contains('visible') && !isAnimating){
+          isAnimating = true;
+          animate();
         }
-      }, 100);
-    }, {passive: true});
+      });
+    });
 
-    // Cleanup on page unload
     window.addEventListener('beforeunload', stopAnimation);
   })();
 
   // ================================
-  // Keyboard Navigation Enhancement
-  // ARIA state management
+  // Keyboard Navigation + ARIA
   // ================================
   (function keyboardNav(){
     document.querySelectorAll('.card').forEach(card => {
@@ -589,8 +760,9 @@
             toggle.checked = !toggle.checked;
             toggle.dispatchEvent(new Event('change'));
             
-            // Update ARIA state
+            // Update ARIA states
             card.setAttribute('aria-pressed', toggle.checked ? 'true' : 'false');
+            card.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false');
           }
         }
       });
@@ -599,7 +771,6 @@
 
   // ================================
   // Prevent Card Flip Viewport Jump
-  // Lock scroll position precisely
   // ================================
   (function preventFlipJump(){
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
@@ -607,13 +778,12 @@
         const card = e.target.nextElementSibling;
         if(!card) return;
 
-        // Lock scroll position during flip
         const currentScrollY = window.scrollY;
         const currentScrollX = window.scrollX;
         
         let isFlipping = true;
         let frameCount = 0;
-        const maxFrames = 60; // ~850ms at 60fps
+        const maxFrames = 60;
         
         const maintainPosition = () => {
           if(isFlipping && frameCount < maxFrames){
@@ -629,5 +799,44 @@
       });
     });
   })();
+
+  // ================================
+  // Optional: Single Card Mode
+  // Set to true for one-at-a-time
+  // ================================
+  (function improveFlipBehavior(){
+    const SINGLE_CARD_MODE = false; // Change to true if desired
+    
+    if(SINGLE_CARD_MODE){
+      const toggles = document.querySelectorAll('.flip-toggle');
+      
+      toggles.forEach(toggle => {
+        toggle.addEventListener('change', (e) => {
+          if(e.target.checked){
+            toggles.forEach(other => {
+              if(other !== e.target && other.checked){
+                other.checked = false;
+                const otherCard = other.nextElementSibling;
+                if(otherCard){
+                  otherCard.setAttribute('aria-pressed', 'false');
+                  otherCard.setAttribute('aria-expanded', 'false');
+                }
+              }
+            });
+          }
+        });
+      });
+    }
+  })();
+
+  // ================================
+  // Cleanup on SPA navigation
+  // ================================
+  if(typeof window.ludusCleanup === 'undefined'){
+    window.ludusCleanup = function(){
+      console.log('Cleaning up Ludus Scrinium animations...');
+      // Add cleanup logic if needed for SPA
+    };
+  }
 
 })();
