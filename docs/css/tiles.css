@@ -366,7 +366,7 @@ body.starfield::after{
     position: absolute;
     left: 0;
     margin-left: 0;
-    transform: translateY(7.0em); /* tweak for perfect alignment */
+    transform: translateY(2em); /* tweak for perfect alignment */
     transition: transform 260ms var(--ease-hero);
   }
 }
