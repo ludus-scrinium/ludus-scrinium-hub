@@ -161,30 +161,7 @@ body.starfield.depth-3::after{ opacity: .22; }
   position: relative;
 }
 
-/* Art Nouveau ornament - hero */
-.hero__title::before,
-.hero__title::after{
-  content: "";
-  position: absolute;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0;
-  transition: opacity 600ms var(--ease-out) 1.8s, transform 600ms var(--ease-organic) 1.8s;
-}
-.hero__title::before{ 
-  top: -12px; left: 50%; 
-  transform: translateX(-50%) scaleX(0);
-}
-.hero__title::after{ 
-  bottom: -12px; left: 50%; 
-  transform: translateX(-50%) scaleX(0);
-}
-.hero.revealed .hero__title::before,
-.hero.revealed .hero__title::after{
-  opacity: 0.6;
-  transform: translateX(-50%) scaleX(1);
-}
+/* Art Nouveau ornament - hero (removed due to overlap issues) */
 
 /* ============================= */
 /* Reveal-on-scroll visibility   */
@@ -219,12 +196,21 @@ body.starfield.depth-3::after{ opacity: .22; }
   place-items: center;
   padding: 4rem 1.25rem;
   position:relative;
+  scroll-margin-top: 10vh; /* Helps with scroll positioning */
 }
+
+/* Prevent card jump on flip - keep centered */
+.tarot.flipping{
+  scroll-snap-align: center;
+}
+
 .tap-hint{
   position:absolute; bottom: 1.25rem; left: 0; right: 0;
   text-align:center; font-size:.8rem; color: var(--ink-dim); 
   opacity:.7;
   animation: hintPulse 2s var(--ease-hero) infinite;
+  pointer-events: none;
+  z-index: 10;
 }
 
 @keyframes hintPulse{
@@ -238,15 +224,29 @@ body.starfield.depth-3::after{ opacity: .22; }
   white-space:nowrap; clip-path: inset(50%); overflow:hidden;
 }
 
-/* Card - enhanced with squash/stretch */
+/* Card - enhanced with squash/stretch, keeps position on flip */
 .card{
   width: var(--card-w); height: var(--card-h);
   border-radius: var(--radius);
-  cursor:pointer; perspective: 1600px; display:block; position:relative;
+  cursor:pointer; 
+  perspective: 1600px; 
+  display:block; 
+  position:relative;
   filter: drop-shadow(0 12px 32px rgba(0,0,0,.42));
   transition: transform 220ms var(--ease-out), filter 220ms var(--ease-out);
   transform-origin: center center;
+  /* Prevent card from causing scroll jump */
+  contain: layout;
 }
+
+/* Keep card centered during flip on mobile/desktop */
+@media (max-width: 920px){
+  .flip-toggle:checked + .card{
+    /* Subtle adjustment to compensate for back content height */
+    margin-top: 0;
+  }
+}
+
 .card:hover, .card:focus-visible{ 
   outline: none; 
   transform: translateY(-8px) rotateZ(-0.5deg) scale(1.02, 0.98);
@@ -293,7 +293,7 @@ body.starfield.depth-3::after{ opacity: .22; }
   opacity: 1;
 }
 
-/* Art Nouveau ornaments on cards */
+/* Art Nouveau ornaments on cards + connection points */
 .card__front::before{
   content: "";
   position: absolute;
@@ -322,6 +322,27 @@ body.starfield.depth-3::after{ opacity: .22; }
 .card:hover .card__front::after{
   opacity: 0.7;
   transform: scale(1) rotate(0deg);
+}
+
+/* Connection points for visual lines */
+.card::after{
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, var(--accent-glow), transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.card.show-connector::after{
+  opacity: 0.8;
 }
 
 /* Shimmer - enhanced with follow-through */
