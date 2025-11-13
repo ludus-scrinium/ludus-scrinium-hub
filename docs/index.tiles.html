@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>Ludus Scrinium — Game Content Dev Ops Lab</title>
   <meta name="description" content="A sensory space for game content development operations — systems-thinking, deep imagination, thoughtful communication.">
   <link rel="preload" href="assets/cards/playlens-front.webp" as="image" />
@@ -18,6 +18,19 @@
 
   <!-- Particle burst container for flip interactions -->
   <div id="particle-bursts" aria-hidden="true"></div>
+
+  <!-- GLOBAL HINT - Smart positioning & cosmic aesthetic -->
+  <div class="global-hint" id="globalHint" role="status" aria-live="polite" aria-atomic="true">
+    <span class="hint-text">
+      <svg class="hint-ornament hint-ornament--left" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="2" class="hint-bloom" />
+      </svg>
+      tap / click to flip
+      <svg class="hint-ornament hint-ornament--right" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="2" class="hint-bloom" />
+      </svg>
+    </span>
+  </div>
 
   <!-- Hero -->
   <header class="hero reveal" data-stagger="0" role="banner">
@@ -44,7 +57,7 @@
     <!-- HERO CARD 1 : PlayLens -->
     <section class="tarot reveal" data-stagger="80" data-project="playlens">
       <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" aria-label="Toggle PlayLens card details" />
-      <label for="flip-playlens" class="card" id="card-playlens" data-index="0" aria-label="PlayLens: Continuous improvement in A/B testing. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+      <label for="flip-playlens" class="card" id="card-playlens" data-index="0" aria-label="PlayLens: Continuous improvement in A/B testing. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
             <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
@@ -79,13 +92,12 @@
           </article>
         </div>
       </label>
-      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 2 : Asset Atlas -->
     <section class="tarot reveal" data-stagger="120" data-project="asset-atlas">
       <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" aria-label="Toggle Asset Atlas card details" />
-      <label for="flip-asset" class="card" id="card-asset" data-index="1" aria-label="Asset Atlas: Make game files easy to find and reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+      <label for="flip-asset" class="card" id="card-asset" data-index="1" aria-label="Asset Atlas: Make game files easy to find and reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 3.1s;">
             <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
@@ -119,13 +131,12 @@
           </article>
         </div>
       </label>
-      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 3 : Patch Notes Oracle -->
     <section class="tarot reveal" data-stagger="160" data-project="patch-notes">
       <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" aria-label="Toggle Patch Notes Oracle card details" />
-      <label for="flip-oracle" class="card" id="card-oracle" data-index="2" aria-label="Patch Notes Oracle: Turn player comments into a realistic dev to-do list. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+      <label for="flip-oracle" class="card" id="card-oracle" data-index="2" aria-label="Patch Notes Oracle: Turn player comments into a realistic dev to-do list. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 2.2s;">
             <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
@@ -159,13 +170,12 @@
           </article>
         </div>
       </label>
-      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 4 : Creator Ops Kit -->
     <section class="tarot reveal" data-stagger="200" data-project="creator-ops">
       <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" aria-label="Toggle Creator Ops Kit card details" />
-      <label for="flip-creator" class="card" id="card-creator" data-index="3" aria-label="Creator Ops Kit: Safe fan content intake plus review plus recognition tiers. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+      <label for="flip-creator" class="card" id="card-creator" data-index="3" aria-label="Creator Ops Kit: Safe fan content intake plus review plus recognition tiers. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 4.4s;">
             <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
@@ -199,15 +209,14 @@
           </article>
         </div>
       </label>
-      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
-    <!-- CODA : Two-tile grid with gentler motion -->
+    <!-- CODA : Two-tile grid with adaptive spacing -->
     <section class="coda reveal" data-stagger="140">
       <!-- Localization Conveyor -->
       <div class="coda__card" data-project="localization">
         <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" aria-label="Toggle Localization Conveyor card details" />
-        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="4" aria-label="Localization Conveyor: Moving text from write to translate to QA to ship. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="4" aria-label="Localization Conveyor: Moving text from write to translate to QA to ship. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 5.8s;">
               <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
@@ -246,7 +255,7 @@
       <!-- Producer's Almanac -->
       <div class="coda__card" data-project="almanac">
         <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" aria-label="Toggle Producer's Almanac card details" />
-        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="5" aria-label="Producer's Almanac: Decisions, retros, and templates you can reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
+        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="5" aria-label="Producer's Almanac: Decisions, retros, and templates you can reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
               <img src="assets/cards/producers-almanac-front.webp" alt="Producer's Almanac tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
