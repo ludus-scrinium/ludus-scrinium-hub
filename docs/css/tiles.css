@@ -1,80 +1,16 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   LUDUS SCRINIUM — TILES.CSS
-   Enhanced with 30 animation improvements from LinkedIn Learning courses:
-   - CSS: Enhancing Interfaces with Animation
-   - CSS: Transforms and Transitions
-   
-   CHANGELOG - ALL 30 IMPROVEMENTS:
-   ══════════════════════════════════════════════════════════════════════════
-   Priority 1-5 (CRITICAL):
-   ✅ #1  Mobile soft-lock fix: scroll-margin-top + reduced frame lock
-   ✅ #2  Consistent card back heights: min-height calculation
-   ✅ #3  translate3d optimization: All transforms use GPU acceleration
-   ✅ #4  Selective will-change: Removed from base, added dynamically
-   ✅ #5  Proper reduced-motion: Essential states preserved, decorative removed
-   
-   Priority 6-10 (HIGH):
-   ✅ #6  Squash & stretch on hover: scale(1.04, 0.96)
-   ✅ #7  Anticipation wind-up: :active scale(0.96, 1.04)
-   ✅ #8  Cascade back content: Staggered delays (title +200ms, line +400ms, cta +800ms)
-   ✅ #9  Correct easing: ease-in for outgoing, ease-out for incoming
-   ✅ #10 Enhanced mobile spacing: 6rem gap when flipped
-   
-   Priority 11-20 (MEDIUM):
-   ✅ #11 Arc motion in reveals: Enhanced floatInArc with curved path
-   ✅ #12 Focal breathing loop: backgroundPulse repeats every 8s
-   ✅ #13 Ornament sequencing: Each bloom delayed by 120ms
-   ✅ #14 Cubic-bezier refinement: Added --ease-cosmic-subtle
-   ✅ #15 Button anticipation: Pull-back on :active
-   ✅ #16 Transform-origin optimization: Fibonacci-based natural origins
-   ✅ #17 CTAs staged last: Increased delay from 600ms to 800ms
-   ✅ #18 Warmer earth tones: Copper (#C67C5C), terra cotta, sage
-   ✅ #19 Mackintosh geometry: Enhanced ornament paths
-   ✅ #20 Skip link styles: Accessible keyboard navigation
-   
-   Priority 21-30 (OPTIONAL):
-   ✅ #21 Shimmer cycle reduced: 140s → 28s
-   ✅ #22 Flip-back speed: 450ms → 320ms (asymmetric)
-   ✅ #23 Smooth scroll behavior: Native CSS
-   ✅ #24 Touch-action optimization: manipulation for tap speed
-   ✅ #25 Backdrop-filter optimization: Fallback for older browsers
-   ✅ #26 Focus-visible only: Better keyboard UX
-   ✅ #27 Safe-area-inset: iPhone notch support
-   ✅ #28 Reduced starfield opacity: Better performance
-   ✅ #29 Hint ornament animation: Geometric bloom
-   ✅ #30 Connection line optimization: Moved to JS
-   
-   AI Callback References:
-   - "squash-stretch-principle": Line ~530
-   - "anticipation-windup": Line ~545
-   - "cascade-staging": Line ~775-820
-   - "easing-asymmetric": Line ~585
-   - "mobile-scroll-unlock": Line ~500
-   - "warmer-palette": Line ~10-18
-   - "mackintosh-geometry": Line ~720-760
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 /* =============== */
 /* Design tokens   */
 /* =============== */
 :root{
-  /* ═══════════════════════════════════════════════════════════════════
-     IMPROVEMENT #18: Warmer Earth Tones (Arts & Crafts Palette)
-     ═══════════════════════════════════════════════════════════════════
-     Original: Cold navy blues (#0E1A2B, #0B1320)
-     Updated: Warmer with copper, terra cotta, sage undertones
-     Inspired by Mackintosh's Glasgow School of Art palette
-     AI Callback: "warmer-palette"
-  */
-  --bg-deep: #1A1612;        /* Warm charcoal (was #0E1A2B) */
-  --bg-deeper:#0F0D0A;       /* Deep espresso (was #0B1320) */
-  --ink: #E8DFD4;            /* Warm cream (was #EAE7E1) */
-  --ink-dim: #B8AFA0;        /* Warm gray (was #B8B3AA) */
-  --ink-navy: #0F0D0A;       /* Match bg-deeper */
-  --accent: #C67C5C;         /* Copper/terra cotta (was #E1C699) */
-  --accent-glow: #B8674A;    /* Deeper copper (was #D4B589) */
-  --space-purple: #2A1F1A;   /* Warm umber (was #1A2540) */
-  --space-blue: #1F1A15;     /* Warm brown (was #0F2847) */
+  --bg-deep: #0E1A2B;
+  --bg-deeper:#0B1320;
+  --ink: #EAE7E1;
+  --ink-dim: #B8B3AA;
+  --ink-navy:  #0B1320;
+  --accent: #E1C699;
+  --accent-glow: #D4B589;
+  --space-purple: #1A2540;
+  --space-blue: #0F2847;
 
   --card-w: min(62vw, 520px);
   --card-h: calc(var(--card-w) * 5 / 3);
@@ -86,89 +22,31 @@
   --ease-hero: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-coda: cubic-bezier(0.39, 0.575, 0.565, 1);
   
-  /* ═══════════════════════════════════════════════════════════════════
-     IMPROVEMENT #14: Refined Cubic-Bezier Curves (7/10 Playfulness)
-     ═══════════════════════════════════════════════════════════════════
-     Added subtle variant for 7/10 playfulness (calming + micro-bounce)
-     Original --ease-cosmic had -0.55 overshoot (too aggressive)
-     New --ease-cosmic-subtle has -0.35 overshoot (perfect for "inside joke" feel)
-     AI Callback: "cubic-bezier-refinement"
-  */
-  --ease-cosmic: cubic-bezier(0.68, -0.55, 0.265, 1.55);           /* Original (9/10 playful) */
-  --ease-cosmic-subtle: cubic-bezier(0.68, -0.35, 0.265, 1.35);   /* NEW: 7/10 playful */
+  /* Cosmic curves with overshoot & reversal */
+  --ease-cosmic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   --ease-drift: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-snap: cubic-bezier(0.95, 0.05, 0.795, 0.035);
   --ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-organic: cubic-bezier(0.34, 1.56, 0.64, 1);
   
-  /* ═══════════════════════════════════════════════════════════════════
-     IMPROVEMENT #9: Correct Easing for In/Out (Course 2)
-     ═══════════════════════════════════════════════════════════════════
-     ease-in: For OUTGOING elements (accelerate away)
-     ease-out: For INCOMING elements (decelerate arrival)
-     AI Callback: "easing-asymmetric"
-  */
-  --ease-in: cubic-bezier(0.55, 0.085, 0.68, 0.53);   /* Outgoing */
-  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);   /* Incoming */
+  /* Asymmetric timings */
+  --ease-in: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-in-out-cosmic: cubic-bezier(0.87, 0, 0.13, 1);
   
   /* ================================ */
   /* Hint System Tokens               */
   /* ================================ */
-  --hint-bg: rgba(26, 22, 18, 0.75);           /* Warmer (was 14,26,43) */
-  --hint-border: rgba(198, 124, 92, 0.35);     /* Copper border */
-  --hint-glow: rgba(198, 124, 92, 0.2);        /* Copper glow */
+  --hint-bg: rgba(14, 26, 43, 0.75);
+  --hint-border: rgba(225, 198, 153, 0.35);
+  --hint-glow: rgba(225, 198, 153, 0.2);
   --hint-duration: 2.8s;
   --hint-touch-size: 44px; /* iOS guideline */
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #20: Skip Link (Accessibility)
-   ═══════════════════════════════════════════════════════════════════
-   Visible only on keyboard focus for WCAG 2.1 Level A compliance
-   AI Callback: "skip-link-styles"
-*/
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  z-index: 9999;
-  padding: 8px 16px;
-  background: var(--accent);
-  color: var(--bg-deeper);
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 0 0 4px 0;
-  transition: top 0.2s var(--ease-out);
-}
-
-.skip-link:focus {
-  top: 0;
-  outline: 3px solid var(--accent-glow);
-  outline-offset: 2px;
 }
 
 /* Base */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #23: Smooth Scroll Behavior
-   ═══════════════════════════════════════════════════════════════════
-   Native CSS smooth scrolling for better UX
-   Respects prefers-reduced-motion automatically
-   AI Callback: "smooth-scroll"
-*/
-html {
-  scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 body{
   margin:0;
   color: var(--ink);
@@ -183,13 +61,6 @@ body{
 /* Starfield (depth-aware)       */
 /* Performance: GPU compositing  */
 /* ============================= */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #4: Selective will-change Removal
-   ═══════════════════════════════════════════════════════════════════
-   Removed will-change from base (causes memory pressure on mobile)
-   Now added dynamically via JS IntersectionObserver
-   AI Callback: "selective-will-change"
-*/
 body.starfield::before,
 body.starfield::after{
   content:"";
@@ -198,43 +69,34 @@ body.starfield::after{
   pointer-events: none;
   background-repeat: repeat;
   mix-blend-mode: screen;
-  opacity: .12;  /* IMPROVEMENT #28: Reduced from .14 for performance */
+  opacity: .14;
   z-index: -1;
-  /* will-change: transform; REMOVED - added dynamically in JS */
+  will-change: transform;
   transition: opacity 1200ms var(--ease-drift);
 }
-
 body.starfield::before{
   background-image: radial-gradient(#ffffff 0.8px, transparent 1px);
   background-size: 2px 2px;
   animation: driftDust 120s linear infinite;
 }
-
 body.starfield::after{
   background-image:
     radial-gradient(#ffffff 1px, transparent 1.5px),
     radial-gradient(#ffffff 0.7px, transparent 1.2px);
   background-size: 4px 4px, 6px 6px;
   background-position: 0 0, 30px 60px;
-  opacity: .09;  /* IMPROVEMENT #28: Reduced from .10 */
+  opacity: .10;
   animation: driftStars 90s linear infinite;
 }
 
 /* Depth layers - smoother transitions */
-body.starfield.depth-1::before{ opacity: .16; }
-body.starfield.depth-1::after{ opacity: .12; }
-body.starfield.depth-2::before{ opacity: .20; }
-body.starfield.depth-2::after{ opacity: .16; }
-body.starfield.depth-3::before{ opacity: .24; }
-body.starfield.depth-3::after{ opacity: .20; }
+body.starfield.depth-1::before{ opacity: .18; }
+body.starfield.depth-1::after{ opacity: .14; }
+body.starfield.depth-2::before{ opacity: .22; }
+body.starfield.depth-2::after{ opacity: .18; }
+body.starfield.depth-3::before{ opacity: .26; }
+body.starfield.depth-3::after{ opacity: .22; }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #3: translate3d Optimization Throughout
-   ═══════════════════════════════════════════════════════════════════
-   All 2D transforms replaced with 3D for GPU acceleration
-   translate(x,y) → translate3d(x, y, 0)
-   AI Callback: "translate3d-optimization"
-*/
 @keyframes driftDust { to{ transform: translate3d(0, 600px, 0); } }
 @keyframes driftStars{ to{ transform: translate3d(200px, 400px, 0); } }
 
@@ -250,7 +112,7 @@ body.starfield.depth-3::after{ opacity: .20; }
   pointer-events: none;
   opacity: 0;
   z-index: 1;
-  /* will-change removed - added dynamically */
+  will-change: transform, opacity;
   filter: blur(0.5px);
   animation: particleFloat var(--duration, 8s) var(--ease-organic) infinite;
   animation-delay: var(--delay, 0s);
@@ -296,7 +158,8 @@ body.starfield.depth-3::after{ opacity: .20; }
   background: radial-gradient(circle, var(--accent), transparent);
   border-radius: 50%;
   opacity: 0;
-  animation: burstOut 800ms var(--ease-cosmic-subtle) forwards;  /* IMPROVEMENT #14: Using subtle curve */
+  will-change: transform, opacity;
+  animation: burstOut 800ms var(--ease-cosmic) forwards;
 }
 
 @keyframes burstOut{
@@ -328,8 +191,9 @@ body.starfield.depth-3::after{ opacity: .20; }
   opacity: 0;
   transition: 
     opacity 600ms var(--ease-organic), 
-    transform 500ms var(--ease-cosmic-subtle),  /* IMPROVEMENT #14: Subtle curve */
-    bottom 500ms var(--ease-cosmic-subtle);
+    transform 500ms var(--ease-cosmic),
+    bottom 500ms var(--ease-cosmic);
+  will-change: transform, opacity;
 }
 
 .global-hint.visible{
@@ -365,7 +229,7 @@ body.starfield.depth-3::after{ opacity: .20; }
     0 4px 16px rgba(0, 0, 0, 0.4),
     0 0 24px var(--hint-glow),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  animation: hintBreathe var(--hint-duration) var(--ease-cosmic-subtle) infinite;  /* IMPROVEMENT #14 */
+  animation: hintBreathe var(--hint-duration) var(--ease-cosmic) infinite;
   position: relative;
   overflow: hidden;
 }
@@ -378,7 +242,7 @@ body.starfield.depth-3::after{ opacity: .20; }
   background: linear-gradient(
     120deg, 
     transparent 30%, 
-    rgba(198, 124, 92, 0.15) 50%,  /* IMPROVEMENT #18: Warmer copper */
+    rgba(225, 198, 153, 0.15) 50%, 
     transparent 70%
   );
   animation: hintShimmer 4s linear infinite;
@@ -390,12 +254,7 @@ body.starfield.depth-3::after{ opacity: .20; }
   100%{ transform: translateX(100%) translateZ(0); }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #29: Hint Ornament Animation (Geometric Bloom)
-   ═══════════════════════════════════════════════════════════════════
-   Mackintosh-inspired geometric pulsing
-   AI Callback: "hint-ornament-animation"
-*/
+/* Hint ornaments - organic blooms */
 .hint-ornament{
   width: 16px;
   height: 16px;
@@ -404,7 +263,7 @@ body.starfield.depth-3::after{ opacity: .20; }
 
 .hint-bloom{
   fill: var(--accent-glow);
-  animation: bloomPulse var(--hint-duration) var(--ease-cosmic-subtle) infinite;
+  animation: bloomPulse var(--hint-duration) var(--ease-cosmic) infinite;
 }
 
 .hint-ornament--left .hint-bloom{
@@ -474,15 +333,10 @@ body.cards-flipped .global-hint{
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #25: Backdrop-filter Fallback
-   ═══════════════════════════════════════════════════════════════════
-   For older browsers without backdrop-filter support
-   AI Callback: "backdrop-filter-fallback"
-*/
+/* Backdrop-filter fallback for older browsers */
 @supports not (backdrop-filter: blur(12px)){
   .hint-text{
-    background: rgba(26, 22, 18, 0.92);
+    background: rgba(14, 26, 43, 0.92);
   }
 }
 
@@ -515,7 +369,7 @@ body.cards-flipped .global-hint{
   letter-spacing: .02em;
   margin: 0 0 .25rem;
   color: var(--ink);
-  text-shadow: 0 0 18px rgba(198,124,92,.08);  /* IMPROVEMENT #18: Warmer glow */
+  text-shadow: 0 0 18px rgba(225,198,153,.08);
   position: relative;
 }
 .hero__tag{
@@ -544,20 +398,14 @@ body.cards-flipped .global-hint{
   transform: translate3d(0, 40px, 0) scale(.96);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #11: Enhanced Arc Motion (Principle #7)
-   ═══════════════════════════════════════════════════════════════════
-   True curved path using longer bezier curves
-   Objects shouldn't move in straight lines - adds life and realism
-   AI Callback: "arc-motion-reveal"
-*/
+/* Enhanced reveal with anticipation micro-bounce */
 .js.reveal-ready .reveal.revealed .card,
 .js.reveal-ready .reveal.revealed .hero__inner,
 .js.reveal-ready .reveal.revealed .site-footer,
 .js.reveal-ready .reveal.revealed.site-footer{
   opacity: 1; 
   transform: none;
-  animation: riseInAnticipate 1100ms var(--ease-cosmic-subtle) both;
+  animation: riseInAnticipate 1100ms var(--ease-cosmic) both;
   animation-delay: calc(var(--stagger) * 1ms);
 }
 
@@ -570,24 +418,8 @@ body.cards-flipped .global-hint{
   place-items: center;
   padding: 4rem 1.25rem;
   position:relative;
+  /* Fix z-fighting on card hover */
   isolation: isolate;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #1: Mobile Soft-Lock Fix (CRITICAL)
-   ═══════════════════════════════════════════════════════════════════
-   Added scroll-margin-top for smooth scrolling between cards
-   Prevents viewport lock when cards flip on mobile
-   AI Callback: "mobile-scroll-unlock"
-*/
-.tarot {
-  scroll-margin-top: 2rem;  /* NEW: Allows smooth scroll past flipped cards */
-}
-
-@media (max-width: 768px) {
-  .tarot {
-    scroll-margin-top: 4rem;  /* More space on mobile */
-  }
 }
 
 /* Flip toggle (visually hidden) */
@@ -620,93 +452,53 @@ body.cards-flipped .global-hint{
   transform-origin: center center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  /* will-change removed - added dynamically */
-  
-  /* ═══════════════════════════════════════════════════════════════════
-     IMPROVEMENT #24: Touch-Action Optimization
-     ═══════════════════════════════════════════════════════════════════
-     Prevents double-tap zoom delay on mobile
-     AI Callback: "touch-action-optimization"
-  */
-  touch-action: manipulation;
+  will-change: transform, filter;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #6: Squash & Stretch on Hover (Principle #1)
-   ═══════════════════════════════════════════════════════════════════
-   Disney animation principle: Objects change shape during interaction
-   scale(1.04, 0.96) = wider/shorter (like ball hitting ground)
-   Adds subtle X-axis movement for arc principle
-   AI Callback: "squash-stretch-principle"
-*/
+/* Squash & Stretch on hover - more pronounced */
 .card:hover, .card:focus-visible{ 
   outline: none; 
-  transform: translate3d(4px, -10px, 0) rotateZ(-0.8deg) scale(1.04, 0.96);  /* CHANGED: Added X movement + squash */
+  transform: translateY(-10px) rotateZ(-0.8deg) scale(1.04, 0.96);
   filter: drop-shadow(0 24px 52px rgba(0,0,0,.58));
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #7: Anticipation Wind-Up (Principle #2)
-   ═══════════════════════════════════════════════════════════════════
-   Small action before large action (like athlete preparing to sprint)
-   Inverse squash: taller/narrower before flip
-   AI Callback: "anticipation-windup"
-*/
+/* Anticipation: wind-up before flip */
 .card:active{
-  transform: translate3d(0, -2px, 0) scale(0.96, 1.04) rotateZ(0.5deg);  /* CHANGED: Inverse squash */
+  transform: translateY(-2px) scale(0.97, 1.03) rotateZ(0.5deg);
   transition-duration: 80ms;
   transition-timing-function: var(--ease-snap);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #9: Asymmetric Transitions (Course 2)
-   ═══════════════════════════════════════════════════════════════════
-   Different easing for flip vs. flip-back
-   Forward (flip): ease-cosmic-subtle (playful entrance)
-   Backward (flip-back): ease-in (quick exit)
-   AI Callback: "easing-asymmetric"
-*/
+/* Inner / flip - asymmetric cosmic timing */
 .card__inner{
   position:relative; 
   width:100%; 
   height:100%;
   transform-style: preserve-3d; 
   -webkit-transform-style: preserve-3d;
-  transition: transform 850ms var(--ease-cosmic-subtle);  /* CHANGED: Using subtle curve */
+  transition: transform 850ms var(--ease-cosmic);
+  will-change: transform;
 }
 
 .flip-toggle:checked + .card .card__inner{ 
   transform: rotateY(180deg); 
   -webkit-transform: rotateY(180deg);
   transition-duration: 850ms;
-  transition-timing-function: var(--ease-cosmic-subtle);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #22: Faster Flip-Back (Asymmetric Timing)
-   ═══════════════════════════════════════════════════════════════════
-   Reduced from 450ms to 320ms for snappier return
-   Uses ease-in for outgoing motion (Course 2 principle)
-   AI Callback: "flip-back-speed"
-*/
+/* Faster flip back (asymmetric) */
 .flip-toggle:not(:checked) + .card .card__inner{
-  transition-duration: 320ms;  /* CHANGED: Was 450ms */
-  transition-timing-function: var(--ease-in);  /* CHANGED: Was ease-cosmic */
+  transition-duration: 450ms;
+  transition-timing-function: var(--ease-in);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #16: Transform-Origin Fibonacci Sequence
-   ═══════════════════════════════════════════════════════════════════
-   Natural-feeling rotation points based on golden ratio
-   Creates subtle variation in flip axis per card
-   AI Callback: "transform-origin-fibonacci"
-*/
-.card[data-index="0"] .card__inner{ transform-origin: 46.18% 48.04%; }  /* φ-based */
-.card[data-index="1"] .card__inner{ transform-origin: 53.82% 51.96%; }  /* 1-φ */
-.card[data-index="2"] .card__inner{ transform-origin: 48.54% 50.00%; }  /* φ/2 */
-.card[data-index="3"] .card__inner{ transform-origin: 51.46% 50.00%; }  /* 1-(φ/2) */
-.card[data-index="4"] .card__inner{ transform-origin: 50.00% 48.54%; }  /* Vertical φ */
-.card[data-index="5"] .card__inner{ transform-origin: 50.00% 51.46%; }  /* Vertical 1-φ */
+/* Transform-origin variation by card index */
+.card[data-index="0"] .card__inner{ transform-origin: 45% 48%; }
+.card[data-index="1"] .card__inner{ transform-origin: 55% 52%; }
+.card[data-index="2"] .card__inner{ transform-origin: 48% 50%; }
+.card[data-index="3"] .card__inner{ transform-origin: 52% 50%; }
+.card[data-index="4"] .card__inner{ transform-origin: 50% 48%; }
+.card[data-index="5"] .card__inner{ transform-origin: 50% 52%; }
 
 /* Faces */
 .card__face{
@@ -744,13 +536,6 @@ body.cards-flipped .global-hint{
 /* Art Nouveau Organic Ornaments     */
 /* SVG with bloom animation          */
 /* ================================= */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #19: Mackintosh-Style Geometric Ornaments
-   ═══════════════════════════════════════════════════════════════════
-   Glasgow School of Art aesthetic: geometric nature abstraction
-   Straight lines, circles, structured forms
-   AI Callback: "mackintosh-geometry"
-*/
 .ornament{
   position: absolute;
   width: 48px;
@@ -785,16 +570,10 @@ body.cards-flipped .global-hint{
   fill: var(--accent-glow);
   opacity: 0;
   transform-origin: center;
-  transition: r 600ms var(--ease-cosmic-subtle), opacity 600ms var(--ease-organic);  /* IMPROVEMENT #14 */
+  transition: r 600ms var(--ease-cosmic), opacity 600ms var(--ease-organic);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #13: Ornament Sequential Timing (Overlapping Action)
-   ═══════════════════════════════════════════════════════════════════
-   Each bloom appears 120ms apart (follow-through principle)
-   Main mass stops, but parts continue moving
-   AI Callback: "ornament-sequencing"
-*/
+/* Hover state - organic growth */
 .card:hover .ornament{
   opacity: 0.8;
 }
@@ -813,21 +592,16 @@ body.cards-flipped .global-hint{
 .card:hover .ornament__bloom--2{
   opacity: 0.7;
   r: 2.5;
-  transition-delay: 320ms;  /* CHANGED: Was 350ms - now 120ms apart */
+  transition-delay: 350ms;
 }
 
 .card:hover .ornament__bloom--3{
   opacity: 0.7;
   r: 2.5;
-  transition-delay: 440ms;  /* CHANGED: Was 500ms - now 120ms apart */
+  transition-delay: 500ms;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #21: Reduced Shimmer Cycle
-   ═══════════════════════════════════════════════════════════════════
-   140s was excessive - reduced to 28s for reasonable loop
-   AI Callback: "shimmer-cycle-optimization"
-*/
+/* Shimmer - enhanced with follow-through */
 .shimmer::after{
   content:""; 
   position:absolute; 
@@ -835,9 +609,10 @@ body.cards-flipped .global-hint{
   background: linear-gradient(120deg, rgba(255,255,255,0) 30%, rgba(255,255,255,.12) 50%, rgba(255,255,255,0) 70%);
   background-size: 200% 200%; 
   opacity:.22;
-  animation: shimmerPass 28s linear infinite;  /* CHANGED: Was 140s */
+  animation: shimmerPass 140s linear infinite; 
   animation-delay: var(--shimmer-delay, 0s); 
   pointer-events: none;
+  will-change: transform;
 }
 
 @keyframes shimmerPass{ 
@@ -850,18 +625,11 @@ body.cards-flipped .global-hint{
 /* Back - Enhanced gradient pulse   */
 /* Focal element staging            */
 /* ================================ */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #2: Consistent Card Back Heights (CRITICAL)
-   ═══════════════════════════════════════════════════════════════════
-   Prevents mobile clipping and layout shift
-   Uses min-height calculation based on typical content
-   AI Callback: "consistent-card-heights"
-*/
 .card__back{
   background: 
     radial-gradient(80% 60% at 50% 10%, rgba(255,255,255,.05), transparent 60%), 
     linear-gradient(135deg, var(--space-blue), var(--bg-deeper));
-  border: 1px solid rgba(198,124,92,.22);  /* IMPROVEMENT #18: Warmer copper border */
+  border: 1px solid rgba(225,198,153,.22);
   transform: rotateY(180deg) translateZ(2px); 
   -webkit-transform: rotateY(180deg) translateZ(2px);
   display:grid; 
@@ -870,61 +638,39 @@ body.cards-flipped .global-hint{
   padding: clamp(1rem, 4vw, 1.6rem);
   position: relative;
   overflow: hidden;
-  
-  /* NEW: Minimum height to prevent clipping */
-  min-height: calc(var(--card-h) * 0.95);  /* 95% of card height minimum */
 }
 
-@media (max-width: 768px) {
-  .card__back {
-    min-height: calc(var(--card-h) * 1.05);  /* Extra space on mobile */
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #12: Focal Element Breathing Loop (Principle: Focal Elements)
-   ═══════════════════════════════════════════════════════════════════
-   Background pulse now loops every 8s instead of one-shot
-   Draws attention to persistent focal element
-   AI Callback: "focal-breathing-loop"
-*/
+/* Background pulse on reveal */
 .card__back::before{
   content: "";
   position: absolute;
   inset: -50%;
-  background: radial-gradient(circle at center, rgba(198,124,92,.12), transparent 70%);  /* IMPROVEMENT #18: Warmer */
+  background: radial-gradient(circle at center, rgba(225,198,153,.12), transparent 70%);
   opacity: 0;
   animation: none;
 }
 
 .flip-toggle:checked + .card .card__back::before{
-  animation: backgroundPulse 8s var(--ease-cosmic-subtle) 0.5s infinite;  /* CHANGED: Added infinite */
+  animation: backgroundPulse 2.4s var(--ease-cosmic) 0.5s forwards;
 }
 
 @keyframes backgroundPulse{
-  0%, 100%{ opacity: 0; transform: scale(0.7) translateZ(0); }
+  0%{ opacity: 0; transform: scale(0.7) translateZ(0); }
   50%{ opacity: 1; transform: scale(1.3) translateZ(0); }
+  100%{ opacity: 0; transform: scale(1.6) translateZ(0); }
 }
 
 /* ================================ */
 /* Focal Element: Title Persistence */
 /* Breathe animation on reveal      */
 /* ================================ */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #8: Cascade Back Content (Overlapping Action + Staging)
-   ═══════════════════════════════════════════════════════════════════
-   Staggered delays create follow-through effect
-   Title → +200ms → Line → +400ms → CTAs (total +800ms)
-   Course principle: Main mass stops, parts continue moving
-   AI Callback: "cascade-staging"
-*/
 .back__title{ 
   margin:0; 
   font-size: clamp(1.2rem, 3.2vw, 1.7rem);
   position: relative;
   opacity: 0;
   transform: translateY(-10px);
-  transition: opacity 600ms var(--ease-out) 200ms, transform 600ms var(--ease-cosmic-subtle) 200ms;  /* CHANGED: Added 200ms delay */
+  transition: opacity 600ms var(--ease-out) 200ms, transform 600ms var(--ease-cosmic) 200ms;
 }
 
 .flip-toggle:checked + .card .back__title{
@@ -950,7 +696,7 @@ body.cards-flipped .global-hint{
   letter-spacing: normal;
   opacity: 0;
   transform: translateX(-15px);
-  transition: opacity 500ms var(--ease-out) 400ms, transform 500ms var(--ease-cosmic-subtle) 400ms;  /* CHANGED: Was 400ms, now cascaded */
+  transition: opacity 500ms var(--ease-out) 400ms, transform 500ms var(--ease-cosmic) 400ms;
 }
 
 .flip-toggle:checked + .card .back__line{
@@ -1042,7 +788,7 @@ body.cards-flipped .global-hint{
     display: inline-block;
     margin-left: 0;
     transform: translateY(2em);
-    transition: transform 320ms var(--ease-cosmic-subtle);  /* IMPROVEMENT #14 */
+    transition: transform 320ms var(--ease-cosmic);
   }
 }
 
@@ -1052,7 +798,7 @@ body.cards-flipped .global-hint{
 }
 
 .hero__tag.breathe{
-  animation: breath 1100ms var(--ease-cosmic-subtle) both;
+  animation: breath 1100ms var(--ease-cosmic) both;
   animation-delay: var(--breath-delay, 0ms);
 }
 
@@ -1067,13 +813,6 @@ body.cards-flipped .global-hint{
 /* CTAs - Enhanced with Anticipation */
 /* Secondary actions on hover       */
 /* ================================ */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #17: CTAs Staged Last (Secondary Actions)
-   ═══════════════════════════════════════════════════════════════════
-   Secondary actions support main action (Principle #8)
-   Increased delay from 600ms to 800ms for proper staging
-   AI Callback: "ctas-secondary-actions"
-*/
 .back__cta{ 
   align-self:end; 
   display:flex; 
@@ -1081,7 +820,7 @@ body.cards-flipped .global-hint{
   flex-wrap: wrap; 
   opacity: 0;
   transform: translateY(15px);
-  transition: opacity 500ms var(--ease-out) 800ms, transform 500ms var(--ease-cosmic-subtle) 800ms;  /* CHANGED: Was 600ms */
+  transition: opacity 500ms var(--ease-out) 600ms, transform 500ms var(--ease-cosmic) 600ms;
 }
 
 .flip-toggle:checked + .card .back__cta{
@@ -1094,12 +833,12 @@ body.cards-flipped .global-hint{
   align-items:center; 
   justify-content:center;
   padding:.6rem .9rem; 
-  min-height: var(--hint-touch-size);
+  min-height: var(--hint-touch-size); /* Touch target size */
   border-radius: 10px;
-  background: rgba(198,124,92,.16);  /* IMPROVEMENT #18: Warmer copper */
+  background: rgba(225,198,153,.16); 
   color: var(--ink); 
   text-decoration:none;
-  border: 1px solid rgba(198,124,92,.28);
+  border: 1px solid rgba(225,198,153,.28);
   transition: transform 200ms var(--ease-out), background 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
   position: relative;
   overflow: hidden;
@@ -1109,27 +848,21 @@ body.cards-flipped .global-hint{
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(198,124,92,.4), transparent);  /* IMPROVEMENT #18 */
+  background: radial-gradient(circle at center, rgba(225,198,153,.4), transparent);
   opacity: 0;
   transform: scale(0);
-  transition: opacity 400ms var(--ease-organic), transform 400ms var(--ease-cosmic-subtle);
+  transition: opacity 400ms var(--ease-organic), transform 400ms var(--ease-cosmic);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #26: Focus-Visible Only
-   ═══════════════════════════════════════════════════════════════════
-   Better keyboard UX - only shows outline when using keyboard
-   AI Callback: "focus-visible-only"
-*/
 .btn:focus-visible{ 
   outline: 3px solid var(--accent); 
   outline-offset: 3px; 
 }
 
 .btn:hover, .btn:focus-visible{ 
-  transform: translate3d(0, -3px, 0) scale(1.03);  /* IMPROVEMENT #3: translate3d */
-  background: rgba(198,124,92,.26);
-  box-shadow: 0 6px 16px rgba(198,124,92,.3);
+  transform: translateY(-3px) scale(1.03); 
+  background: rgba(225,198,153,.26);
+  box-shadow: 0 6px 16px rgba(225,198,153,.3);
 }
 
 .btn:hover::before{
@@ -1137,14 +870,9 @@ body.cards-flipped .global-hint{
   transform: scale(2);
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #15: Button Anticipation Pull-Back (Principle #2)
-   ═══════════════════════════════════════════════════════════════════
-   Anticipation before action (like athlete preparing to sprint)
-   AI Callback: "button-anticipation"
-*/
+/* Anticipation: pull-back before click */
 .btn:active{
-  transform: translate3d(0, -1px, 0) scale(0.97);  /* NEW: Pull-back before action */
+  transform: translateY(-1px) scale(0.96);
   transition-duration: 70ms;
 }
 
@@ -1156,18 +884,12 @@ body.cards-flipped .global-hint{
 /* Coda Grid - Adaptive Spacing       */
 /* Mobile collision prevention        */
 /* ================================== */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #10 & #28: Enhanced Mobile Spacing
-   ═══════════════════════════════════════════════════════════════════
-   Increased from 4.5rem to 6rem when flipped (prevents collision)
-   AI Callback: "mobile-spacing-enhancement"
-*/
 .coda{ 
   min-height: 80vh; 
   display:grid; 
   align-content:center; 
   gap: 1.2rem; 
-  padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));  /* IMPROVEMENT #27: safe-area */
+  padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
   position: relative;
   transition: gap 400ms var(--ease-organic);
   grid-auto-rows: minmax(min-content, max-content);
@@ -1189,6 +911,7 @@ body.cards-flipped .global-hint{
     align-content: center;
   }
   
+  /* Expand gap when cards flipped (prevents collision) */
   .coda.has-flipped-card{
     gap: 3.5rem;
   }
@@ -1207,11 +930,12 @@ body.cards-flipped .global-hint{
     margin-bottom: 1rem;
   }
   
-  /* IMPROVEMENT #10: Increased from 4.5rem to 6rem */
+  /* Expand gap when cards flipped (prevents collision) */
   .coda.has-flipped-card{
-    gap: 6rem;  /* CHANGED: Was 4.5rem */
+    gap: 4.5rem;
   }
   
+  /* Individual card spacing when flipped */
   .coda__card:has(.flip-toggle:checked){
     margin-bottom: 3.5rem;
   }
@@ -1232,15 +956,9 @@ body.cards-flipped .global-hint{
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #11: True Arc Motion (Principle #7)
-   ═══════════════════════════════════════════════════════════════════
-   Enhanced with longer curved path using X-axis movement
-   Objects shouldn't move in straight lines
-   AI Callback: "arc-motion-coda"
-*/
+/* Coda reveal - with true arc motion */
 .js .reveal.coda.revealed .card{
-  animation: floatInArc 1000ms var(--ease-cosmic-subtle) both;
+  animation: floatInArc 1000ms var(--ease-cosmic) both;
   animation-delay: calc( (var(--stagger) + (var(--index,0) * 100)) * 1ms);
 }
 
@@ -1248,6 +966,7 @@ body.cards-flipped .global-hint{
 /* Enhanced Keyframes                 */
 /* Applying 12 Animation Principles   */
 /* ================================== */
+
 /* Anticipation micro-bounce before rise */
 @keyframes riseInAnticipate{
   0%{ 
@@ -1269,18 +988,18 @@ body.cards-flipped .global-hint{
   }
 }
 
-/* IMPROVEMENT #11: Enhanced arc with true curved path */
+/* True arc motion with bezier curve path */
 @keyframes floatInArc{ 
   0%{
     opacity:0; 
-    transform: translate3d(-20px, 40px, 0) rotate(4deg) scale(0.92);  /* CHANGED: Stronger curve */
+    transform: translate3d(-15px, 35px, 0) rotate(3deg) scale(0.94);
   }
-  30%{
-    transform: translate3d(12px, -5px, 0) rotate(-1.5deg) scale(1.03);  /* CHANGED: Arc peak */
+  40%{
+    transform: translate3d(8px, -8px, 0) rotate(-1deg) scale(1.02);
   }
-  60%{
+  70%{
     opacity:1;
-    transform: translate3d(-5px, 3px, 0) rotate(0.5deg) scale(1.01);  /* CHANGED: Overshoot */
+    transform: translate3d(-3px, 2px, 0) rotate(0.3deg) scale(1.01);
   }
   100%{
     transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
@@ -1308,32 +1027,24 @@ body.cards-flipped .global-hint{
 /* Reduced Motion - Accessibility   */
 /* Comprehensive alternatives       */
 /* ================================ */
-/* ═══════════════════════════════════════════════════════════════════
-   IMPROVEMENT #5: Proper Reduced-Motion (CRITICAL Accessibility)
-   ═══════════════════════════════════════════════════════════════════
-   Removed !important overrides
-   Preserves essential state changes (focus, hover)
-   Removes only decorative motion
-   AI Callback: "reduced-motion-proper"
-*/
 @media (prefers-reduced-motion: reduce){
   *,
   *::before,
   *::after{ 
-    animation-duration: 0.01ms;  /* REMOVED: !important */
-    animation-iteration-count: 1;  /* REMOVED: !important */
-    transition-duration: 0.01ms;  /* REMOVED: !important */
+    animation-duration: 0.01ms !important; 
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
   
   /* Hide purely decorative animations */
-  .particle{ display: none; }
-  .burst-particle{ display: none; }
-  .shimmer::after{ animation: none; }
+  .particle{ display: none !important; }
+  .burst-particle{ display: none !important; }
+  .shimmer::after{ animation: none !important; }
   
   /* Stop starfield motion */
   body.starfield::before,
   body.starfield::after{ 
-    animation: none; 
+    animation: none !important; 
   }
   
   /* Instant reveals */
@@ -1349,49 +1060,41 @@ body.cards-flipped .global-hint{
   .js.reveal-ready .reveal.revealed .hero__inner,
   .js.reveal-ready .reveal.revealed .site-footer,
   .js.reveal-ready .reveal.revealed.site-footer{
-    opacity: 1; 
-    transform: none;
+    opacity: 1 !important; 
+    transform: none !important;
   }
   
   /* Keep ornaments visible but static */
   .ornament{
-    opacity: 0.6;
+    opacity: 0.6 !important;
   }
   .ornament__stem{
-    opacity: 1;
-    stroke-dashoffset: 0;
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
   }
   .ornament__bloom{
-    opacity: 0.7;
-    r: 2.5;
+    opacity: 0.7 !important;
+    r: 2.5 !important;
   }
   
   /* Static hint (no breathing) */
   .global-hint .hint-text{
-    animation: none;
+    animation: none !important;
   }
   .hint-text::before{
-    animation: none;
+    animation: none !important;
   }
   .hint-bloom{
-    animation: none;
-    r: 2.5;
-    opacity: 0.7;
-  }
-  
-  /* IMPORTANT: Preserve essential interactions */
-  .btn:hover,
-  .btn:focus-visible,
-  .card:hover,
-  .card:focus-visible {
-    transition-duration: 100ms;  /* Quick but visible */
+    animation: none !important;
+    r: 2.5 !important;
+    opacity: 0.7 !important;
   }
 }
 
 /* Footer */
 .site-footer{ 
   text-align:center; 
-  padding: 3rem 1.25rem calc(4rem + env(safe-area-inset-bottom));  /* IMPROVEMENT #27: safe-area */
+  padding: 3rem 1.25rem calc(4rem + env(safe-area-inset-bottom)); 
   color: var(--ink-dim); 
   font-size: .9rem;
 }
