@@ -550,37 +550,37 @@
   })();
 
   // ================================
+    // ================================
   // Enhanced Coda Collision Prevention
   // ================================
   (function fixCodaCollision(){
-  const coda = document.querySelector('.coda');
-  if(!coda) return;
+    const coda = document.querySelector('.coda');
+    if (!coda) return;
 
-  const codaToggles = coda.querySelectorAll('.flip-toggle');
+    const codaToggles = coda.querySelectorAll('.flip-toggle');
 
-  function updateCodaSpacing(){
+    function updateCodaSpacing(){
       const anyFlipped = Array.from(codaToggles).some(t => t.checked);
       scheduleRaf(() => {
         coda.classList.toggle('has-flipped-card', anyFlipped);
-    });
-  }
-  
-  codaToggles.forEach(toggle => {
+      });
+    }
+
+    // Update spacing when a coda card flips
+    codaToggles.forEach(toggle => {
       toggle.addEventListener('change', () => {
         setTimeout(updateCodaSpacing, 50);
+      });
     });
-   });
 
+    // Initial state
     updateCodaSpacing();
-    // Re-check on resize with passive flag
-    const throttledResize = throttle(updateCodaSpacing, 200);
-
-})();
 
     // Re-check on resize with passive flag
     const throttledResize = throttle(updateCodaSpacing, 200);
-    window.addEventListener('resize', throttledResize, {passive: true});
+    window.addEventListener('resize', throttledResize, { passive: true });
   })();
+
 
   // ================================
   // Enhanced Depth-Aware Starfield
