@@ -1,4 +1,8 @@
-/* Enhanced Reveal-on-scroll + Typing + Particles + Connections + Depth-aware Starfield */
+/* ========================================= */
+/* Enhanced Reveal-on-scroll + Typing       */
+/* + Particles + Connections + Bursts       */
+/* Performance optimized for mobile         */
+/* ========================================= */
 (function () {
   const root = document.documentElement;
   root.classList.remove('no-js');
@@ -6,6 +10,10 @@
 
   const reveals = Array.from(document.querySelectorAll('.reveal'));
   const lines = Array.from(document.querySelectorAll('.type-line'));
+  
+  // Mobile detection for performance optimization
+  const isMobile = () => window.innerWidth < 768;
+  const PARTICLE_COUNT = isMobile() ? 12 : 20; // Reduced count on mobile
 
   // =====================
   // Typing Setup
@@ -37,7 +45,29 @@
       el.style.animationName = 'typingPx';
     });
   }
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(measureHero);
+  
+  // Wait for fonts to load before measuring
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
+    .then(measureHero)
+    .then(() => {
+      // Fix: cursor visibility after font load
+      setTimeout(() => {
+        const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
+        const tagLine = document.querySelector('.hero-line--tag');
+        const authorCursor = document.querySelector('.cursor--author');
+
+        if (tagLine && authorCursor) {
+          const tagDelay = parseInt(tagLine.style.animationDelay || '0');
+          const tagDur   = parseInt(tagLine.dataset._dur || '0');
+          const showAuthorCursorAt = tagDelay + tagDur + 40;
+
+          authorCursor.style.visibility = 'hidden';
+          setTimeout(() => {
+            authorCursor.style.visibility = 'visible';
+          }, showAuthorCursorAt);
+        }
+      }, 100);
+    });
 
   // =====================
   // Hero Cascade (with anticipation)
@@ -46,35 +76,23 @@
     const heroLines = Array.from(document.querySelectorAll('.hero .type-line'));
     if (!heroLines.length) return;
 
-    let offset = 160; // lead-in before first keystroke
+    let offset = 200; // Extended lead-in for anticipation
     heroLines.forEach(el => {
       const dur = parseInt(el.dataset._dur || '0');
       el.style.animationDelay = `${offset}ms`;
-      offset += Math.max(120, Math.floor(dur * 0.85));
+      offset += Math.max(140, Math.floor(dur * 0.88));
     });
 
-    const tagLine = document.querySelector('.hero-line--tag');
-    const authorCursor = document.querySelector('.cursor--author');
-
-    if (tagLine && authorCursor) {
-      const tagDelay = parseInt(tagLine.style.animationDelay || '0');
-      const tagDur   = parseInt(tagLine.dataset._dur || '0');
-      const showAuthorCursorAt = tagDelay + tagDur + 40;
-
-      authorCursor.style.visibility = 'hidden';
-      setTimeout(() => {
-        authorCursor.style.visibility = 'visible';
-      }, showAuthorCursorAt);
-    }
-
-    // Breath micro-motion on tagline
+    // Breath micro-motion on tagline (follow-through)
     const tag = document.querySelector('.hero__tag');
     const last = heroLines[heroLines.length - 1];
-    const lastDelay = parseInt(last.style.animationDelay || '0');
-    const lastDur = parseInt(last.dataset._dur || '0');
-    const breathDelay = lastDelay + lastDur + 300;
-    tag.style.setProperty('--breath-delay', `${breathDelay}ms`);
-    tag.classList.add('breathe');
+    if (tag && last) {
+      const lastDelay = parseInt(last.style.animationDelay || '0');
+      const lastDur = parseInt(last.dataset._dur || '0');
+      const breathDelay = lastDelay + lastDur + 350;
+      tag.style.setProperty('--breath-delay', `${breathDelay}ms`);
+      tag.classList.add('breathe');
+    }
   })();
 
   // =====================
@@ -114,6 +132,7 @@
 
   // =====================
   // Card Back: Auto-wrap Detection
+  // Batched reads for performance
   // =====================
   (function(){
     const SEL = '.card .back__line';
@@ -130,30 +149,40 @@
     }
 
     function updateBackLines(){
-      lines.forEach(line=>{
+      // Batch reads
+      const measurements = Array.from(lines).map(line => {
         const type = line.querySelector('.type-line');
-        if(!type) return;
+        if (!type) return null;
+        
         const text = type.textContent;
         const chars = Array.from(text).length;
-        type.style.setProperty('--chars', chars);
-
         const cw = chWidthFor(line);
         const pr = parseFloat(getComputedStyle(line).paddingRight) || 0;
         const usable = line.clientWidth - pr;
         const capacity = Math.floor(usable / cw) - 1;
+        
+        return { line, type, chars, capacity };
+      }).filter(Boolean);
 
+      // Batch writes
+      measurements.forEach(({ line, type, chars, capacity }) => {
+        type.style.setProperty('--chars', chars);
         line.classList.toggle('wrap', chars > capacity);
       });
     }
 
     const defer = fn => Promise.resolve().then(fn);
     window.addEventListener('DOMContentLoaded', () => defer(updateBackLines), {once:true});
+    
+    // Throttled resize handler
+    let resizeTimer;
     window.addEventListener('resize', () => { 
-      clearTimeout(updateBackLines._t); 
-      updateBackLines._t = setTimeout(updateBackLines, 150); 
+      clearTimeout(resizeTimer); 
+      resizeTimer = setTimeout(updateBackLines, 200); 
     });
+    
     document.addEventListener('change', e=>{
-      if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 100);
+      if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 150);
     });
   })();
 
@@ -183,7 +212,7 @@
         if(t.checked){
           const dur = parseInt(line.dataset._dur || '0');
           const delay = parseInt(line.style.animationDelay || '0');
-          const when = dur + delay + 60;
+          const when = dur + delay + 80;
           const id = setTimeout(() => cont.classList.add('paragraph-cursor'), when);
           timers.set(cont, id);
         }else{
@@ -196,31 +225,30 @@
     PAIRS.forEach(arm);
   })();
 
-  // =====================
+  // ================================
   // Floating Particles (Depth-Aware)
-  // =====================
+  // Mobile-optimized count
+  // ================================
   (function initParticles(){
     const container = document.getElementById('particles');
     if(!container) return;
 
-    const PARTICLE_COUNT = 20;
     const particles = [];
 
     for(let i = 0; i < PARTICLE_COUNT; i++){
       const p = document.createElement('div');
       p.className = 'particle';
       
-      // Random properties
-      const duration = 6 + Math.random() * 8; // 6-14s
-      const delay = Math.random() * 5;
-      const opacity = 0.2 + Math.random() * 0.3;
+      const duration = 7 + Math.random() * 9; // 7-16s
+      const delay = Math.random() * 6;
+      const opacity = 0.25 + Math.random() * 0.35;
       const xStart = Math.random() * 100;
-      const yStart = 20 + Math.random() * 60;
-      const xMid = xStart + (Math.random() - 0.5) * 30;
-      const yMid = yStart + (Math.random() - 0.5) * 40;
-      const xEnd = xMid + (Math.random() - 0.5) * 20;
-      const yEnd = yStart + 40 + Math.random() * 40;
-      const scaleMid = 0.8 + Math.random() * 0.6;
+      const yStart = 25 + Math.random() * 55;
+      const xMid = xStart + (Math.random() - 0.5) * 35;
+      const yMid = yStart + (Math.random() - 0.5) * 45;
+      const xEnd = xMid + (Math.random() - 0.5) * 25;
+      const yEnd = yStart + 45 + Math.random() * 45;
+      const scaleMid = 0.85 + Math.random() * 0.7;
 
       p.style.cssText = `
         --duration: ${duration}s;
@@ -242,12 +270,65 @@
     // Fade in particles after hero settles
     setTimeout(() => {
       particles.forEach(p => p.style.opacity = '1');
-    }, 2000);
+    }, 2400);
   })();
 
-  // =====================
+  // ================================
+  // Particle Burst System
+  // Triggered on card flip
+  // ================================
+  (function initParticleBursts(){
+    const burstContainer = document.getElementById('particle-bursts');
+    if(!burstContainer) return;
+
+    function createBurst(x, y){
+      const burstCount = 8;
+      const particles = [];
+
+      for(let i = 0; i < burstCount; i++){
+        const p = document.createElement('div');
+        p.className = 'burst-particle';
+        
+        const angle = (Math.PI * 2 * i) / burstCount;
+        const distance = 40 + Math.random() * 60;
+        const burstX = Math.cos(angle) * distance;
+        const burstY = Math.sin(angle) * distance;
+
+        p.style.cssText = `
+          left: ${x}px;
+          top: ${y}px;
+          --burst-x: ${burstX}px;
+          --burst-y: ${burstY}px;
+        `;
+
+        burstContainer.appendChild(p);
+        particles.push(p);
+
+        // Remove after animation
+        setTimeout(() => p.remove(), 900);
+      }
+    }
+
+    // Attach to all flip toggles
+    document.querySelectorAll('.flip-toggle').forEach(toggle => {
+      toggle.addEventListener('change', (e) => {
+        if(e.target.checked){
+          const card = e.target.nextElementSibling;
+          if(card){
+            const rect = card.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            createBurst(x, y);
+          }
+        }
+      });
+    });
+  })();
+
+  // ================================
   // Depth-Aware Starfield
-  // =====================
+  // Smooth opacity transitions
+  // ================================
   (function depthStarfield(){
     let lastDepth = 0;
     
@@ -268,25 +349,31 @@
       }
     }
 
+    // Throttled scroll handler
+    let scrollTimer;
     window.addEventListener('scroll', () => {
-      clearTimeout(updateDepth._timer);
-      updateDepth._timer = setTimeout(updateDepth, 50);
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateDepth, 100);
     }, {passive: true});
 
     updateDepth();
   })();
 
-  // =====================
-  // Connection Lines - ALL cards connected with pulsing animated lines
-  // =====================
+  // ================================
+  // Connection Lines - Immersive
+  // Continuous pulsing animation
+  // Optimized with RAF management
+  // ================================
   (function initConnections(){
     const canvas = document.getElementById('connections');
     if(!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     let animFrame = null;
     let pulsePhase = 0;
-    const isMobile = () => window.innerWidth < 920;
+    let lineProgress = 0;
+    let animationStartTime = null;
+    let isAnimating = false;
 
     // Resize canvas
     function resize(){
@@ -294,12 +381,17 @@
       canvas.height = document.documentElement.scrollHeight;
     }
     resize();
+    
+    let resizeTimer;
     window.addEventListener('resize', () => {
-      resize();
-      if(canvas.classList.contains('visible')) drawConnections();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        resize();
+        if(canvas.classList.contains('visible')) drawConnections();
+      }, 200);
     });
 
-    // Get all card positions
+    // Get all card positions (batched reads)
     function getAllCardPositions(){
       const cards = Array.from(document.querySelectorAll('.card'));
       return cards.map((card, index) => {
@@ -319,51 +411,50 @@
       }).filter(c => c.element.offsetParent !== null);
     }
 
-    // Draw a curved line between two points
-    function drawCurvedLine(from, to, progress, isMobile){
+    // Draw curved line with pulsing glow
+    function drawCurvedLine(from, to, progress, mobile){
       if(progress <= 0) return;
 
       ctx.save();
       
-      // Pulsing opacity and glow
-      const pulseValue = 0.5 + Math.sin(pulsePhase) * 0.3;
-      const baseOpacity = 0.25;
+      // Pulsing opacity and glow (cosmic feel)
+      const pulseValue = 0.6 + Math.sin(pulsePhase) * 0.35;
+      const baseOpacity = 0.28;
       ctx.globalAlpha = baseOpacity * progress * pulseValue;
 
       // Base line
       ctx.strokeStyle = '#E1C699';
       ctx.lineWidth = 2;
-      ctx.setLineDash([8, 6]);
+      ctx.setLineDash([10, 7]);
       ctx.lineCap = 'round';
 
-      if(isMobile){
-        // Mobile: Straight vertical lines with slight offset
-        const offsetX = 15 * Math.sin(from.index);
+      if(mobile){
+        // Mobile: Simplified vertical lines
+        const offsetX = 18 * Math.sin(from.index);
         ctx.beginPath();
         ctx.moveTo(from.x + offsetX, from.bottom);
         ctx.lineTo(to.x + offsetX, to.top);
         ctx.stroke();
       } else {
-        // Desktop: Circuitous curved paths
+        // Desktop: Complex bezier curves (cosmic paths)
         const midX = from.x + (to.x - from.x) * 0.5;
         const midY = from.y + (to.y - from.y) * 0.5;
         
-        // Create variation in curves
-        const curveOffset = 80 + (from.index * 30);
+        const curveOffset = 90 + (from.index * 35);
         const direction = from.index % 2 === 0 ? 1 : -1;
         
         const cp1x = from.x + direction * curveOffset;
-        const cp1y = from.bottom + 100;
-        const cp2x = to.x - direction * (curveOffset * 0.7);
-        const cp2y = to.top - 100;
+        const cp1y = from.bottom + 120;
+        const cp2x = to.x - direction * (curveOffset * 0.75);
+        const cp2y = to.top - 120;
 
         ctx.beginPath();
         ctx.moveTo(from.x, from.bottom);
         
-        // Draw bezier curve in segments for progress animation
-        const steps = Math.floor(progress * 80);
+        // Draw bezier in segments for smooth progress
+        const steps = Math.floor(progress * 100);
         for(let i = 0; i <= steps; i++){
-          const t = i / 80;
+          const t = i / 100;
           const t1 = 1 - t;
           const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
           const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
@@ -371,17 +462,17 @@
         }
         ctx.stroke();
 
-        // Glowing layer
-        if(pulseValue > 0.6){
-          ctx.globalAlpha = (pulseValue - 0.6) * 0.4 * progress;
+        // Enhanced glow layer when pulse is high
+        if(pulseValue > 0.7){
+          ctx.globalAlpha = (pulseValue - 0.7) * 0.5 * progress;
           ctx.strokeStyle = '#D4B589';
-          ctx.lineWidth = 4;
-          ctx.filter = 'blur(6px)';
+          ctx.lineWidth = 5;
+          ctx.filter = 'blur(8px)';
           ctx.beginPath();
           ctx.moveTo(from.x, from.bottom);
           
           for(let i = 0; i <= steps; i++){
-            const t = i / 80;
+            const t = i / 100;
             const t1 = 1 - t;
             const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
             const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
@@ -394,9 +485,6 @@
       ctx.restore();
     }
 
-    let lineProgress = 0;
-    let animationStartTime = null;
-
     function drawConnections(){
       const cards = getAllCardPositions();
       if(cards.length < 2) return;
@@ -404,12 +492,13 @@
       canvas.classList.add('visible');
       lineProgress = 0;
       animationStartTime = Date.now();
+      isAnimating = true;
       
       animate();
     }
 
     function animate(){
-      if(!canvas.classList.contains('visible')) return;
+      if(!canvas.classList.contains('visible') || !isAnimating) return;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -419,11 +508,11 @@
       // Animate line drawing
       if(animationStartTime && lineProgress < 1){
         const elapsed = Date.now() - animationStartTime;
-        lineProgress = Math.min(elapsed / 2000, 1); // 2s to draw all lines
+        lineProgress = Math.min(elapsed / 2400, 1); // 2.4s to draw
       }
 
-      // Update pulse phase
-      pulsePhase += 0.02;
+      // Continuous pulse
+      pulsePhase += 0.025;
 
       // Draw lines connecting sequential cards
       for(let i = 0; i < cards.length - 1; i++){
@@ -431,8 +520,8 @@
         const to = cards[i + 1];
         
         // Stagger line appearance
-        const staggerDelay = i * 0.15;
-        const thisLineProgress = Math.max(0, Math.min(1, (lineProgress - staggerDelay) / 0.85));
+        const staggerDelay = i * 0.18;
+        const thisLineProgress = Math.max(0, Math.min(1, (lineProgress - staggerDelay) / 0.82));
         
         drawCurvedLine(from, to, thisLineProgress, mobile);
       }
@@ -440,7 +529,16 @@
       animFrame = requestAnimationFrame(animate);
     }
 
-    // Start drawing when first card is revealed
+    // Stop animation when not visible (performance)
+    function stopAnimation(){
+      if(animFrame){
+        cancelAnimationFrame(animFrame);
+        animFrame = null;
+      }
+      isAnimating = false;
+    }
+
+    // Start when first card revealed
     const firstCard = document.querySelector('.tarot.reveal');
     if(firstCard){
       const observer = new IntersectionObserver((entries) => {
@@ -448,7 +546,7 @@
           if(entry.isIntersecting && entry.target.classList.contains('revealed')){
             setTimeout(() => {
               drawConnections();
-            }, 800);
+            }, 1000);
             observer.disconnect();
           }
         });
@@ -457,27 +555,30 @@
       observer.observe(firstCard);
     }
 
-    // Redraw on scroll to maintain line positions
+    // Maintain animation on scroll (throttled)
     let scrollTimer;
     window.addEventListener('scroll', () => {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
-        if(canvas.classList.contains('visible')){
-          // Don't restart animation, just maintain
-          if(lineProgress >= 1){
-            const cards = getAllCardPositions();
-            if(cards.length >= 2){
-              ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
+        if(canvas.classList.contains('visible') && lineProgress >= 1){
+          // Refresh card positions without restarting animation
+          const cards = getAllCardPositions();
+          if(cards.length >= 2 && !isAnimating){
+            isAnimating = true;
+            animate();
           }
         }
-      }, 50);
+      }, 100);
     }, {passive: true});
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', stopAnimation);
   })();
 
-  // =====================
+  // ================================
   // Keyboard Navigation Enhancement
-  // =====================
+  // ARIA state management
+  // ================================
   (function keyboardNav(){
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('keydown', e => {
@@ -487,20 +588,22 @@
           if(toggle && toggle.classList.contains('flip-toggle')){
             toggle.checked = !toggle.checked;
             toggle.dispatchEvent(new Event('change'));
+            
+            // Update ARIA state
+            card.setAttribute('aria-pressed', toggle.checked ? 'true' : 'false');
           }
         }
       });
     });
   })();
 
-  // =====================
-  // Prevent Card Flip Viewport Jump - Keep card exactly in place
-  // =====================
+  // ================================
+  // Prevent Card Flip Viewport Jump
+  // Lock scroll position precisely
+  // ================================
   (function preventFlipJump(){
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
       toggle.addEventListener('change', (e) => {
-        e.preventDefault();
-        
         const card = e.target.nextElementSibling;
         if(!card) return;
 
@@ -508,22 +611,21 @@
         const currentScrollY = window.scrollY;
         const currentScrollX = window.scrollX;
         
-        // Prevent scroll events during flip animation
         let isFlipping = true;
+        let frameCount = 0;
+        const maxFrames = 60; // ~850ms at 60fps
         
         const maintainPosition = () => {
-          if(isFlipping){
+          if(isFlipping && frameCount < maxFrames){
             window.scrollTo(currentScrollX, currentScrollY);
+            frameCount++;
             requestAnimationFrame(maintainPosition);
+          } else {
+            isFlipping = false;
           }
         };
         
-        maintainPosition();
-        
-        // Release after flip completes (700ms flip duration)
-        setTimeout(() => {
-          isFlipping = false;
-        }, 750);
+        requestAnimationFrame(maintainPosition);
       });
     });
   })();
