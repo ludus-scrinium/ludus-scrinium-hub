@@ -1024,31 +1024,31 @@ body.cards-flipped .global-hint{
 @media (max-width: 919px){
   .coda{
     grid-template-columns: 1fr;
-    /* base spacing between unflipped cards */
-    gap: 3rem;
+    gap: 3rem;                 /* base spacing */
     align-content: start;
     min-height: auto;
   }
+  
+  .coda__card{
+    margin-bottom: 1.5rem;     /* default card spacing */
+  }
 
-  /* When at least one card is flipped, open things up more */
+  /* When at least one card is flipped, open up the whole stack */
   .coda.has-flipped-card{
-    /* was 5rem */
-    gap: clamp(5rem, 7vh, 9rem);
+    gap: 4.5rem;
   }
-  
-  /* Extra space below the flipped card itself */
-  .coda__card:has(.flip-toggle:checked){
-    /* was 4rem */
-    margin-bottom: clamp(4rem, 7vh, 8rem);
+
+  /* The flipped card's final vertical position */
+  .coda__card.is-flipped{
+    margin-bottom: 7rem;       /* <- move this up/down as needed */
   }
-  
-  /* Extra space above the very next card */
-  .coda__card:has(.flip-toggle:checked) + .coda__card{
-    /* was 3rem */
-    margin-top: clamp(5rem, 7vh, 9rem);
+
+  /* The card directly after the flipped one */
+  .coda__card.after-flipped{
+    margin-top: 4.5rem;        /* <- extra buffer so they never visually intersect */
   }
-  
-  /* Mobile wrap fixes (keep these as-is) */
+
+  /* Existing mobile text behavior on back */
   .back__line{ 
     white-space: normal; 
     overflow: visible; 
