@@ -16,6 +16,9 @@
   <!-- Particle system container -->
   <div id="particles" aria-hidden="true"></div>
 
+  <!-- Particle burst container for flip interactions -->
+  <div id="particle-bursts" aria-hidden="true"></div>
+
   <!-- Hero -->
   <header class="hero reveal" data-stagger="0" role="banner">
     <div class="hero__inner">
@@ -40,11 +43,24 @@
 
     <!-- HERO CARD 1 : PlayLens -->
     <section class="tarot reveal" data-stagger="80" data-project="playlens">
-      <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" />
-      <label for="flip-playlens" class="card" id="card-playlens" data-index="1" aria-label="Open PlayLens card" tabindex="0">
+      <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" aria-label="Toggle PlayLens card details" />
+      <label for="flip-playlens" class="card" id="card-playlens" data-index="0" aria-label="PlayLens: Continuous improvement in A/B testing. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
-            <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+            <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <!-- Organic ornaments -->
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
           </figure>
           <article class="card__face card__back">
             <h2 class="back__title">PlayLens — Screen Flow A/B</h2>
@@ -53,22 +69,38 @@
               <span class="cursor" aria-hidden="true">|</span>
             </p>
             <nav class="back__cta">
-              <a class="btn" href="https://github.com/ludus-scrinium/playlens" target="_blank" rel="noopener">Open repo</a>
-              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#playlens">See roadmap</a>
+              <a class="btn" href="https://github.com/ludus-scrinium/playlens" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#playlens">
+                <span class="btn__text">See roadmap</span>
+              </a>
             </nav>
           </article>
         </div>
       </label>
-      <p class="tap-hint">tap / click to flip</p>
+      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 2 : Asset Atlas -->
     <section class="tarot reveal" data-stagger="120" data-project="asset-atlas">
-      <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" />
-      <label for="flip-asset" class="card" id="card-asset" data-index="2" aria-label="Open Asset Atlas card" tabindex="0">
+      <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" aria-label="Toggle Asset Atlas card details" />
+      <label for="flip-asset" class="card" id="card-asset" data-index="1" aria-label="Asset Atlas: Make game files easy to find and reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 3.1s;">
-            <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+            <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
           </figure>
           <article class="card__face card__back">
             <h2 class="back__title">Asset Atlas</h2>
@@ -77,22 +109,38 @@
               <span class="cursor" aria-hidden="true">|</span>
             </p>
             <nav class="back__cta">
-              <a class="btn" href="https://github.com/ludus-scrinium/asset-atlas" target="_blank" rel="noopener">Open repo</a>
-              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#asset-atlas">See roadmap</a>
+              <a class="btn" href="https://github.com/ludus-scrinium/asset-atlas" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#asset-atlas">
+                <span class="btn__text">See roadmap</span>
+              </a>
             </nav>
           </article>
         </div>
       </label>
-      <p class="tap-hint">tap / click to flip</p>
+      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 3 : Patch Notes Oracle -->
     <section class="tarot reveal" data-stagger="160" data-project="patch-notes">
-      <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" />
-      <label for="flip-oracle" class="card" id="card-oracle" data-index="3" aria-label="Open Patch Notes Oracle card" tabindex="0">
+      <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" aria-label="Toggle Patch Notes Oracle card details" />
+      <label for="flip-oracle" class="card" id="card-oracle" data-index="2" aria-label="Patch Notes Oracle: Turn player comments into a realistic dev to-do list. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 2.2s;">
-            <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+            <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
           </figure>
           <article class="card__face card__back">
             <h2 class="back__title">Patch Notes Oracle</h2>
@@ -101,48 +149,80 @@
               <span class="cursor cursor--paragraph" aria-hidden="true">|</span>
             </p>
             <nav class="back__cta">
-              <a class="btn" href="https://github.com/ludus-scrinium/patch-notes-oracle" target="_blank" rel="noopener">Open repo</a>
-              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#patch-notes-oracle">See roadmap</a>
+              <a class="btn" href="https://github.com/ludus-scrinium/patch-notes-oracle" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#patch-notes-oracle">
+                <span class="btn__text">See roadmap</span>
+              </a>
             </nav>
           </article>
         </div>
       </label>
-      <p class="tap-hint">tap / click to flip</p>
+      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- HERO CARD 4 : Creator Ops Kit -->
     <section class="tarot reveal" data-stagger="200" data-project="creator-ops">
-      <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" />
-      <label for="flip-creator" class="card" id="card-creator" data-index="4" aria-label="Open Creator Ops Kit card" tabindex="0">
+      <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" aria-label="Toggle Creator Ops Kit card details" />
+      <label for="flip-creator" class="card" id="card-creator" data-index="3" aria-label="Creator Ops Kit: Safe fan content intake plus review plus recognition tiers. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 4.4s;">
-            <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+            <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
           </figure>
           <article class="card__face card__back">
             <h2 class="back__title">Creator Ops Kit</h2>
-            <p class="back__line" aria-label="Safe fan content intake + review + recognition tiers.">
+            <p class="back__line" aria-label="Safe fan content intake plus review plus recognition tiers.">
               <span class="type-line">Safe fan content intake + review + recognition tiers.</span>
               <span class="cursor cursor--paragraph" aria-hidden="true">|</span>
             </p>
             <nav class="back__cta">
-              <a class="btn" href="https://github.com/ludus-scrinium/creator-ops-kit" target="_blank" rel="noopener">Open repo</a>
-              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#creator-ops-kit">See roadmap</a>
+              <a class="btn" href="https://github.com/ludus-scrinium/creator-ops-kit" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#creator-ops-kit">
+                <span class="btn__text">See roadmap</span>
+              </a>
             </nav>
           </article>
         </div>
       </label>
-      <p class="tap-hint">tap / click to flip</p>
+      <p class="tap-hint" aria-live="polite">tap / click to flip</p>
     </section>
 
     <!-- CODA : Two-tile grid with gentler motion -->
     <section class="coda reveal" data-stagger="140">
       <!-- Localization Conveyor -->
       <div class="coda__card" data-project="localization">
-        <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" />
-        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="5" aria-label="Open Localization Conveyor card" tabindex="0">
+        <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" aria-label="Toggle Localization Conveyor card details" />
+        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="4" aria-label="Localization Conveyor: Moving text from write to translate to QA to ship. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 5.8s;">
-              <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+              <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+              <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+              </svg>
+              <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+              </svg>
             </figure>
             <article class="card__face card__back">
               <h2 class="back__title">Localization Conveyor</h2>
@@ -151,8 +231,12 @@
                 <span class="cursor" aria-hidden="true">|</span>
               </p>
               <nav class="back__cta">
-                <a class="btn" href="https://github.com/ludus-scrinium/localization-conveyor" target="_blank" rel="noopener">Open repo</a>
-                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#localization-conveyor">See roadmap</a>
+                <a class="btn" href="https://github.com/ludus-scrinium/localization-conveyor" target="_blank" rel="noopener">
+                  <span class="btn__text">Open repo</span>
+                </a>
+                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#localization-conveyor">
+                  <span class="btn__text">See roadmap</span>
+                </a>
               </nav>
             </article>
           </div>
@@ -161,11 +245,23 @@
 
       <!-- Producer's Almanac -->
       <div class="coda__card" data-project="almanac">
-        <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" />
-        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="6" aria-label="Open Producer's Almanac card" tabindex="0">
+        <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" aria-label="Toggle Producer's Almanac card details" />
+        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="5" aria-label="Producer's Almanac: Decisions, retros, and templates you can reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false">
           <div class="card__inner">
             <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
-              <img src="assets/cards/producers-almanac-front.webp" alt="Producer's Almanac tarot front — abstract gradient art" width="1200" height="2000" loading="lazy" />
+              <img src="assets/cards/producers-almanac-front.webp" alt="Producer's Almanac tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+              <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+              </svg>
+              <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+              </svg>
             </figure>
             <article class="card__face card__back">
               <h2 class="back__title">Producer's Almanac</h2>
@@ -174,8 +270,12 @@
                 <span class="cursor" aria-hidden="true">|</span>
               </p>
               <nav class="back__cta">
-                <a class="btn" href="https://github.com/ludus-scrinium/producers-almanac" target="_blank" rel="noopener">Open repo</a>
-                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#producers-almanac">See roadmap</a>
+                <a class="btn" href="https://github.com/ludus-scrinium/producers-almanac" target="_blank" rel="noopener">
+                  <span class="btn__text">Open repo</span>
+                </a>
+                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#producers-almanac">
+                  <span class="btn__text">See roadmap</span>
+                </a>
               </nav>
             </article>
           </div>
