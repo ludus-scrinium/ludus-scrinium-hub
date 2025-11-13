@@ -1024,26 +1024,43 @@ body.cards-flipped .global-hint{
 @media (max-width: 919px){
   .coda{
     grid-template-columns: 1fr;
+    /* base spacing between unflipped cards */
     gap: 3rem;
     align-content: start;
     min-height: auto;
   }
-  
-  .coda__card{
-    margin-bottom: 1.5rem;
-  }
-  
+
+  /* When at least one card is flipped, open things up more */
   .coda.has-flipped-card{
-    gap: 5rem;
+    /* was 5rem */
+    gap: clamp(4rem, 6vh, 7rem);
   }
   
+  /* Extra space below the flipped card itself */
   .coda__card:has(.flip-toggle:checked){
-    margin-bottom: 4rem;
+    /* was 4rem */
+    margin-bottom: clamp(4rem, 7vh, 8rem);
   }
   
+  /* Extra space above the very next card */
   .coda__card:has(.flip-toggle:checked) + .coda__card{
-    margin-top: 3rem;
+    /* was 3rem */
+    margin-top: clamp(3rem, 5vh, 6rem);
   }
+  
+  /* Mobile wrap fixes (keep these as-is) */
+  .back__line{ 
+    white-space: normal; 
+    overflow: visible; 
+    word-break: break-word; 
+  }
+  
+  .card .back__line .type-line { 
+    animation-play-state: paused; 
+    width: auto; 
+    display: inline; 
+  }
+}
   
   /* Mobile wrap fixes */
   .back__line{ 
