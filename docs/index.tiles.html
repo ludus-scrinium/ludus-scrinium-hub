@@ -10,6 +10,16 @@
 </head>
 <body class="starfield">
 
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════
+    ACCESSIBILITY IMPROVEMENT #29: Skip Navigation Link
+    ═══════════════════════════════════════════════════════════════════
+    Allows keyboard users to bypass decorative elements and jump to main content.
+    Follows WCAG 2.1 Level A compliance.
+    AI Callback: "skip-nav-a11y"
+  -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
   <!-- Connection lines canvas -->
   <canvas class="connection-canvas" id="connections" aria-hidden="true"></canvas>
 
@@ -19,7 +29,14 @@
   <!-- Particle burst container for flip interactions -->
   <div id="particle-bursts" aria-hidden="true"></div>
 
-  <!-- GLOBAL HINT - Smart positioning & cosmic aesthetic -->
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════
+    GLOBAL HINT SYSTEM
+    ═══════════════════════════════════════════════════════════════════
+    Smart positioning with cosmic aesthetic + Arts & Crafts geometric blooms.
+    Vision: sensory deprivation tank meets Mackintosh geometry.
+    AI Callback: "global-hint-system"
+  -->
   <div class="global-hint" id="globalHint" role="status" aria-live="polite" aria-atomic="true">
     <span class="hint-text">
       <svg class="hint-ornament hint-ornament--left" viewBox="0 0 20 20" aria-hidden="true">
@@ -52,7 +69,13 @@
     </div>
   </header>
 
-  <main>
+  <!-- 
+    ═══════════════════════════════════════════════════════════════════
+    MAIN CONTENT WRAPPER (with id for skip link target)
+    ═══════════════════════════════════════════════════════════════════
+    AI Callback: "main-content-wrapper"
+  -->
+  <main id="main">
 
     <!-- HERO CARD 1 : PlayLens -->
     <section class="tarot reveal" data-stagger="80" data-project="playlens">
@@ -61,7 +84,14 @@
         <div class="card__inner">
           <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
             <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
-            <!-- Organic ornaments -->
+            <!-- 
+              ═══════════════════════════════════════════════════════════════════
+              IMPROVEMENT #15: Mackintosh-Style Geometric Ornaments
+              ═══════════════════════════════════════════════════════════════════
+              Arts & Crafts movement: geometric forms, nature-inspired abstraction.
+              Sequential bloom animation follows overlapping action principle.
+              AI Callback: "geometric-ornaments"
+            -->
             <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
               <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
               <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
