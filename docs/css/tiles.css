@@ -457,7 +457,7 @@ body.cards-flipped .global-hint{
 
 /* Squash & Stretch on hover - more pronounced */
 .card:hover, .card:focus-visible{ 
-  outline: none; 
+  outline: outline: 3px solid var(--accent); outline-offset: 3px; 
   transform: translateY(-10px) rotateZ(-0.8deg) scale(1.04, 0.96);
   filter: drop-shadow(0 24px 52px rgba(0,0,0,.58));
 }
@@ -465,7 +465,7 @@ body.cards-flipped .global-hint{
 /* Anticipation: wind-up before flip */
 .card:active{
   transform: translateY(-2px) scale(0.97, 1.03) rotateZ(0.5deg);
-  transition-duration: 80ms;
+  transition-duration: 120ms;
   transition-timing-function: var(--ease-snap);
 }
 
@@ -483,6 +483,7 @@ body.cards-flipped .global-hint{
 .flip-toggle:checked + .card .card__inner{ 
   transform: rotateY(180deg); 
   -webkit-transform: rotateY(180deg);
+  transition: transform 450ms var(--ease-out);
   transition-duration: 850ms;
 }
 
@@ -705,7 +706,7 @@ body.cards-flipped .global-hint{
 }
 
 /* Mobile wrap */
-@media (max-width: 480px){
+@media (max-width: 768px){
   .back__line{ 
     white-space: normal; 
     overflow: visible; 
