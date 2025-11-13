@@ -1037,13 +1037,13 @@ body.cards-flipped .global-hint{
   
   /* Flipped card gets more space both above and below */
   .coda__card:has(.flip-toggle:checked){
-    margin-top: 8rem;     /* NEW: pushes it away from the card above */
-    margin-bottom: 4.5rem;
+    margin-top: 4rem;     /* NEW: pushes it away from the card above */
+    margin-bottom: 10rem;
   }
 
   /* Card directly after a flipped one still gets a buffer */
   .coda__card:has(.flip-toggle:checked) + .coda__card{
-    margin-top: 3.5rem;
+    margin-top: 10rem;
   }
 
   /* Existing mobile text behavior on back */
