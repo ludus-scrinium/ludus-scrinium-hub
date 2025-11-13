@@ -277,15 +277,16 @@
   })();
 
   // =====================
-  // Connection Lines (Systems Thinking) - Adaptive to card transforms
+  // Connection Lines - ALL cards connected with pulsing animated lines
   // =====================
   (function initConnections(){
     const canvas = document.getElementById('connections');
     if(!canvas) return;
 
     const ctx = canvas.getContext('2d');
-    let connections = [];
     let animFrame = null;
+    let pulsePhase = 0;
+    const isMobile = () => window.innerWidth < 920;
 
     // Resize canvas
     function resize(){
@@ -293,221 +294,185 @@
       canvas.height = document.documentElement.scrollHeight;
     }
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', () => {
+      resize();
+      if(canvas.classList.contains('visible')) drawConnections();
+    });
 
-    // Get card centers - accounts for transforms
-    function getCardCenters(){
+    // Get all card positions
+    function getAllCardPositions(){
       const cards = Array.from(document.querySelectorAll('.card'));
-      return cards.map(card => {
+      return cards.map((card, index) => {
         const rect = card.getBoundingClientRect();
-        
-        // Get transform matrix to account for scale/rotation
-        const style = window.getComputedStyle(card);
-        const matrix = style.transform;
-        let scale = 1;
-        if(matrix && matrix !== 'none'){
-          const values = matrix.match(/matrix.*\((.+)\)/);
-          if(values){
-            const arr = values[1].split(', ');
-            scale = Math.sqrt(arr[0] * arr[0] + arr[1] * arr[1]);
-          }
-        }
+        const section = card.closest('[data-project]');
         
         return {
           x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2 + window.scrollY,
-          scale: scale,
+          y: rect.top + window.scrollY + rect.height / 2,
+          bottom: rect.top + window.scrollY + rect.height,
+          top: rect.top + window.scrollY,
+          project: section ? section.getAttribute('data-project') : null,
+          index: index,
           element: card,
-          visible: rect.top < window.innerHeight && rect.bottom > 0
+          rect: rect
         };
       }).filter(c => c.element.offsetParent !== null);
     }
 
-    // Define connections (systems thinking relationships)
-    const RELATIONSHIPS = [
-      ['playlens', 'asset-atlas'],     // A/B testing needs assets
-      ['asset-atlas', 'localization'], // Assets need localization
-      ['patch-notes', 'creator-ops'],  // Player feedback connects to creator content
-      ['localization', 'almanac'],     // Localization process documented in almanac
-    ];
+    // Draw a curved line between two points
+    function drawCurvedLine(from, to, progress, isMobile){
+      if(progress <= 0) return;
 
-    function findCardByProject(centers, projectName){
-      return centers.find(c => {
-        const section = c.element.closest('[data-project]');
-        return section && section.getAttribute('data-project') === projectName;
-      });
+      ctx.save();
+      
+      // Pulsing opacity and glow
+      const pulseValue = 0.5 + Math.sin(pulsePhase) * 0.3;
+      const baseOpacity = 0.25;
+      ctx.globalAlpha = baseOpacity * progress * pulseValue;
+
+      // Base line
+      ctx.strokeStyle = '#E1C699';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 6]);
+      ctx.lineCap = 'round';
+
+      if(isMobile){
+        // Mobile: Straight vertical lines with slight offset
+        const offsetX = 15 * Math.sin(from.index);
+        ctx.beginPath();
+        ctx.moveTo(from.x + offsetX, from.bottom);
+        ctx.lineTo(to.x + offsetX, to.top);
+        ctx.stroke();
+      } else {
+        // Desktop: Circuitous curved paths
+        const midX = from.x + (to.x - from.x) * 0.5;
+        const midY = from.y + (to.y - from.y) * 0.5;
+        
+        // Create variation in curves
+        const curveOffset = 80 + (from.index * 30);
+        const direction = from.index % 2 === 0 ? 1 : -1;
+        
+        const cp1x = from.x + direction * curveOffset;
+        const cp1y = from.bottom + 100;
+        const cp2x = to.x - direction * (curveOffset * 0.7);
+        const cp2y = to.top - 100;
+
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.bottom);
+        
+        // Draw bezier curve in segments for progress animation
+        const steps = Math.floor(progress * 80);
+        for(let i = 0; i <= steps; i++){
+          const t = i / 80;
+          const t1 = 1 - t;
+          const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
+          const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
+          ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        // Glowing layer
+        if(pulseValue > 0.6){
+          ctx.globalAlpha = (pulseValue - 0.6) * 0.4 * progress;
+          ctx.strokeStyle = '#D4B589';
+          ctx.lineWidth = 4;
+          ctx.filter = 'blur(6px)';
+          ctx.beginPath();
+          ctx.moveTo(from.x, from.bottom);
+          
+          for(let i = 0; i <= steps; i++){
+            const t = i / 80;
+            const t1 = 1 - t;
+            const x = t1*t1*t1*from.x + 3*t1*t1*t*cp1x + 3*t1*t*t*cp2x + t*t*t*to.x;
+            const y = t1*t1*t1*from.bottom + 3*t1*t1*t*cp1y + 3*t1*t*t*cp2y + t*t*t*to.top;
+            ctx.lineTo(x, y);
+          }
+          ctx.stroke();
+        }
+      }
+
+      ctx.restore();
     }
+
+    let lineProgress = 0;
+    let animationStartTime = null;
 
     function drawConnections(){
-      if(!ctx) return;
-      
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      const centers = getCardCenters();
-      connections = [];
+      const cards = getAllCardPositions();
+      if(cards.length < 2) return;
 
-      RELATIONSHIPS.forEach(([from, to]) => {
-        const fromCard = findCardByProject(centers, from);
-        const toCard = findCardByProject(centers, to);
-        
-        if(fromCard && toCard){
-          connections.push({
-            from: fromCard, 
-            to: toCard, 
-            progress: 0,
-            visible: fromCard.visible && toCard.visible
-          });
-          
-          // Show connector dots on cards
-          fromCard.element.classList.add('show-connector');
-          toCard.element.classList.add('show-connector');
-        }
-      });
-
-      // Check if coda is visible to show connections
-      const codaSection = document.querySelector('.coda');
-      if(codaSection && codaSection.classList.contains('revealed')){
-        canvas.classList.add('visible');
-        animateConnections();
-      }
+      canvas.classList.add('visible');
+      lineProgress = 0;
+      animationStartTime = Date.now();
+      
+      animate();
     }
 
-    function animateConnections(){
-      if(animFrame) cancelAnimationFrame(animFrame);
-      
-      const startTime = Date.now();
-      
-      function draw(){
-        if(!ctx) return;
+    function animate(){
+      if(!canvas.classList.contains('visible')) return;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cards = getAllCardPositions();
+      const mobile = isMobile();
+
+      // Animate line drawing
+      if(animationStartTime && lineProgress < 1){
+        const elapsed = Date.now() - animationStartTime;
+        lineProgress = Math.min(elapsed / 2000, 1); // 2s to draw all lines
+      }
+
+      // Update pulse phase
+      pulsePhase += 0.02;
+
+      // Draw lines connecting sequential cards
+      for(let i = 0; i < cards.length - 1; i++){
+        const from = cards[i];
+        const to = cards[i + 1];
         
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Stagger line appearance
+        const staggerDelay = i * 0.15;
+        const thisLineProgress = Math.max(0, Math.min(1, (lineProgress - staggerDelay) / 0.85));
         
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / 1500, 1); // 1.5s to draw all
+        drawCurvedLine(from, to, thisLineProgress, mobile);
+      }
 
-        connections.forEach((conn, i) => {
-          if(!conn.visible) return;
-          
-          const connProgress = Math.max(0, Math.min(1, (progress - i * 0.15) * 2));
-          
-          if(connProgress > 0){
-            ctx.save();
-            
-            // Adaptive opacity based on card scale (hover effect)
-            const avgScale = (conn.from.scale + conn.to.scale) / 2;
-            const baseOpacity = 0.2;
-            const scaleOpacity = avgScale > 1 ? 0.35 : baseOpacity;
-            
-            ctx.globalAlpha = scaleOpacity * connProgress;
-            ctx.strokeStyle = '#E1C699';
-            ctx.lineWidth = 1.5;
-            ctx.setLineDash([6, 4]);
+      animFrame = requestAnimationFrame(animate);
+    }
 
-            // Draw curve with control points
-            const cp1x = conn.from.x + (conn.to.x - conn.from.x) * 0.25;
-            const cp1y = conn.from.y + 50;
-            const cp2x = conn.from.x + (conn.to.x - conn.from.x) * 0.75;
-            const cp2y = conn.to.y - 50;
-
-            ctx.beginPath();
-            ctx.moveTo(conn.from.x, conn.from.y);
-            
-            // Partial bezier based on progress
-            const steps = Math.floor(connProgress * 60);
-            for(let t = 0; t <= steps; t++){
-              const ratio = t / 60;
-              const t1 = 1 - ratio;
-              const x = t1*t1*t1*conn.from.x + 3*t1*t1*ratio*cp1x + 3*t1*ratio*ratio*cp2x + ratio*ratio*ratio*conn.to.x;
-              const y = t1*t1*t1*conn.from.y + 3*t1*t1*ratio*cp1y + 3*t1*ratio*ratio*cp2y + ratio*ratio*ratio*conn.to.y;
-              ctx.lineTo(x, y);
-            }
-
-            ctx.stroke();
-            
-            // Draw subtle glow
-            if(connProgress > 0.5 && avgScale > 1){
-              ctx.globalAlpha = (avgScale - 1) * 0.15;
-              ctx.strokeStyle = '#D4B589';
-              ctx.lineWidth = 3;
-              ctx.filter = 'blur(4px)';
-              ctx.stroke();
-            }
-            
-            ctx.restore();
+    // Start drawing when first card is revealed
+    const firstCard = document.querySelector('.tarot.reveal');
+    if(firstCard){
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting && entry.target.classList.contains('revealed')){
+            setTimeout(() => {
+              drawConnections();
+            }, 800);
+            observer.disconnect();
           }
         });
-
-        if(progress < 1){
-          animFrame = requestAnimationFrame(draw);
-        }
-      }
-
-      draw();
+      }, {threshold: 0.3});
+      
+      observer.observe(firstCard);
     }
 
-    // Trigger drawing when coda is revealed
-    const codaObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting && entry.target.classList.contains('revealed')){
-          setTimeout(drawConnections, 400);
-        }
-      });
-    }, {threshold: 0.3});
-
-    const codaSection = document.querySelector('.coda');
-    if(codaSection) codaObserver.observe(codaSection);
-
-    // Continuous redraw on scroll/hover to update with transforms
-    let rafId = null;
-    function continuousUpdate(){
-      if(canvas.classList.contains('visible')){
-        const centers = getCardCenters();
-        
-        // Check if any cards are being hovered (scaled)
-        const anyHovered = centers.some(c => c.scale > 1.01);
-        
-        if(anyHovered || window._forceDraw){
-          drawConnections();
-        }
-        
-        rafId = requestAnimationFrame(continuousUpdate);
-      }
-    }
-
-    // Start continuous updates when canvas is visible
-    const visibilityObserver = new MutationObserver(() => {
-      if(canvas.classList.contains('visible')){
-        if(!rafId) continuousUpdate();
-      } else {
-        if(rafId) {
-          cancelAnimationFrame(rafId);
-          rafId = null;
-        }
-      }
-    });
-    
-    visibilityObserver.observe(canvas, {attributes: true, attributeFilter: ['class']});
-
-    // Redraw on scroll
+    // Redraw on scroll to maintain line positions
     let scrollTimer;
     window.addEventListener('scroll', () => {
-      window._forceDraw = true;
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
-        window._forceDraw = false;
-      }, 100);
-    }, {passive: true});
-
-    // Redraw on resize
-    window.addEventListener('resize', () => {
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        resize();
         if(canvas.classList.contains('visible')){
-          drawConnections();
+          // Don't restart animation, just maintain
+          if(lineProgress >= 1){
+            const cards = getAllCardPositions();
+            if(cards.length >= 2){
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+          }
         }
-      }, 150);
-    });
+      }, 50);
+    }, {passive: true});
   })();
 
   // =====================
@@ -529,43 +494,36 @@
   })();
 
   // =====================
-  // Prevent Card Flip Viewport Jump
+  // Prevent Card Flip Viewport Jump - Keep card exactly in place
   // =====================
   (function preventFlipJump(){
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
       toggle.addEventListener('change', (e) => {
+        e.preventDefault();
+        
         const card = e.target.nextElementSibling;
-        const section = card.closest('.tarot');
-        
-        if(!section) return;
+        if(!card) return;
 
-        // Get current scroll position and card position
-        const scrollY = window.scrollY;
-        const cardRect = card.getBoundingClientRect();
-        const cardCenter = cardRect.top + cardRect.height / 2;
-        const viewportCenter = window.innerHeight / 2;
+        // Lock scroll position during flip
+        const currentScrollY = window.scrollY;
+        const currentScrollX = window.scrollX;
         
-        // If card is near center, keep it centered during flip
-        if(Math.abs(cardCenter - viewportCenter) < 200){
-          section.classList.add('flipping');
-          
-          // Smooth scroll to keep card centered
-          requestAnimationFrame(() => {
-            const newCardRect = card.getBoundingClientRect();
-            const newCardTop = newCardRect.top + scrollY;
-            const offset = (window.innerHeight - newCardRect.height) / 2;
-            const targetScroll = newCardTop - offset;
-            
-            window.scrollTo({
-              top: targetScroll,
-              behavior: 'instant' // Instant to avoid double animation
-            });
-            
-            setTimeout(() => {
-              section.classList.remove('flipping');
-            }, 750);
-          });
-        }
+        // Prevent scroll events during flip animation
+        let isFlipping = true;
+        
+        const maintainPosition = () => {
+          if(isFlipping){
+            window.scrollTo(currentScrollX, currentScrollY);
+            requestAnimationFrame(maintainPosition);
+          }
+        };
+        
+        maintainPosition();
+        
+        // Release after flip completes (700ms flip duration)
+        setTimeout(() => {
+          isFlipping = false;
+        }, 750);
       });
     });
   })();
