@@ -351,6 +351,24 @@ body.starfield::after{
   }
 }
 
+/* Paragraph jump (desktop only) */
+@media (min-width: 921px){
+  /* Make the back line a positioning context for typewriter carriage return */
+  #card-oracle .back__line,
+  #card-creator .back__line{
+    position: relative;
+  }
+
+  /* New behavior: cursor returns to left + drops one line */
+  .paragraph-cursor .cursor{
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    transform: translateY(1.4em); /* tweak for perfect alignment */
+    transition: transform 260ms var(--ease-hero);
+  }
+}
+
 /* Breath micro-motion (applies to the tagline container) */
 .hero__tag{
   animation: none;
