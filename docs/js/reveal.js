@@ -277,7 +277,7 @@
   })();
 
   // =====================
-  // Connection Lines (Systems Thinking)
+  // Connection Lines (Systems Thinking) - Adaptive to card transforms
   // =====================
   (function initConnections(){
     const canvas = document.getElementById('connections');
@@ -295,15 +295,30 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // Get card centers
+    // Get card centers - accounts for transforms
     function getCardCenters(){
       const cards = Array.from(document.querySelectorAll('.card'));
       return cards.map(card => {
         const rect = card.getBoundingClientRect();
+        
+        // Get transform matrix to account for scale/rotation
+        const style = window.getComputedStyle(card);
+        const matrix = style.transform;
+        let scale = 1;
+        if(matrix && matrix !== 'none'){
+          const values = matrix.match(/matrix.*\((.+)\)/);
+          if(values){
+            const arr = values[1].split(', ');
+            scale = Math.sqrt(arr[0] * arr[0] + arr[1] * arr[1]);
+          }
+        }
+        
         return {
           x: rect.left + rect.width / 2,
           y: rect.top + rect.height / 2 + window.scrollY,
-          element: card
+          scale: scale,
+          element: card,
+          visible: rect.top < window.innerHeight && rect.bottom > 0
         };
       }).filter(c => c.element.offsetParent !== null);
     }
@@ -324,6 +339,8 @@
     }
 
     function drawConnections(){
+      if(!ctx) return;
+      
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       const centers = getCardCenters();
@@ -334,7 +351,16 @@
         const toCard = findCardByProject(centers, to);
         
         if(fromCard && toCard){
-          connections.push({from: fromCard, to: toCard, progress: 0});
+          connections.push({
+            from: fromCard, 
+            to: toCard, 
+            progress: 0,
+            visible: fromCard.visible && toCard.visible
+          });
+          
+          // Show connector dots on cards
+          fromCard.element.classList.add('show-connector');
+          toCard.element.classList.add('show-connector');
         }
       });
 
@@ -352,34 +378,44 @@
       const startTime = Date.now();
       
       function draw(){
+        if(!ctx) return;
+        
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / 1500, 1); // 1.5s to draw all
 
         connections.forEach((conn, i) => {
+          if(!conn.visible) return;
+          
           const connProgress = Math.max(0, Math.min(1, (progress - i * 0.15) * 2));
           
           if(connProgress > 0){
             ctx.save();
-            ctx.globalAlpha = 0.15 * connProgress;
+            
+            // Adaptive opacity based on card scale (hover effect)
+            const avgScale = (conn.from.scale + conn.to.scale) / 2;
+            const baseOpacity = 0.2;
+            const scaleOpacity = avgScale > 1 ? 0.35 : baseOpacity;
+            
+            ctx.globalAlpha = scaleOpacity * connProgress;
             ctx.strokeStyle = '#E1C699';
-            ctx.lineWidth = 1;
-            ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([6, 4]);
 
-            // Draw curve
-            const cp1x = conn.from.x + (conn.to.x - conn.from.x) * 0.3;
-            const cp1y = conn.from.y;
-            const cp2x = conn.from.x + (conn.to.x - conn.from.x) * 0.7;
-            const cp2y = conn.to.y;
+            // Draw curve with control points
+            const cp1x = conn.from.x + (conn.to.x - conn.from.x) * 0.25;
+            const cp1y = conn.from.y + 50;
+            const cp2x = conn.from.x + (conn.to.x - conn.from.x) * 0.75;
+            const cp2y = conn.to.y - 50;
 
             ctx.beginPath();
             ctx.moveTo(conn.from.x, conn.from.y);
             
             // Partial bezier based on progress
-            const steps = Math.floor(connProgress * 50);
+            const steps = Math.floor(connProgress * 60);
             for(let t = 0; t <= steps; t++){
-              const ratio = t / 50;
+              const ratio = t / 60;
               const t1 = 1 - ratio;
               const x = t1*t1*t1*conn.from.x + 3*t1*t1*ratio*cp1x + 3*t1*ratio*ratio*cp2x + ratio*ratio*ratio*conn.to.x;
               const y = t1*t1*t1*conn.from.y + 3*t1*t1*ratio*cp1y + 3*t1*ratio*ratio*cp2y + ratio*ratio*ratio*conn.to.y;
@@ -387,6 +423,16 @@
             }
 
             ctx.stroke();
+            
+            // Draw subtle glow
+            if(connProgress > 0.5 && avgScale > 1){
+              ctx.globalAlpha = (avgScale - 1) * 0.15;
+              ctx.strokeStyle = '#D4B589';
+              ctx.lineWidth = 3;
+              ctx.filter = 'blur(4px)';
+              ctx.stroke();
+            }
+            
             ctx.restore();
           }
         });
@@ -411,20 +457,51 @@
     const codaSection = document.querySelector('.coda');
     if(codaSection) codaObserver.observe(codaSection);
 
-    // Redraw on scroll/resize
-    let redrawTimer;
-    window.addEventListener('scroll', () => {
-      clearTimeout(redrawTimer);
-      redrawTimer = setTimeout(() => {
-        if(canvas.classList.contains('visible')){
+    // Continuous redraw on scroll/hover to update with transforms
+    let rafId = null;
+    function continuousUpdate(){
+      if(canvas.classList.contains('visible')){
+        const centers = getCardCenters();
+        
+        // Check if any cards are being hovered (scaled)
+        const anyHovered = centers.some(c => c.scale > 1.01);
+        
+        if(anyHovered || window._forceDraw){
           drawConnections();
         }
+        
+        rafId = requestAnimationFrame(continuousUpdate);
+      }
+    }
+
+    // Start continuous updates when canvas is visible
+    const visibilityObserver = new MutationObserver(() => {
+      if(canvas.classList.contains('visible')){
+        if(!rafId) continuousUpdate();
+      } else {
+        if(rafId) {
+          cancelAnimationFrame(rafId);
+          rafId = null;
+        }
+      }
+    });
+    
+    visibilityObserver.observe(canvas, {attributes: true, attributeFilter: ['class']});
+
+    // Redraw on scroll
+    let scrollTimer;
+    window.addEventListener('scroll', () => {
+      window._forceDraw = true;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        window._forceDraw = false;
       }, 100);
     }, {passive: true});
 
+    // Redraw on resize
     window.addEventListener('resize', () => {
-      clearTimeout(redrawTimer);
-      redrawTimer = setTimeout(() => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
         resize();
         if(canvas.classList.contains('visible')){
           drawConnections();
@@ -446,6 +523,48 @@
             toggle.checked = !toggle.checked;
             toggle.dispatchEvent(new Event('change'));
           }
+        }
+      });
+    });
+  })();
+
+  // =====================
+  // Prevent Card Flip Viewport Jump
+  // =====================
+  (function preventFlipJump(){
+    document.querySelectorAll('.flip-toggle').forEach(toggle => {
+      toggle.addEventListener('change', (e) => {
+        const card = e.target.nextElementSibling;
+        const section = card.closest('.tarot');
+        
+        if(!section) return;
+
+        // Get current scroll position and card position
+        const scrollY = window.scrollY;
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.top + cardRect.height / 2;
+        const viewportCenter = window.innerHeight / 2;
+        
+        // If card is near center, keep it centered during flip
+        if(Math.abs(cardCenter - viewportCenter) < 200){
+          section.classList.add('flipping');
+          
+          // Smooth scroll to keep card centered
+          requestAnimationFrame(() => {
+            const newCardRect = card.getBoundingClientRect();
+            const newCardTop = newCardRect.top + scrollY;
+            const offset = (window.innerHeight - newCardRect.height) / 2;
+            const targetScroll = newCardTop - offset;
+            
+            window.scrollTo({
+              top: targetScroll,
+              behavior: 'instant' // Instant to avoid double animation
+            });
+            
+            setTimeout(() => {
+              section.classList.remove('flipping');
+            }, 750);
+          });
         }
       });
     });
