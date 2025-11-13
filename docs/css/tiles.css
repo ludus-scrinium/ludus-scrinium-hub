@@ -1032,13 +1032,18 @@ body.cards-flipped .global-hint{
 
   /* When at least one card is flipped, open things up more */
   .coda.has-flipped-card{
-  gap: 4.5rem;
+    gap: 4.5rem; /* still opens up the whole section a bit */
+  }
+  
+  /* Flipped card gets more space both above and below */
+  .coda__card:has(.flip-toggle:checked){
+    margin-top: 4rem;     /* NEW: pushes it away from the card above */
+    margin-bottom: 4.5rem;
   }
 
-/* Extra space below the flipped card itself */
-  .coda__card:has(.flip-toggle:checked){
-    /* was 4rem */
-    margin-bottom: clamp(4rem, 7vh, 8rem);
+  /* Card directly after a flipped one still gets a buffer */
+  .coda__card:has(.flip-toggle:checked) + .coda__card{
+    margin-top: 3.5rem;
   }
 
   /* Existing mobile text behavior on back */
