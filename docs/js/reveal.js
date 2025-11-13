@@ -7,7 +7,7 @@
   const reveals = Array.from(document.querySelectorAll('.reveal'));
   const lines = Array.from(document.querySelectorAll('.type-line'));
 
-  // ensure --chars and durations
+  // Ensure --chars and durations for all type-lines
   lines.forEach(el => {
     if (!el.style.getPropertyValue('--chars')) {
       const chars = [...el.textContent].length;
@@ -16,10 +16,13 @@
     const chars = parseInt(el.style.getPropertyValue('--chars')) || [...el.textContent].length;
     const msPerChar = parseInt(el.getAttribute('data-ms-per-char') || '45');
     const dur = chars * msPerChar;
+
     el.style.animationDuration = `${dur}ms`;
+
     if (el.hasAttribute('data-delay')) {
       el.style.animationDelay = `${parseInt(el.getAttribute('data-delay'))}ms`;
     }
+
     el.dataset._dur = String(dur);
     el.style.animationFillMode = 'both';
   });
@@ -35,7 +38,9 @@
       el.style.animationName = 'typingPx';
     });
   }
-  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(measureHero);
+
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve())
+    .then(measureHero);
 
   // Cascade hero lines (title -> tag -> author), overlapping yet orderly
   (function cascadeHero() {
@@ -52,17 +57,16 @@
     const tagLine = document.querySelector('.hero-line--tag');
     const authorCursor = document.querySelector('.cursor--author');
 
-  if (tagLine && authorCursor) {
-    const tagDelay = parseInt(tagLine.style.animationDelay || '0');
-    const tagDur   = parseInt(tagLine.dataset._dur || '0');
-    const showAuthorCursorAt = tagDelay + tagDur + 40; // small buffer
+    if (tagLine && authorCursor) {
+      const tagDelay = parseInt(tagLine.style.animationDelay || '0');
+      const tagDur   = parseInt(tagLine.dataset._dur || '0');
+      const showAuthorCursorAt = tagDelay + tagDur + 40; // small buffer
 
-    authorCursor.style.visibility = 'hidden';
-    setTimeout(() => {
-      authorCursor.style.visibility = 'visible';
-    }, showAuthorCursorAt);
-  }
-
+      authorCursor.style.visibility = 'hidden';
+      setTimeout(() => {
+        authorCursor.style.visibility = 'visible';
+      }, showAuthorCursorAt);
+    }
 
     // Breath micro-motion on tagline after author settles
     const tag = document.querySelector('.hero__tag');
@@ -79,6 +83,7 @@
     const stagger = Number(el.getAttribute('data-stagger') || 0);
     el.style.setProperty('--stagger', stagger);
   });
+
   Array.from(document.querySelectorAll('.coda .card')).forEach((card, i) => {
     card.style.setProperty('--index', i);
   });
@@ -94,7 +99,7 @@
 
   reveals.forEach(el => io.observe(el));
 
-  // reveal already in view
+  // Reveal already in view on load
   const vh = window.innerHeight || document.documentElement.clientHeight;
   reveals.forEach(el => {
     const r = el.getBoundingClientRect();
@@ -126,6 +131,7 @@
     lines.forEach(line=>{
       const type = line.querySelector('.type-line');
       if(!type) return;
+
       const text = type.textContent;
       const chars = [...text].length;
       type.style.setProperty('--chars', chars);
@@ -140,18 +146,24 @@
   }
 
   const defer = fn => Promise.resolve().then(fn);
+
   window.addEventListener('DOMContentLoaded', () => defer(updateBackLines), {once:true});
-  window.addEventListener('resize', () => { clearTimeout(updateBackLines._t); updateBackLines._t = setTimeout(updateBackLines, 150); });
+  window.addEventListener('resize', () => {
+    clearTimeout(updateBackLines._t);
+    updateBackLines._t = setTimeout(updateBackLines, 150);
+  });
   document.addEventListener('change', e=>{
-    if(e.target.matches('.flip-toggle')) setTimeout(updateBackLines, 100);
+    if(e.target.matches('.flip-toggle')) {
+      setTimeout(updateBackLines, 100);
+    }
   });
 })();
 
 /* Desktop-only: cursor jumps down two lines after typing finishes (Oracle + Creator) */
 (function(){
   const PAIRS = [
-    { toggle: '#flip-oracle', line: '#card-oracle .type-line', container: '#card-oracle .back__line' },
-    { toggle: '#flip-creator', line: '#card-creator .type-line', container: '#card-creator .back__line' },
+    { toggle: '#flip-oracle',  line: '#card-oracle .type-line',   container: '#card-oracle .back__line' },
+    { toggle: '#flip-creator', line: '#card-creator .type-line',  container: '#card-creator .back__line' },
   ];
   const isDesktop = () => matchMedia('(min-width: 921px)').matches;
   const timers = new Map();
@@ -165,9 +177,13 @@
     t.addEventListener('change', () => {
       if(!isDesktop()){
         cont.classList.remove('paragraph-cursor');
-        if(timers.has(cont)){ clearTimeout(timers.get(cont)); timers.delete(cont); }
+        if(timers.has(cont)){
+          clearTimeout(timers.get(cont));
+          timers.delete(cont);
+        }
         return;
       }
+
       if(t.checked){
         const dur = parseInt(line.dataset._dur || '0');
         const delay = parseInt(line.style.animationDelay || '0');
@@ -175,7 +191,10 @@
         const id = setTimeout(() => cont.classList.add('paragraph-cursor'), when);
         timers.set(cont, id);
       }else{
-        if(timers.has(cont)){ clearTimeout(timers.get(cont)); timers.delete(cont); }
+        if(timers.has(cont)){
+          clearTimeout(timers.get(cont));
+          timers.delete(cont);
+        }
         cont.classList.remove('paragraph-cursor');
       }
     });
