@@ -976,7 +976,7 @@ body.cards-flipped .global-hint{
 .coda{ 
   min-height: 80vh; 
   display:grid; 
-  align-content:center; 
+  place-content:center; 
   gap: 1.2rem; 
   padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
   position: relative;
@@ -1032,6 +1032,16 @@ body.cards-flipped .global-hint{
     gap: 3rem;
     align-content: start;
     min-height: auto;
+  }
+
+  /* Add these styles to make each card item behave like your desired second container on mobile */
+  .coda__card {
+    /* Limit the overall height of the card container to a fraction of the screen */
+    max-height: 80vh; 
+    /* Ensure internal padding matches your 'second container' styles */
+    padding: 4rem 1.25rem calc(6rem + env(safe-area-inset-bottom));
+    /* You may need overflow if content exceeds the max-height */
+    overflow: auto; 
   }
 
   /* When at least one card is flipped, open things up more */
