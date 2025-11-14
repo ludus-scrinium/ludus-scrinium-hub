@@ -12,9 +12,9 @@
   --space-purple: #1A2540;
   --space-blue: #0F2847;
 
-  --card-w: min(69vw, 610px);
+  --card-w: min(80vw, 700px);
   --card-h: calc(var(--card-w) * 5 / 3);
-  --radius: 21px;
+  --radius: 18px;
 
   /* ================================ */
   /* Enhanced Cosmic Motion Tokens   */
@@ -298,7 +298,7 @@ body.starfield.depth-3::after{
 
 /* Hint text with enhanced frosted glass */
 .hint-text{
-  display: inline;
+  display: inline-wrap;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.3rem;
@@ -453,7 +453,7 @@ body.cards-flipped .global-hint{
   min-height: 100vh;
   display:grid;
   place-items: center;
-  padding: 1.25rem 1.25rem;
+  padding: 1.5rem 1.5rem;
   position:relative;
   isolation: isolate;
 }
