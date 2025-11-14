@@ -759,6 +759,7 @@ body.cards-flipped .global-hint{
 .flip-toggle:checked + .card .back__title{
   opacity: 1;
   transform: translateY(0) scale(1);
+  transition-delay: 750ms;
   animation: focalBreathe 3.6s var(--ease-float) 1.2s infinite;
 }
 
