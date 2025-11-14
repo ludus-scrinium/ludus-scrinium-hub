@@ -12,7 +12,7 @@
   --space-purple: #1A2540;
   --space-blue: #0F2847;
 
-  --card-w: min(80vw, 700px);
+  --card-w: min(62vw, 520px);
   --card-h: calc(var(--card-w) * 5 / 3);
   --radius: 18px;
 
@@ -566,7 +566,7 @@ body.cards-flipped .global-hint{
   place-items: center; 
   background: rgba(0,0,0,.08); 
   transform: rotateY(0deg) translateZ(2px);
-  position: absolute;
+  position: relative;
 }
 
 .card__front img{ 
@@ -698,7 +698,7 @@ body.cards-flipped .global-hint{
   grid-template-rows: auto auto 1fr; 
   gap: 1rem; 
   padding: clamp(1rem, 4vw, 1.6rem);
-  position: relative;
+  position: absolute;
   overflow: hidden;
 }
 
