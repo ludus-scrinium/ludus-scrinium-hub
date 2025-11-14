@@ -617,8 +617,7 @@
   // Enhanced Connection Lines with Arc Motion
   // ================================
   (function initConnections(){
-    // PERFORMANCE: Completely disable on mobile
-    if (isMobile() || prefersReducedMotion()) return;
+    if (prefersReducedMotion()) return;
 
     const canvas = document.getElementById('connections');
     if(!canvas) return;
@@ -632,7 +631,7 @@
     let ctx;
     try {
       ctx = canvas.getContext('2d', { 
-@@ -634,205 +641,6 @@
+
       return;
     }
 
@@ -820,6 +819,20 @@
       
       observer.observe(firstCard);
     }
+
+    // Restart on card hover
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        if(canvas.classList.contains('visible') && !isAnimating){
+          isAnimating = true;
+          animate();
+        }
+      });
+    });
+
+    // Cleanup
+    window.addEventListener('beforeunload', stopAnimation);
+  })();
 
     // Restart on card hover
     document.querySelectorAll('.card').forEach(card => {
