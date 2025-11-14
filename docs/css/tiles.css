@@ -12,9 +12,9 @@
   --space-purple: #1A2540;
   --space-blue: #0F2847;
 
-  --card-w: min(62vw, 520px);
+  --card-w: min(80vw, 700px);
   --card-h: calc(var(--card-w) * 5 / 3);
-  --radius: 18px;
+  --radius: 24px;
 
   /* ================================ */
   /* Enhanced Cosmic Motion Tokens   */
@@ -215,7 +215,7 @@ body.starfield.depth-3::after{
   position: absolute;
   width: 4px;
   height: 4px;
-  background: radial-gradient(circle, var(--accent), transparent);
+  background: radial-gradient(circle, var(--ink), transparent);
   border-radius: 50%;
   opacity: 0;
   will-change: var(--will-change-transform), var(--will-change-opacity);
@@ -453,7 +453,7 @@ body.cards-flipped .global-hint{
   min-height: 100vh;
   display:grid;
   place-items: center;
-  padding: 4rem 1.25rem;
+  padding: 1rem 1.25rem;
   position:relative;
   isolation: isolate;
 }
