@@ -614,13 +614,12 @@
     updateDepth();
   })();
 
-  // ================================
   // Enhanced Connection Lines with Arc Motion
   // ================================
   (function initConnections(){
     // PERFORMANCE: Completely disable on mobile
     if (isMobile() || prefersReducedMotion()) return;
-    
+
     const canvas = document.getElementById('connections');
     if(!canvas) return;
 
@@ -633,13 +632,208 @@
     let ctx;
     try {
       ctx = canvas.getContext('2d', { 
-        alpha: true,
-        desynchronized: true 
-      });
-    } catch(e) {
-      console.warn('Canvas not supported:', e);
+@@ -634,205 +641,6 @@
       return;
     }
+
+    let animFrame = null;
+    let pulsePhase = 0;
+    let lineProgress = 0;
+    let animationStartTime = null;
+    let isAnimating = false;
+
+    // High-DPI canvas scaling
+    function resize(){
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = document.documentElement.scrollHeight * dpr;
+      canvas.style.width = rect.width + 'px';
+      canvas.style.height = document.documentElement.scrollHeight + 'px';
+      
+      ctx.scale(dpr, dpr);
+    }
+    resize();
+    
+    const throttledResize = throttle(() => {
+      resize();
+      if(canvas.classList.contains('visible')) drawConnections();
+    }, 200);
+    window.addEventListener('resize', throttledResize, {passive: true});
+
+    // Get card positions with caching
+    let cachedPositions = null;
+    function getAllCardPositions(force = false){
+      if (!force && cachedPositions) return cachedPositions;
+      
+      const cards = Array.from(document.querySelectorAll('.card'));
+      cachedPositions = cards.map((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const section = card.closest('[data-project]');
+        
+        return {
+          x: rect.left + rect.width / 2,
+          y: rect.top + window.scrollY + rect.height / 2,
+          bottom: rect.top + window.scrollY + rect.height,
+          top: rect.top + window.scrollY,
+          project: section ? section.getAttribute('data-project') : null,
+          index: index,
+          element: card,
+          rect: rect
+        };
+      }).filter(c => c.element.offsetParent !== null);
+      
+      return cachedPositions;
+    }
+
+    // Draw curved line with arc principle
+    function drawCurvedLine(from, to, progress, mobile){
+      if(progress <= 0) return;
+
+      ctx.save();
+      
+      const pulseValue = 0.6 + Math.sin(pulsePhase) * 0.35;
+      const baseOpacity = 0.28;
+      ctx.globalAlpha = baseOpacity * progress * pulseValue;
+
+      ctx.strokeStyle = '#E1C699';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([10, 7]);
+      ctx.lineCap = 'round';
+
+      if(mobile){
+        // Simple arc for mobile
+        const offsetX = 18 * Math.sin(from.index);
+        ctx.beginPath();
+        ctx.moveTo(from.x + offsetX, from.bottom);
+        
+        const cp1x = from.x + offsetX + 20;
+        const cp1y = (from.bottom + to.top) / 2;
+        
+        ctx.quadraticCurveTo(cp1x, cp1y, to.x + offsetX, to.top);
+        ctx.stroke();
+      } else {
+        // Enhanced bezier curve with arc motion
+        const curveOffset = 90 + (from.index * 35);
+        const direction = from.index % 2 === 0 ? 1 : -1;
+        
+        const cp1x = from.x + direction * curveOffset;
+        const cp1y = from.bottom + 120;
+        const cp2x = to.x - direction * (curveOffset * 0.75);
+        const cp2y = to.top - 120;
+
+        ctx.beginPath();
+        ctx.moveTo(from.x, from.bottom);
+        ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, to.x, to.top);
+        ctx.stroke();
+
+        // Enhanced glow effect
+        if(pulseValue > 0.7){
+          ctx.globalAlpha = (pulseValue - 0.7) * 0.5 * progress;
+          ctx.strokeStyle = '#D4B589';
+          ctx.lineWidth = 5;
+          ctx.filter = 'blur(8px)';
+          ctx.beginPath();
+          ctx.moveTo(from.x, from.bottom);
+          ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, to.x, to.top);
+          ctx.stroke();
+        }
+      }
+
+      ctx.restore();
+    }
+
+    function drawConnections(){
+      const cards = getAllCardPositions(true);
+      if(cards.length < 2) return;
+
+      canvas.classList.add('visible');
+      lineProgress = 0;
+      animationStartTime = Date.now();
+      isAnimating = true;
+      
+      animate();
+    }
+
+    function animate(){
+      if(!canvas.classList.contains('visible') || !isAnimating) {
+        stopAnimation();
+        return;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cards = getAllCardPositions();
+      const mobile = isMobile();
+
+      if(animationStartTime && lineProgress < 1){
+        const elapsed = Date.now() - animationStartTime;
+        lineProgress = Math.min(elapsed / 2400, 1);
+      }
+
+      pulsePhase += 0.025;
+
+      for(let i = 0; i < cards.length - 1; i++){
+        const from = cards[i];
+        const to = cards[i + 1];
+        
+        const staggerDelay = i * 0.18;
+        const thisLineProgress = Math.max(0, 
+          Math.min(1, (lineProgress - staggerDelay) / 0.82));
+        
+        drawCurvedLine(from, to, thisLineProgress, mobile);
+      }
+
+      // Auto-stop after completion
+      if(lineProgress >= 1 && !document.querySelector('.card:hover')){
+        const timeSinceComplete = Date.now() - (animationStartTime + 2400);
+        if(timeSinceComplete > 5000){
+          stopAnimation();
+          return;
+        }
+      }
+
+      animFrame = requestAnimationFrame(animate);
+    }
+
+    function stopAnimation(){
+      if(animFrame){
+        cancelAnimationFrame(animFrame);
+        animFrame = null;
+      }
+      isAnimating = false;
+      cachedPositions = null;
+    }
+
+    // Start when first card revealed
+    const firstCard = document.querySelector('.tarot.reveal');
+    if(firstCard){
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting && entry.target.classList.contains('revealed')){
+            setTimeout(drawConnections, 1000);
+            observer.disconnect();
+          }
+        });
+      }, {threshold: 0.3});
+      
+      observer.observe(firstCard);
+    }
+
+    // Restart on card hover
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        if(canvas.classList.contains('visible') && !isAnimating){
+          isAnimating = true;
+          animate();
+        }
+      });
+    });
+
+    // Cleanup
+    window.addEventListener('beforeunload', stopAnimation);
+  })();
 
   // ================================
   // Enhanced Keyboard Navigation
