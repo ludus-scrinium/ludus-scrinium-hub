@@ -618,10 +618,17 @@
   // Enhanced Connection Lines with Arc Motion
   // ================================
   (function initConnections(){
+    // PERFORMANCE: Completely disable on mobile or reduced motion
     if (prefersReducedMotion()) return;
     
     const canvas = document.getElementById('connections');
     if(!canvas) return;
+
+    // Hide canvas on mobile to save memory and return early
+    if (isMobile()) {
+      canvas.style.display = 'none';
+      return;
+    }
 
     let ctx;
     try {
@@ -639,6 +646,10 @@
     let lineProgress = 0;
     let animationStartTime = null;
     let isAnimating = false;
+
+    // High-DPI canvas scaling
+    function resize(){
+    // [KEEP ALL THE REST OF YOUR EXISTING CODE FROM HERE ONWARDS...]
 
     // High-DPI canvas scaling
     function resize(){
