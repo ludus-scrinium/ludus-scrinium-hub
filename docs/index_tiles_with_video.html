@@ -1,0 +1,355 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Ludus Scrinium — Game Content Dev Ops Lab</title>
+  <meta name="description" content="A sensory space for game content development operations — systems-thinking, deep imagination, thoughtful communication.">
+  <link rel="preload" href="assets/cards/playlens-front.webp" as="image" />
+  <link rel="stylesheet" href="css/tiles_video.css" />
+</head>
+<body class="starfield">
+
+  <!-- Connection lines canvas -->
+  <canvas class="connection-canvas" id="connections" aria-hidden="true"></canvas>
+
+  <!-- Particle system container -->
+  <div id="particles" aria-hidden="true"></div>
+
+  <!-- Particle burst container for flip interactions -->
+  <div id="particle-bursts" aria-hidden="true"></div>
+
+  <!-- GLOBAL HINT - Smart positioning & cosmic aesthetic -->
+  <div class="global-hint" id="globalHint" role="status" aria-live="polite" aria-atomic="true">
+    <span class="hint-text">
+      <svg class="hint-ornament hint-ornament--left" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="2" class="hint-bloom" />
+      </svg>
+      tap / click to flip
+      <svg class="hint-ornament hint-ornament--right" viewBox="0 0 20 20" aria-hidden="true">
+        <circle cx="10" cy="10" r="2" class="hint-bloom" />
+      </svg>
+    </span>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero reveal" data-stagger="0" role="banner">
+    <div class="hero__inner">
+      <h1 class="hero__title">
+        <span class="type-line hero-line hero-line--title" data-ms-per-char="65">ludus • scrinium</span>
+        <span class="cursor cursor--title" aria-hidden="true">|</span>
+      </h1>
+
+      <p class="hero__tag">
+        <span class="type-line hero-line hero-line--tag" data-ms-per-char="55">game content dev ops lab</span>
+        <span class="cursor cursor--tag" aria-hidden="true"></span>
+      </p>
+
+      <p class="hero__author">
+        <span class="type-line hero-line hero-line--author" data-ms-per-char="55">by kaosisochi unini</span>
+        <span class="cursor cursor--author" aria-hidden="true"></span>
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO CARD 1 : PlayLens WITH VIDEO -->
+    <section class="tarot reveal" data-stagger="80" data-project="playlens">
+      <input id="flip-playlens" class="flip-toggle" type="checkbox" aria-controls="card-playlens" aria-label="Toggle PlayLens card details" />
+      <label for="flip-playlens" class="card card--has-video" id="card-playlens" data-index="0" aria-label="PlayLens: Continuous improvement in A/B testing. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 1.7s;">
+            <img src="assets/cards/playlens-front.webp" alt="PlayLens tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <!-- Video play hint overlay -->
+            <div class="video-hint">
+              <svg class="video-hint__icon" viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="24" cy="24" r="22" fill="rgba(14, 26, 43, 0.8)" stroke="var(--accent)" stroke-width="2" opacity="0.9"/>
+                <polygon points="19,15 19,33 34,24" fill="var(--accent)" />
+              </svg>
+              <span class="video-hint__text">Demo Inside</span>
+            </div>
+            <!-- Organic ornaments -->
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
+          </figure>
+          <article class="card__face card__back card__back--with-video">
+            <h2 class="back__title">PlayLens — Screen Flow A/B</h2>
+            
+            <!-- Video Demo Section -->
+            <div class="video-demo">
+              <video 
+                class="video-demo__player" 
+                poster="assets/videos/playlens-poster.jpg"
+                controls
+                playsinline
+                preload="none"
+                muted
+                data-autoplay-on-flip
+                aria-label="PlayLens demo video showing A/B testing interface">
+                <source src="assets/videos/playlens-demo.mp4" type="video/mp4">
+                <source src="assets/videos/playlens-demo.webm" type="video/webm">
+                <p>Your browser doesn't support HTML5 video. <a href="assets/videos/playlens-demo.mp4">Download the demo</a>.</p>
+              </video>
+            </div>
+            
+            <p class="back__line" aria-label="Continuous improvement in A/B testing.">
+              <span class="type-line">Continuous improvement in A/B testing.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/playlens" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#playlens">
+                <span class="btn__text">See roadmap</span>
+              </a>
+            </nav>
+          </article>
+        </div>
+      </label>
+    </section>
+
+    <!-- HERO CARD 2 : Asset Atlas WITH VIDEO -->
+    <section class="tarot reveal" data-stagger="120" data-project="asset-atlas">
+      <input id="flip-asset" class="flip-toggle" type="checkbox" aria-controls="card-asset" aria-label="Toggle Asset Atlas card details" />
+      <label for="flip-asset" class="card card--has-video" id="card-asset" data-index="1" aria-label="Asset Atlas: Make game files easy to find and reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 3.1s;">
+            <img src="assets/cards/asset-atlas-front.webp" alt="Asset Atlas tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <!-- Video play hint overlay -->
+            <div class="video-hint">
+              <svg class="video-hint__icon" viewBox="0 0 48 48" aria-hidden="true">
+                <circle cx="24" cy="24" r="22" fill="rgba(14, 26, 43, 0.8)" stroke="var(--accent)" stroke-width="2" opacity="0.9"/>
+                <polygon points="19,15 19,33 34,24" fill="var(--accent)" />
+              </svg>
+              <span class="video-hint__text">Demo Inside</span>
+            </div>
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
+          </figure>
+          <article class="card__face card__back card__back--with-video">
+            <h2 class="back__title">Asset Atlas</h2>
+            
+            <!-- Video Demo Section -->
+            <div class="video-demo">
+              <video 
+                class="video-demo__player" 
+                poster="assets/videos/asset-atlas-poster.jpg"
+                controls
+                playsinline
+                preload="none"
+                muted
+                data-autoplay-on-flip
+                aria-label="Asset Atlas demo video showing file organization interface">
+                <source src="assets/videos/asset-atlas-demo.mp4" type="video/mp4">
+                <source src="assets/videos/asset-atlas-demo.webm" type="video/webm">
+                <p>Your browser doesn't support HTML5 video. <a href="assets/videos/asset-atlas-demo.mp4">Download the demo</a>.</p>
+              </video>
+            </div>
+            
+            <p class="back__line" aria-label="Make game files easy to find and reuse.">
+              <span class="type-line">Make game files easy to find and reuse.</span>
+              <span class="cursor" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/asset-atlas" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#asset-atlas">
+                <span class="btn__text">See roadmap</span>
+              </a>
+            </nav>
+          </article>
+        </div>
+      </label>
+    </section>
+
+    <!-- HERO CARD 3 : Patch Notes Oracle (no video) -->
+    <section class="tarot reveal" data-stagger="160" data-project="patch-notes">
+      <input id="flip-oracle" class="flip-toggle" type="checkbox" aria-controls="card-oracle" aria-label="Toggle Patch Notes Oracle card details" />
+      <label for="flip-oracle" class="card" id="card-oracle" data-index="2" aria-label="Patch Notes Oracle: Turn player comments into a realistic dev to-do list. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 2.2s;">
+            <img src="assets/cards/patch-notes-oracle-front.webp" alt="Patch Notes Oracle tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
+          </figure>
+          <article class="card__face card__back">
+            <h2 class="back__title">Patch Notes Oracle</h2>
+            <p class="back__line" aria-label="Turn player comments into a realistic dev to-do list.">
+              <span class="type-line">Turn player comments into a realistic dev to-do list.</span>
+              <span class="cursor cursor--paragraph" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/patch-notes-oracle" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#patch-notes-oracle">
+                <span class="btn__text">See roadmap</span>
+              </a>
+            </nav>
+          </article>
+        </div>
+      </label>
+    </section>
+
+    <!-- HERO CARD 4 : Creator Ops Kit (no video) -->
+    <section class="tarot reveal" data-stagger="200" data-project="creator-ops">
+      <input id="flip-creator" class="flip-toggle" type="checkbox" aria-controls="card-creator" aria-label="Toggle Creator Ops Kit card details" />
+      <label for="flip-creator" class="card" id="card-creator" data-index="3" aria-label="Creator Ops Kit: Safe fan content intake plus review plus recognition tiers. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+        <div class="card__inner">
+          <figure class="card__face card__front shimmer" style="--shimmer-delay: 4.4s;">
+            <img src="assets/cards/creator-ops-kit-front.webp" alt="Creator Ops Kit tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+            <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+            </svg>
+            <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+              <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+              <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+              <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+              <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+            </svg>
+          </figure>
+          <article class="card__face card__back">
+            <h2 class="back__title">Creator Ops Kit</h2>
+            <p class="back__line" aria-label="Safe fan content intake plus review plus recognition tiers.">
+              <span class="type-line">Safe fan content intake + review + recognition tiers.</span>
+              <span class="cursor cursor--paragraph" aria-hidden="true">|</span>
+            </p>
+            <nav class="back__cta">
+              <a class="btn" href="https://github.com/ludus-scrinium/creator-ops-kit" target="_blank" rel="noopener">
+                <span class="btn__text">Open repo</span>
+              </a>
+              <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#creator-ops-kit">
+                <span class="btn__text">See roadmap</span>
+              </a>
+            </nav>
+          </article>
+        </div>
+      </label>
+    </section>
+
+    <!-- CODA : Two-tile grid with adaptive spacing -->
+    <section class="coda reveal" data-stagger="140">
+      <!-- Localization Conveyor -->
+      <div class="coda__card" data-project="localization">
+        <input id="flip-loco" class="flip-toggle" type="checkbox" aria-controls="card-loco" aria-label="Toggle Localization Conveyor card details" />
+        <label for="flip-loco" class="card card--mini" id="card-loco" data-index="4" aria-label="Localization Conveyor: Moving text from write to translate to QA to ship. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+          <div class="card__inner">
+            <figure class="card__face card__front shimmer" style="--shimmer-delay: 5.8s;">
+              <img src="assets/cards/localization-conveyor-front.webp" alt="Localization Conveyor tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+              <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+              </svg>
+              <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+              </svg>
+            </figure>
+            <article class="card__face card__back">
+              <h2 class="back__title">Localization Conveyor</h2>
+              <p class="back__line" aria-label="Moving text from write to translate to QA to ship.">
+                <span class="type-line" data-ms-per-char="45">Moving text from: write → translate → QA → ship.</span>
+                <span class="cursor" aria-hidden="true">|</span>
+              </p>
+              <nav class="back__cta">
+                <a class="btn" href="https://github.com/ludus-scrinium/localization-conveyor" target="_blank" rel="noopener">
+                  <span class="btn__text">Open repo</span>
+                </a>
+                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#localization-conveyor">
+                  <span class="btn__text">See roadmap</span>
+                </a>
+              </nav>
+            </article>
+          </div>
+        </label>
+      </div>
+
+      <!-- Producer's Almanac -->
+      <div class="coda__card" data-project="almanac">
+        <input id="flip-almanac" class="flip-toggle" type="checkbox" aria-controls="card-almanac" aria-label="Toggle Producer's Almanac card details" />
+        <label for="flip-almanac" class="card card--mini" id="card-almanac" data-index="5" aria-label="Producer's Almanac: Decisions, retros, and templates you can reuse. Press Enter or Space to flip card." tabindex="0" role="button" aria-pressed="false" aria-expanded="false">
+          <div class="card__inner">
+            <figure class="card__face card__front shimmer" style="--shimmer-delay: 7.2s;">
+              <img src="assets/cards/producers-almanac-front.webp" alt="Producer's Almanac tarot card with abstract cosmic gradient" width="1200" height="2000" loading="lazy" />
+              <svg class="ornament ornament--tl" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M2,38 Q2,20 20,2" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="12" cy="12" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="8" cy="18" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="18" cy="8" r="0" />
+              </svg>
+              <svg class="ornament ornament--br" viewBox="0 0 40 40" aria-hidden="true">
+                <path class="ornament__stem" d="M38,2 Q38,20 20,38" />
+                <circle class="ornament__bloom ornament__bloom--1" cx="28" cy="28" r="0" />
+                <circle class="ornament__bloom ornament__bloom--2" cx="32" cy="22" r="0" />
+                <circle class="ornament__bloom ornament__bloom--3" cx="22" cy="32" r="0" />
+              </svg>
+            </figure>
+            <article class="card__face card__back">
+              <h2 class="back__title">Producer's Almanac</h2>
+              <p class="back__line" aria-label="Decisions, retros, and templates you can reuse.">
+                <span class="type-line" data-ms-per-char="45" data-delay="120">Decisions, retros, and templates you can reuse.</span>
+                <span class="cursor" aria-hidden="true">|</span>
+              </p>
+              <nav class="back__cta">
+                <a class="btn" href="https://github.com/ludus-scrinium/producers-almanac" target="_blank" rel="noopener">
+                  <span class="btn__text">Open repo</span>
+                </a>
+                <a class="btn btn--ghost" href="https://github.com/ludus-scrinium/ludus-scrinium-hub/blob/main/docs/roadmap.md#producers-almanac">
+                  <span class="btn__text">See roadmap</span>
+                </a>
+              </nav>
+            </article>
+          </div>
+        </label>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer reveal" data-stagger="0">
+    <small>© ludus scrinium — game content dev ops lab</small>
+  </footer>
+
+  <script src="js/reveal_video.js" defer></script>
+</body>
+</html>
