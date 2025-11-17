@@ -27,13 +27,13 @@
   transform: translateY(0);
 }
 
-.card--has-video:hover .video-hint {
+.card--has-:hover .-hint {
   opacity: 1;
   transform: translateY(-3px) scale(1.05);
-  animation: videoPulse 2s var(--ease-float) infinite;
+  animation: Pulse 2s var(--ease-float) infinite;
 }
 
-@keyframes videoPulse {
+@keyframes Pulse {
   0%, 100% { 
     transform: translateY(-3px) scale(1.05);
   }
@@ -42,36 +42,36 @@
   }
 }
 
-.video-hint__icon {
+.-hint__icon {
   width: 42px;
   height: 42px;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
-.video-hint__icon circle {
+.-hint__icon circle {
   transition: 
     fill 300ms var(--ease-out),
     stroke 300ms var(--ease-out);
 }
 
-.card--has-video:hover .video-hint__icon circle {
+.card--has-:hover .-hint__icon circle {
   fill: rgba(14, 26, 43, 0.95);
   stroke: var(--accent-glow);
 }
 
-.video-hint__icon polygon {
+.-hint__icon polygon {
   transition: 
     fill 300ms var(--ease-out),
     transform 200ms var(--ease-spring-gentle);
   transform-origin: center;
 }
 
-.card--has-video:hover .video-hint__icon polygon {
+.card--has-:hover .-hint__icon polygon {
   fill: var(--accent-glow);
   transform: scale(1.1);
 }
 
-.video-hint__text {
+.-hint__text {
   color: var(--accent);
   font-size: 0.75rem;
   font-weight: 600;
@@ -80,14 +80,14 @@
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* Adjusted back layout for video */
-.card__back--with-video {
+/* Adjusted back layout for  */
+.card__back--with- {
   grid-template-rows: auto minmax(180px, 1fr) auto auto;
   gap: 0.8rem;
 }
 
-/* Video demo container */
-.video-demo {
+/*  demo container */
+.-demo {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
@@ -99,6 +99,7 @@
   transition: 
     opacity 600ms var(--ease-out) 500ms,
     transform 600ms var(--ease-spring-gentle) 500ms;
+  display: fit-content
 }
 
 .flip-toggle:checked + .card .video-demo {
