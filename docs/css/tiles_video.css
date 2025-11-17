@@ -1,0 +1,214 @@
+/* ================================== */
+/* Video Demo Enhancements            */
+/* ================================== */
+
+/* Import the base CSS */
+@import url('tiles.css');
+
+/* Video hint on card front */
+.video-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 
+    opacity 600ms var(--ease-organic),
+    transform 400ms var(--ease-spring-gentle);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.card--has-video .video-hint {
+  opacity: 0.85;
+  transform: translateY(0);
+}
+
+.card--has-video:hover .video-hint {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.05);
+  animation: videoPulse 2s var(--ease-float) infinite;
+}
+
+@keyframes videoPulse {
+  0%, 100% { 
+    transform: translateY(-3px) scale(1.05);
+  }
+  50% { 
+    transform: translateY(-5px) scale(1.08);
+  }
+}
+
+.video-hint__icon {
+  width: 42px;
+  height: 42px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+
+.video-hint__icon circle {
+  transition: 
+    fill 300ms var(--ease-out),
+    stroke 300ms var(--ease-out);
+}
+
+.card--has-video:hover .video-hint__icon circle {
+  fill: rgba(14, 26, 43, 0.95);
+  stroke: var(--accent-glow);
+}
+
+.video-hint__icon polygon {
+  transition: 
+    fill 300ms var(--ease-out),
+    transform 200ms var(--ease-spring-gentle);
+  transform-origin: center;
+}
+
+.card--has-video:hover .video-hint__icon polygon {
+  fill: var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.video-hint__text {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Adjusted back layout for video */
+.card__back--with-video {
+  grid-template-rows: auto minmax(180px, 1fr) auto auto;
+  gap: 0.8rem;
+}
+
+/* Video demo container */
+.video-demo {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(225, 198, 153, 0.15);
+  position: relative;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: 
+    opacity 600ms var(--ease-out) 500ms,
+    transform 600ms var(--ease-spring-gentle) 500ms;
+}
+
+.flip-toggle:checked + .card .video-demo {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Video player styling */
+.video-demo__player {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  display: block;
+  background: #000;
+  object-fit: contain;
+}
+
+/* Custom video controls styling (webkit) */
+.video-demo__player::-webkit-media-controls-panel {
+  background: linear-gradient(to top, rgba(14, 26, 43, 0.9), transparent);
+}
+
+.video-demo__player::-webkit-media-controls-play-button,
+.video-demo__player::-webkit-media-controls-mute-button,
+.video-demo__player::-webkit-media-controls-fullscreen-button {
+  filter: brightness(1.2);
+}
+
+/* Loading state */
+.video-demo__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--accent);
+  font-size: 0.85rem;
+  display: none;
+}
+
+.video-demo--loading .video-demo__loading {
+  display: block;
+  animation: loadingPulse 1.5s var(--ease-float) infinite;
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Error state */
+.video-demo__error {
+  padding: 1rem;
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  display: none;
+}
+
+.video-demo--error .video-demo__error {
+  display: block;
+}
+
+.video-demo--error .video-demo__player {
+  display: none;
+}
+
+/* Mobile adjustments for video */
+@media (max-width: 768px) {
+  .video-hint {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .video-hint__icon {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .video-hint__text {
+    font-size: 0.65rem;
+  }
+  
+  .card__back--with-video {
+    grid-template-rows: auto minmax(140px, 1fr) auto auto;
+    gap: 0.6rem;
+  }
+  
+  .video-demo {
+    border-radius: 6px;
+  }
+}
+
+/* Reduced motion: disable video autoplay hint */
+@media (prefers-reduced-motion: reduce) {
+  .video-hint {
+    display: none !important;
+  }
+  
+  .video-demo {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .video-hint__icon circle {
+    stroke-width: 3;
+  }
+  
+  .video-demo {
+    border-width: 2px;
+  }
+}
