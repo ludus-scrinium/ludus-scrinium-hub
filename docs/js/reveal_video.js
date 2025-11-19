@@ -74,6 +74,11 @@
   
   const PARTICLE_COUNT = prefersReducedMotion() ? 0 : 
     (isMobile() ? (isLowEnd() ? 8 : 12) : 20);
+  const isDesktopWide = () =>
+    window.matchMedia('(min-width: 1024px)').matches;
+
+  const isTouchDevice = () =>
+    'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   // =====================
   // Typing Setup with Performance
@@ -619,8 +624,11 @@
   // ================================
   (function initConnections(){
     if (prefersReducedMotion()) return;
-    // PERFORMANCE FIX: Skip entirely on mobile
-    if (isMobile()) return;
+    // Only run on true desktop (avoid tablets / big phones)
+    if (!isDesktopWide()) return;
+  
+    const canvas = document.getElementById('connections');
+    if(!canvas) return;
     
     const canvas = document.getElementById('connections');
     if(!canvas) return;
@@ -646,6 +654,10 @@
     function resize(){
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+
+       // Cap height so we don't create a gigantic buffer on long pages
+      const fullHeight = document.documentElement.scrollHeight;
+      const maxHeight = Math.min(fullHeight, window.innerHeight * 3);
       
       canvas.width = rect.width * dpr;
       canvas.height = document.documentElement.scrollHeight * dpr;
@@ -881,6 +893,9 @@
   // Enhanced Viewport Jump Prevention
   // ================================
   (function preventFlipJump(){
+    // Don't fight gestures on touch / mobile
+    if (isTouchDevice() || isMobile()) return;
+
     document.querySelectorAll('.flip-toggle').forEach(toggle => {
       toggle.addEventListener('change', (e) => {
         const card = e.target.nextElementSibling;
@@ -888,10 +903,10 @@
 
         const currentScrollY = window.scrollY;
         const currentScrollX = window.scrollX;
-        
+      
         let frameCount = 0;
-        const maxFrames = 10;
-        
+        const maxFrames = 4; // was 10 — shorter lock
+      
         const maintainPosition = () => {
           if(frameCount < maxFrames){
             window.scrollTo(currentScrollX, currentScrollY);
@@ -899,7 +914,7 @@
             requestAnimationFrame(maintainPosition);
           }
         };
-        
+      
         requestAnimationFrame(maintainPosition);
       });
     });
@@ -941,6 +956,13 @@
   (function initVideoDemos(){
     const videos = document.querySelectorAll('.video-demo__player');
     const videoStates = new Map();
+
+    const canAutoplayVideo = () => {
+    // Be nice to motion + low-power devices
+    if (prefersReducedMotion()) return false;
+    if (isMobile() || isLowEnd()) return false;
+    return true;
+  };
     
     // Initialize video states
     videos.forEach(video => {
@@ -1014,6 +1036,14 @@
         if(!state) return;
         
         if(e.target.checked && video.hasAttribute('data-autoplay-on-flip')){
+          // On mobile / low-end, don't autoplay — just start loading lightly
+          if (!canAutoplayVideo()) {
+            if (video.preload === 'none') {
+              video.preload = 'metadata';
+            }
+            return;
+          }
+          
           // Card flipped to show back - try to play video
           if(!state.hasPlayed && !state.hasError){
             // Small delay to ensure flip animation has started
